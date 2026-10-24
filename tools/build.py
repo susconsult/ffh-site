@@ -87,29 +87,21 @@ def header(nav, dag=""):
     tickets_actief = actief if nav == "tickets" else ""
     return f"""<a class="skip" href="#inhoud">Ga naar de inhoud</a>
 <header class="site-header">
-  <div class="topbalk">
-    <div class="wrap topbalk-in">
-      <span class="topbalk-info"><strong>{DATUM_FESTIVAL}</strong> · {PLAATS}</span>
-      {SOCIALS}
-    </div>
-  </div>
-  <div class="textuur">
-    <div class="wrap top">
-      <a class="brand" href="/" aria-label="Folkfestival Ham — naar de homepagina">
-        <img src="/assets/img/logo.webp" width="800" height="211" alt="Folkfestival Ham">
-      </a>
-    </div>
-  </div>
-  <nav class="nav" aria-label="Hoofdmenu">
-    <div class="wrap nav-in">
-      <button class="menu-knop" type="button" aria-expanded="false" aria-controls="hoofdmenu"><span class="hamburger" aria-hidden="true"></span>Menu</button>
-      <ul id="hoofdmenu">
+  <div class="wrap kop">
+    <a class="brand" href="/" aria-label="Folkfestival Ham — naar de homepagina">
+      <img src="/assets/img/logo.webp" width="800" height="211" alt="Folkfestival Ham">
+    </a>
+    <nav class="nav" id="hoofdmenu" aria-label="Hoofdmenu">
+      <ul>
         <li><a href="/"{actief if nav == "home" else ""}>Home</a></li>
 {items}
       </ul>
+    </nav>
+    <div class="kop-rechts">
       <a class="btn btn-tickets" href="/tickets/"{tickets_actief}>Tickets</a>
+      <button class="menu-knop" type="button" aria-expanded="false" aria-controls="hoofdmenu" aria-label="Menu"><span class="hamburger" aria-hidden="true"></span></button>
     </div>
-  </nav>
+  </div>
 </header>"""
 
 
@@ -139,20 +131,21 @@ def footer():
     # Carousel: de logo's staan twee keer na elkaar zodat de band naadloos doorloopt.
     # De tweede reeks is verborgen voor schermlezers en niet aanklikbaar met tab.
     kopie = logos.replace('<a href=', '<a tabindex="-1" href=')
-    return f"""<section class="sponsors" aria-label="Partners en sponsors">
-  <div class="carousel">
-    <div class="carousel-band">
-      <div class="carousel-reeks">
+    return f"""<footer class="site-footer textuur">
+  {vlaggetjes()}
+  <section class="sponsors" aria-label="Partners en sponsors">
+    <p class="sponsors-titel">Met dank aan onze partners</p>
+    <div class="carousel">
+      <div class="carousel-band">
+        <div class="carousel-reeks">
 {logos}
-      </div>
-      <div class="carousel-reeks" aria-hidden="true">
+        </div>
+        <div class="carousel-reeks" aria-hidden="true">
 {kopie}
+        </div>
       </div>
     </div>
-  </div>
-</section>
-<footer class="site-footer textuur">
-  {vlaggetjes()}
+  </section>
   <div class="footer-in">
     <img class="logo" src="/assets/img/logo.webp" width="800" height="211" alt="Folkfestival Ham" loading="lazy">
     <p class="footer-slogan">Tot in Genebos!</p>
@@ -171,11 +164,14 @@ def footer():
 </footer>
 <script>
   (function () {{
-    var nav = document.querySelector('.nav'), knop = nav && nav.querySelector('.menu-knop');
+    var kop = document.querySelector('.site-header'), knop = document.querySelector('.menu-knop');
     if (knop) knop.addEventListener('click', function () {{
-      var open = nav.classList.toggle('open');
+      var open = kop.classList.toggle('open');
       knop.setAttribute('aria-expanded', open ? 'true' : 'false');
     }});
+    // Schaduw onder de kop zodra je scrolt
+    var zet = function () {{ kop.classList.toggle('gescrold', window.scrollY > 8); }};
+    window.addEventListener('scroll', zet, {{ passive: true }}); zet();
     // Video's laden pas na een klik (youtube-nocookie), zodat er niets van YouTube laadt zonder actie
     document.querySelectorAll('.video[data-yt]').forEach(function (v) {{
       v.addEventListener('click', function () {{
@@ -457,11 +453,6 @@ def main():
     for meta, body in pages:
         import re as _re
         body = _re.sub(r"\{\{ICOON:(\w+)\}\}", lambda m: icoon(m.group(1)), body)
-        # Vlaggetjes als rode draad: dezelfde slinger bovenaan elke pagina als in de footer
-        for start in ('<section class="paginatitel textuur">', '<section class="hero hero-festival">', '<section class="hero">'):
-            if start in body:
-                body = body.replace(start, start + vlaggetjes(), 1)
-                break
         body = body.replace("{{LINEUP}}", lineup_html()).replace("{{PROGRAMMA}}", programma_html()).replace("{{DATUM}}", e(DATUM_FESTIVAL))
         p = meta["path"]
         out = PUBLIC / "404.html" if p == "/404" else PUBLIC / p.strip("/") / "index.html"

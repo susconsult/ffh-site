@@ -1,453 +1,365 @@
-/* Folkfestival Ham — huisstijl overgenomen van de vorige site */
+/* =========================================================
+   Folkfestival Ham — redesign
+   Herkenbaar: logo, groene textuur, Jost, kleuren van het logo-mannetje.
+   Rustig: één kopbalk, één kaartstijl, vaste maten. Vlaggetjes enkel in de footer.
+   ========================================================= */
+
 @font-face { font-family: "Jost"; src: url("/assets/fonts/jost.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
 @font-face { font-family: "Roboto"; src: url("/assets/fonts/roboto-400.woff2") format("woff2"); font-weight: 400; font-display: swap; }
 @font-face { font-family: "Roboto"; src: url("/assets/fonts/roboto-700.woff2") format("woff2"); font-weight: 700; font-display: swap; }
 
 :root {
-  /* Kleurenschema "Folk" (kleuren van het logo-mannetje). Gebruik enkel deze kleuren. */
-  --groen: #80C04E;          /* hoofdkleur: textuur, Tickets-knoppen (witte tekst) */
-  --groen-donker: #3E7A24;   /* topbalk, onderbalk, kleine kopjes, hover */
+  /* Kleurenschema "Folk" — gebruik enkel deze kleuren */
+  --groen: #80C04E;          /* hoofdkleur: textuur, Tickets (witte tekst) */
+  --groen-donker: #3E7A24;   /* kopjes, onderbalk, hover */
   --blauw: #2B4C7E;          /* accent 1: Grote tent, links */
   --oranje: #CA5430;         /* accent 2: Bal tent, uren */
   --zwart: #1A1A1A;          /* tekst, gewone knoppen */
   --wit: #FFFFFF;
-  /* hulptinten (afgeleid, niet als eigen kleur gebruiken) */
   --grijs: #6B6B6B;          /* bijtekst */
-  --lijn: #E6E6E6;           /* randjes en scheidingslijnen */
-  --licht: #F4F6F1;          /* lichtgroene sectie-achtergrond */
+  --lijn: #E7EAE3;           /* randjes */
+  --licht: #F4F6F1;          /* lichte sectie */
   --tekst: var(--zwart);
   --tent-groot: var(--blauw);
   --tent-bal: var(--oranje);
-  /* Letterschaal: gebruik altijd een van deze 7 maten */
-  --fs-hero: clamp(2.6rem, 9vw, 6rem);
-  --fs-h1: clamp(1.9rem, 4vw, 2.6rem);
-  --fs-h2: clamp(1.5rem, 3vw, 2.1rem);
-  --fs-h3: 1.25rem;
+
+  /* Letterschaal: 7 maten */
+  --fs-hero: clamp(2.8rem, 9vw, 6.2rem);
+  --fs-h1: clamp(2rem, 4.4vw, 3rem);
+  --fs-h2: clamp(1.55rem, 3vw, 2.15rem);
+  --fs-h3: 1.2rem;
   --fs-groot: 1.125rem;
   --fs-tekst: 1rem;
   --fs-klein: .875rem;
   --fs-mini: .75rem;
-  --max: 1140px;
+
+  /* Vormen en ruimte */
+  --r: 14px;
+  --r-foto: 12px;
+  --schaduw: 0 6px 24px rgba(26, 26, 26, .08);
+  --schaduw-hoog: 0 14px 34px rgba(26, 26, 26, .14);
+  --ruimte: clamp(56px, 8vw, 96px);
+  --max: 1160px;
+  --kop: 76px;
   --textuur: url("/assets/img/achtergrond.webp");
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { margin: 0; font-family: "Roboto", system-ui, sans-serif; font-size: var(--fs-tekst); line-height: 1.6; color: var(--tekst); background: var(--wit); }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--kop) + 12px); }
+body { margin: 0; font-family: "Roboto", system-ui, sans-serif; font-size: var(--fs-tekst); line-height: 1.65; color: var(--tekst); background: var(--wit); -webkit-font-smoothing: antialiased; }
 img { max-width: 100%; height: auto; display: block; }
-a { color: var(--blauw); }
-h1, h2, h3, h4 { font-family: "Jost", sans-serif; color: var(--zwart); line-height: 1.15; margin: 0 0 .6em; }
-h2 { font-size: var(--fs-h2); font-weight: 600; text-transform: uppercase; }
-h3 { font-size: var(--fs-h3); font-weight: 500; text-transform: uppercase; }
+a { color: var(--blauw); text-underline-offset: 3px; }
+h1, h2, h3, h4 { font-family: "Jost", sans-serif; color: var(--zwart); line-height: 1.12; margin: 0 0 .55em; letter-spacing: .01em; }
+h2 { font-size: var(--fs-h2); font-weight: 700; text-transform: uppercase; }
+h3 { font-size: var(--fs-h3); font-weight: 600; text-transform: uppercase; letter-spacing: .03em; }
 p { margin: 0 0 1em; }
-.wrap { max-width: var(--max); margin: 0 auto; padding: 0 16px; }
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
 .skip { position: absolute; left: -9999px; }
-.skip:focus { left: 16px; top: 16px; background: #fff; padding: 8px 12px; z-index: 10; }
-
-/* Groene textuur */
+.skip:focus { left: 16px; top: 16px; background: var(--wit); padding: 8px 12px; z-index: 100; }
 .textuur { background: var(--groen) var(--textuur) repeat; background-size: 400px auto; }
+:focus-visible { outline: 3px solid var(--blauw); outline-offset: 2px; }
 
-/* ---------- Knoppen: één systeem ----------
-   groen  = hoofdactie (tickets) — witte tekst
-   zwart  = gewone actie
-   licht  = op donkere/foto-achtergrond (witte rand) */
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 44px; padding: 0 22px; font-family: "Jost", sans-serif; font-weight: 600; font-size: var(--fs-klein); text-transform: uppercase; letter-spacing: .08em; text-decoration: none; border-radius: 3px; border: 2px solid transparent; cursor: pointer; white-space: nowrap; transition: background .15s, color .15s, border-color .15s; }
+/* ---------- Knoppen ---------- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 46px; padding: 0 24px; font-family: "Jost", sans-serif; font-weight: 600; font-size: var(--fs-klein); text-transform: uppercase; letter-spacing: .1em; text-decoration: none; border-radius: 999px; border: 2px solid transparent; cursor: pointer; white-space: nowrap; transition: background .15s, color .15s, border-color .15s, transform .15s; }
+.btn:hover { transform: translateY(-1px); }
 .btn svg { width: 16px; height: 16px; fill: currentColor; }
-.btn-groen, .btn-tickets { background: var(--groen); color: #fff; }
+.btn-groen, .btn-tickets { background: var(--groen); color: var(--wit); }
 .btn-groen:hover, .btn-tickets:hover { background: var(--groen-donker); }
-.btn-zwart { background: var(--zwart); color: #fff; }
-.btn-zwart:hover { background: var(--zwart); }
-.btn-licht { background: transparent; color: #fff; border-color: #fff; }
-.btn-licht:hover { background: #fff; color: var(--zwart); }
+.btn-zwart { background: var(--zwart); color: var(--wit); }
+.btn-zwart:hover { background: var(--groen-donker); }
+.btn-licht { background: transparent; color: var(--wit); border-color: var(--wit); }
+.btn-licht:hover { background: var(--wit); color: var(--zwart); }
 .knoppen { display: flex; flex-wrap: wrap; gap: 10px; }
-.knoppen.midden { justify-content: center; margin: 28px 0 0; }
+.knoppen.midden { justify-content: center; margin-top: 36px; }
+.ruimte-boven { margin-top: 28px; }
 
-/* ---------- Header ---------- */
-.topbalk { background: var(--groen-donker); color: #fff; font-size: var(--fs-klein); }
-.topbalk-in { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 38px; }
-.topbalk-info strong { font-family: "Jost", sans-serif; font-weight: 600; letter-spacing: .04em; }
-.socials { display: flex; gap: 6px; }
-.socials a { display: grid; place-items: center; width: 30px; height: 30px; background: var(--zwart); color: #fff; border-radius: 3px; }
-.socials a:hover { background: var(--groen); }
-.socials svg { width: 16px; height: 16px; fill: currentColor; }
-.topbalk .socials a { width: 26px; height: 26px; background: transparent; }
-.topbalk .socials a:hover { background: rgba(255,255,255,.18); }
-.site-header .top { display: flex; align-items: center; justify-content: center; padding: 20px 16px 16px; }
-.brand { display: block; text-decoration: none; }
-.brand img { width: 360px; max-width: 74vw; }
+/* ---------- Kop: één balk ---------- */
+.site-header { position: sticky; top: 0; z-index: 50; background: var(--wit); border-bottom: 1px solid var(--lijn); transition: box-shadow .2s; }
+.site-header.gescrold { box-shadow: 0 4px 18px rgba(26, 26, 26, .08); }
+.kop { display: flex; align-items: center; gap: 28px; height: var(--kop); }
+.brand { flex: none; display: block; }
+.brand img { width: 200px; }
+.nav { flex: 1; }
+.nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 4px; }
+.nav a { display: block; padding: 10px 12px; font-family: "Jost", sans-serif; font-weight: 600; font-size: var(--fs-klein); letter-spacing: .12em; text-transform: uppercase; text-decoration: none; color: var(--zwart); border-radius: 999px; transition: background .15s, color .15s; }
+.nav a:hover { background: var(--licht); }
+.nav a[aria-current="page"] { color: var(--groen-donker); background: var(--licht); }
+.kop-rechts { display: flex; align-items: center; gap: 10px; }
+.kop .btn-tickets { height: 42px; padding: 0 22px; }
+.menu-knop { display: none; width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--licht); cursor: pointer; place-items: center; }
+.hamburger, .hamburger::before, .hamburger::after { display: block; width: 18px; height: 2px; background: var(--zwart); position: relative; border-radius: 2px; transition: transform .2s, background .2s; }
+.hamburger::before, .hamburger::after { content: ""; position: absolute; left: 0; }
+.hamburger::before { top: -6px; } .hamburger::after { top: 6px; }
+.site-header.open .hamburger { background: transparent; }
+.site-header.open .hamburger::before { transform: translateY(6px) rotate(45deg); }
+.site-header.open .hamburger::after { transform: translateY(-6px) rotate(-45deg); }
 
-/* ---------- Menu ---------- */
-.nav { position: sticky; top: 0; z-index: 30; background: #fff; border-bottom: 1px solid var(--lijn); box-shadow: 0 2px 10px rgba(0,0,0,.04); }
-.nav-in { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 58px; }
-.nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; }
-.nav-in > ul { margin-left: -16px; }
-.nav a:not(.btn) { display: block; padding: 18px 16px; font-family: "Jost", sans-serif; font-weight: 600; font-size: var(--fs-klein); letter-spacing: .14em; text-transform: uppercase; text-decoration: none; color: var(--zwart); }
-.nav a:not(.btn):hover, .nav a:not(.btn)[aria-current="page"] { color: var(--groen); }
-.nav .btn-tickets { height: 40px; }
-.menu-knop { display: none; }
+/* Submenu Festival -> Vr / Za / Zo */
+.heeft-sub { position: relative; }
+.heeft-sub > a::after { content: ""; display: inline-block; margin-left: 6px; border: 4px solid transparent; border-top-color: currentColor; vertical-align: 0; }
+.nav .sub { display: none; position: absolute; left: 0; top: 100%; min-width: 180px; padding: 8px; margin-top: 6px; background: var(--wit); border-radius: var(--r); box-shadow: var(--schaduw-hoog); flex-direction: column; gap: 2px; }
+.nav .sub::before { content: ""; position: absolute; left: 0; right: 0; top: -10px; height: 10px; }
+.heeft-sub:hover .sub, .heeft-sub:focus-within .sub { display: flex; }
 
-/* Submenu Line-up -> Vrijdag / Zaterdag / Zondag */
-.nav .heeft-sub { position: relative; }
-.nav .heeft-sub > a::after { content: ""; display: inline-block; margin-left: 7px; border: 4px solid transparent; border-top-color: currentColor; vertical-align: 1px; }
-.nav .sub { display: none; position: absolute; left: 0; top: 100%; min-width: 180px; background: #fff; box-shadow: 0 8px 20px rgba(0,0,0,.12); border-top: 3px solid var(--groen); z-index: 20; flex-direction: column; padding: 6px 0; }
-.nav .heeft-sub:hover .sub, .nav .heeft-sub:focus-within .sub { display: flex; }
-.nav .sub a:not(.btn) { padding: 10px 18px; letter-spacing: .12em; }
+/* ---------- Paginatitel ---------- */
+.paginatitel { padding: clamp(40px, 6vw, 70px) 20px; text-align: center; }
+.paginatitel h1 { margin: 0; font-size: var(--fs-h1); font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--wit); text-shadow: 0 2px 0 var(--groen-donker), 0 6px 18px rgba(0, 0, 0, .18); }
 
-/* Paginatitel */
-.paginatitel { padding: 0 0 34px; text-align: center; overflow: hidden; }
-.paginatitel h1 { padding: 0 16px; }
-.hero > .vlaggetjes { position: absolute; top: 0; left: 0; right: 0; z-index: 1; }
-.hero { overflow: hidden; }
-.paginatitel h1 { margin: 0; font-weight: 400; text-transform: uppercase; font-size: var(--fs-h1); color: var(--zwart); }
+/* ---------- Secties ---------- */
+.sectie { padding: var(--ruimte) 0; }
+.sectie-licht, .lu-sectie { background: var(--licht); }
+.zonder-top { padding-top: 0; }
+.sectie-titel { text-align: center; margin-bottom: 1.1em; }
+.intro { max-width: 680px; margin: 0 auto 40px; text-align: center; font-size: var(--fs-groot); }
+.intro p:last-child { margin-bottom: 0; }
+.intro-tussen { margin: 56px auto 24px; }
+.intro-tussen h3 { margin: 0; }
+.kicker { display: inline-block; font-family: "Jost", sans-serif; font-weight: 600; font-size: var(--fs-mini); text-transform: uppercase; letter-spacing: .18em; color: var(--groen-donker); margin-bottom: 10px; }
+.midden { text-align: center; }
 
-/* Secties */
-.sectie { padding: 56px 0; }
-.sectie-titel { text-align: center; }
-.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: center; }
-.kaart img { aspect-ratio: 1 / 1; object-fit: cover; width: 100%; margin-bottom: 14px; }
-.foto { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+/* Twee kolommen: tekst + foto */
+.duo { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 72px); align-items: center; }
+.duo.boven { align-items: start; }
+.duo.omgekeerd > :first-child { order: 2; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 
-/* Hero */
-.hero { position: relative; isolation: isolate; display: grid; place-items: center; min-height: 360px; background: var(--zwart) url("/assets/img/hero-bedankt.webp") center / cover no-repeat; text-align: center; }
-.hero::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.28); z-index: -1; }
-.hero h1 { font-size: var(--fs-hero); color: #fff; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; margin: 0; text-shadow: 0 3px 18px rgba(0,0,0,.6); }
-.hero p { color: #fff; font-family: "Jost", sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: .12em; font-size: var(--fs-groot); text-shadow: 0 2px 10px rgba(0,0,0,.7); margin: 0; }
+/* Foto: afgerond, met een groen textuurvlak erachter (herkenbaar, maar rustig) */
+.polaroid { position: relative; margin: 0 14px 14px 0; isolation: isolate; }
+.polaroid::before { content: ""; position: absolute; inset: 14px -14px -14px 14px; border-radius: var(--r-foto); background: var(--groen) var(--textuur); background-size: 300px auto; z-index: -1; }
+.polaroid.rechts { margin: 0 0 14px 14px; }
+.polaroid.rechts::before { inset: 14px 14px -14px -14px; }
+.polaroid img, .polaroid iframe { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--r-foto); display: block; border: 0; }
 
-/* Vaste oproep-band onderaan elke pagina */
-.oproep { position: relative; isolation: isolate; background: var(--groen-donker) url("/assets/img/zonnebloem.webp") center 55% / cover no-repeat; color: #fff; padding: 110px 0; }
-.oproep::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(20,30,10,.55), rgba(20,30,10,.15) 60%, rgba(0,0,0,0)); }
-.oproep-in { display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
-.oproep strong { text-shadow: 0 2px 10px rgba(0,0,0,.5); display: block; font-family: "Jost", sans-serif; font-size: var(--fs-h2); text-transform: uppercase; letter-spacing: .04em; }
-.oproep span { opacity: .95; text-shadow: 0 1px 6px rgba(0,0,0,.6); }
+/* ---------- Kaarten: één stijl ---------- */
+.kaart, .info-kaart, .icoon-kaart, .route-kaart, .faq-kaart, .lu-dag, .feit { background: var(--wit); border-radius: var(--r); box-shadow: var(--schaduw); }
+.sectie-licht .feit { box-shadow: none; }
+.sectie:not(.sectie-licht):not(.lu-sectie) .icoon-kaart, .sectie:not(.sectie-licht) .info-kaart, .sectie:not(.sectie-licht) .feit { box-shadow: none; border: 1px solid var(--lijn); }
+
+/* Home: drie blokken met foto */
+.kaart { overflow: hidden; }
+.kaart img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.kaart h3, .kaart p { padding: 0 22px; }
+.kaart h3 { margin-top: 20px; }
+.kaart p { padding-bottom: 22px; margin: 0; font-size: var(--fs-klein); color: var(--grijs); }
 
 /* Info-kaarten (home) */
-.info-kaart { display: block; padding: 24px; border: 1px solid var(--lijn); border-radius: 4px; text-decoration: none; color: var(--tekst); transition: border-color .15s, box-shadow .15s; }
-.info-kaart:hover { border-color: var(--groen); box-shadow: 0 6px 18px rgba(0,0,0,.06); }
-.info-kaart h3 { margin-bottom: .4em; }
-.info-kaart p { margin-bottom: .8em; }
-.info-kaart span { color: var(--blauw); font-weight: 700; }
+.info-kaart { display: block; padding: 26px; text-decoration: none; color: var(--tekst); transition: transform .2s, box-shadow .2s; }
+.info-kaart:hover { transform: translateY(-3px); box-shadow: var(--schaduw-hoog); }
+.info-kaart p { color: var(--grijs); font-size: var(--fs-klein); }
+.info-kaart span { color: var(--blauw); font-weight: 700; font-size: var(--fs-klein); }
 
-/* Hulpklassen */
-.zonder-top { padding-top: 0; }
-.midden { text-align: center; }
-.boven { align-items: start; }
-.compact { gap: 8px 28px; }
-.ruimte-boven { margin-top: 34px; }
-.ruimte-boven-klein { margin-top: 12px; }
-h2[id], section[id], div[id] { scroll-margin-top: 80px; }
+/* Icoonkaarten */
+.icoon-kaarten { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 20px; }
+.icoon-kaart { padding: 28px 22px; text-align: center; }
+.icoon-kaart h3 { font-size: var(--fs-groot); margin-bottom: .35em; }
+.icoon-kaart p { margin: 0; font-size: var(--fs-klein); color: var(--grijs); }
+.icoon { display: grid; place-items: center; width: 56px; height: 56px; margin: 0 auto 14px; border-radius: 50%; background: var(--groen) var(--textuur); background-size: 200px auto; color: var(--wit); flex: none; }
+.icoon svg { width: 26px; height: 26px; fill: currentColor; }
 
-/* Zonnebloem */
-.zonnebloem { height: 300px; background: url("/assets/img/zonnebloem.webp") center 55% / cover no-repeat; }
+/* Pillen */
+.pillen-titel { font-family: "Jost", sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: .12em; font-size: var(--fs-mini); color: var(--grijs); margin: 20px 0 8px; }
+.pillen { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 0; }
+.pillen li { background: var(--licht); color: var(--zwart); border-radius: 999px; padding: 6px 16px; font-family: "Jost", sans-serif; font-weight: 600; font-size: var(--fs-klein); }
+.pillen.vol li { background: var(--groen); color: var(--wit); }
 
-/* Lijsten met vinkje */
-.vinkjes { list-style: none; padding: 0; margin: 0 0 1em; }
-.vinkjes li { position: relative; padding-left: 26px; margin-bottom: 6px; }
-.vinkjes li::before { content: ""; position: absolute; left: 0; top: .45em; width: 14px; height: 8px; border-left: 3px solid var(--groen); border-bottom: 3px solid var(--groen); transform: rotate(-45deg); }
+/* ---------- Praktisch ---------- */
+.snelnav { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 26px 20px 0; margin-bottom: calc(var(--ruimte) * -0.5); }
+.snelnav a { display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 18px 0 6px; border-radius: 999px; background: var(--licht); color: var(--zwart); font-family: "Jost", sans-serif; font-weight: 600; font-size: var(--fs-klein); text-transform: uppercase; letter-spacing: .1em; text-decoration: none; transition: background .15s, color .15s; }
+.snelnav a:hover { background: var(--groen); color: var(--wit); }
+.snelnav .icoon { width: 32px; height: 32px; margin: 0; }
+.snelnav .icoon svg { width: 16px; height: 16px; }
 
-/* Logo-rijen (sponsors, logies) */
-.logos { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 18px 24px; align-items: center; }
-.logos img { width: 100%; max-width: 170px; margin: 0 auto; }
-.logos a { display: block; transition: opacity .2s; }
-.logos a:hover { opacity: .75; }
-.sponsors { padding: 30px 0; background: #fff; }
+.route { display: grid; gap: 16px; }
+.route-kaart { padding: 22px 24px; }
+.route-kaart h3 { display: flex; align-items: center; gap: 12px; font-size: var(--fs-groot); }
+.route-kaart h3 .icoon { width: 40px; height: 40px; margin: 0; }
+.route-kaart h3 .icoon svg { width: 20px; height: 20px; }
+.route-kaart ol { margin: 0 0 .6em; padding-left: 20px; }
+.route-kaart li { margin-bottom: 4px; }
+.route-kaart p:last-child { margin-bottom: 0; }
 
-/* Sponsor-carousel: schuift doorlopend, pauzeert bij hover */
+.feiten { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+.feit { padding: 14px 16px; }
+.feit strong { display: block; font-family: "Jost", sans-serif; text-transform: uppercase; font-size: var(--fs-mini); letter-spacing: .12em; color: var(--groen-donker); }
+
+.logies { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; margin-top: 40px; }
+.logies a { display: flex; align-items: center; justify-content: center; height: 80px; padding: 12px; background: var(--wit); border: 1px solid var(--lijn); border-radius: var(--r); transition: transform .2s, box-shadow .2s; }
+.logies a:hover { transform: translateY(-3px); box-shadow: var(--schaduw); }
+.logies img { max-width: 100%; max-height: 54px; width: auto; height: auto; object-fit: contain; }
+
+/* FAQ */
+.faq-kaart { max-width: 860px; margin: 0 auto; padding: 6px 28px; }
+.faq details { border-bottom: 1px solid var(--lijn); }
+.faq details:last-child { border-bottom: 0; }
+.faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 0; font-family: "Jost", sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; font-size: var(--fs-groot); color: var(--zwart); }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; display: grid; place-items: center; flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--licht); color: var(--groen-donker); font-size: var(--fs-h3); line-height: 1; transition: transform .2s; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .antwoord { padding: 0 0 18px; color: var(--grijs); }
+
+/* Medewerkers: afsluitende oproep */
+.mail-oproep { text-align: center; border-radius: var(--r); padding: 44px 30px; background: var(--groen) var(--textuur); background-size: 400px auto; }
+.mail-oproep h2 { color: var(--wit); text-shadow: 0 2px 0 var(--groen-donker); margin-bottom: .3em; }
+.mail-oproep p { color: var(--zwart); font-size: var(--fs-groot); }
+.klein-mail { font-size: var(--fs-klein) !important; margin: 12px 0 0; }
+
+/* Tekstpagina's en winkel */
+.tekstpagina { max-width: 780px; }
+.tekstpagina h3 { margin-top: 1.8em; }
+.winkel { min-height: 420px; }
+/* Whiskytasting verborgen in het categorie-overzicht (categorie 142997555), wel bereikbaar via /whiskytasting */
+.winkel .grid-category--id-142997555 { display: none !important; }
+
+/* ---------- Hero ---------- */
+.hero { position: relative; isolation: isolate; overflow: hidden; display: grid; place-items: center; min-height: clamp(340px, 52vw, 520px); padding: 40px 20px; text-align: center; background: var(--zwart) url("/assets/img/hero-bedankt.webp") center / cover no-repeat; }
+.hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(ellipse at center, rgba(0, 0, 0, .25), rgba(0, 0, 0, .55)); }
+.hero h1 { margin: 0; font-size: var(--fs-hero); font-weight: 800; letter-spacing: .03em; text-transform: uppercase; color: var(--wit); text-shadow: 0 4px 24px rgba(0, 0, 0, .45); }
+.hero p { margin: 6px 0 0; font-family: "Jost", sans-serif; font-weight: 600; font-size: var(--fs-groot); text-transform: uppercase; letter-spacing: .2em; color: var(--wit); }
+.hero-knoppen { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 28px; }
+
+/* ---------- Line-up (homepage, festivalmodus) ---------- */
+.lu { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: stretch; }
+.lu-dag { display: flex; flex-direction: column; overflow: hidden; }
+.lu-dag h3 { margin: 0; padding: 16px 20px; background: var(--groen) var(--textuur); background-size: 400px auto; }
+.lu-dag h3 a { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; text-decoration: none; color: var(--wit); font-size: var(--fs-h3); font-weight: 700; letter-spacing: .06em; text-shadow: 0 1px 0 var(--groen-donker); }
+.lu-dag h3 span { font-size: var(--fs-mini); font-weight: 600; letter-spacing: .12em; }
+.lu-dag ul { list-style: none; margin: 0; padding: 10px; display: grid; gap: 2px; }
+.lu-kaart { display: grid; grid-template-columns: 60px 1fr; gap: 14px; align-items: center; padding: 8px; border-radius: 10px; text-decoration: none; color: var(--zwart); transition: background .15s; }
+.lu-kaart:hover { background: var(--licht); }
+.lu-kaart img { width: 60px; height: 60px; object-fit: cover; border-radius: 10px; }
+.lu-tekst { display: grid; gap: 3px; min-width: 0; }
+.lu-meta { display: flex; align-items: center; gap: 8px; }
+.lu-naam { font-family: "Jost", sans-serif; font-weight: 600; text-transform: uppercase; font-size: var(--fs-klein); letter-spacing: .03em; line-height: 1.25; }
+.lu-alles { display: block; margin: auto 20px 18px; padding-top: 6px; font-weight: 700; font-size: var(--fs-klein); text-decoration: none; }
+
+.tijd { font-family: "Jost", sans-serif; font-weight: 700; color: var(--oranje); }
+.tent { display: inline-block; font-family: "Jost", sans-serif; font-weight: 600; font-size: var(--fs-mini); line-height: 1.6; text-transform: uppercase; letter-spacing: .08em; padding: 0 8px; border-radius: 999px; color: var(--wit); background: var(--tent-groot); }
+.tent-bal { background: var(--tent-bal); }
+.vlag { font-family: system-ui, "Apple Color Emoji", "Segoe UI Emoji", sans-serif; font-size: .9em; }
+
+/* ---------- Dagpagina's ---------- */
+.wrap > .dagtabs:first-child { margin-top: calc(var(--ruimte) * -0.45); }
+.dagtabs { display: flex; justify-content: center; gap: 6px; margin: 0 auto 48px; padding: 6px; width: fit-content; max-width: 100%; background: var(--licht); border-radius: 999px; }
+.dagtabs a { padding: 10px 24px; border-radius: 999px; font-family: "Jost", sans-serif; font-weight: 600; font-size: var(--fs-klein); text-transform: uppercase; letter-spacing: .12em; text-decoration: none; color: var(--zwart); }
+.dagtabs a:hover { background: var(--wit); }
+.dagtabs a[aria-current="page"] { background: var(--groen); color: var(--wit); }
+.artiest { display: grid; grid-template-columns: 300px 1fr; gap: 36px; align-items: start; padding: 0 0 48px; margin-bottom: 48px; border-bottom: 1px solid var(--lijn); }
+.artiest:last-child { border-bottom: 0; margin-bottom: 0; }
+.artiest h2 { margin-bottom: .45em; }
+.artiest-media .video, .artiest-foto { aspect-ratio: 1 / 1; border-radius: var(--r-foto); }
+.artiest-foto { width: 100%; object-fit: cover; }
+.artiest-voet { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 18px; flex-wrap: wrap; }
+.artiest-info { display: flex; align-items: center; gap: 12px; list-style: none; margin: 0; padding: 0; font-size: var(--fs-klein); }
+.artiest-info li { display: flex; align-items: center; gap: 6px; font-weight: 700; }
+.artiest-info svg { width: 15px; height: 15px; fill: var(--oranje); }
+.artiest-acties { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.pil { display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 16px; border-radius: 999px; font-size: var(--fs-klein); font-weight: 700; text-decoration: none; white-space: nowrap; max-width: 100%; transition: background .15s, color .15s; }
+.pil svg { width: 15px; height: 15px; fill: currentColor; flex: none; }
+.pil span { overflow: hidden; text-overflow: ellipsis; }
+.pil-social { background: var(--licht); color: var(--zwart); }
+.pil-social:hover { background: var(--zwart); color: var(--wit); }
+.pil-tickets { background: var(--groen); color: var(--wit); }
+.pil-tickets:hover { background: var(--groen-donker); }
+
+/* Video: thumbnail tot je klikt */
+.video { position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; padding: 0; border: 0; overflow: hidden; background: var(--zwart); cursor: pointer; }
+.video img { width: 100%; height: 100%; object-fit: cover; opacity: .92; transition: opacity .2s, transform .4s; }
+.video:hover img { opacity: 1; transform: scale(1.03); }
+.video .play { position: absolute; left: 50%; top: 50%; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; background: var(--groen); box-shadow: 0 6px 20px rgba(0, 0, 0, .3); transition: transform .2s; }
+.video .play::after { content: ""; position: absolute; left: 26px; top: 21px; border-style: solid; border-width: 11px 0 11px 17px; border-color: transparent transparent transparent var(--wit); }
+.video:hover .play { transform: scale(1.08); }
+.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* ---------- Oproep-band (zonnebloem) ---------- */
+.oproep { position: relative; isolation: isolate; padding: clamp(70px, 10vw, 120px) 0; color: var(--wit); background: var(--groen-donker) url("/assets/img/zonnebloem.webp") center 55% / cover no-repeat; }
+.oproep::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(20, 30, 10, .6), rgba(20, 30, 10, .15) 65%, transparent); }
+.oproep-in { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.oproep strong { display: block; font-family: "Jost", sans-serif; font-weight: 700; font-size: var(--fs-h2); text-transform: uppercase; letter-spacing: .04em; text-shadow: 0 2px 12px rgba(0, 0, 0, .4); }
+.oproep span { text-shadow: 0 1px 8px rgba(0, 0, 0, .6); }
+
+/* ---------- Footer: vlaggetjes, partners, contact ---------- */
+.site-footer { position: relative; text-align: center; color: var(--zwart); overflow: hidden; }
+.vlaggetjes { display: flex; gap: 4px; height: 58px; padding-left: 2px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='30'%3E%3Cpath d='M0 2 Q120 30 240 2' fill='none' stroke='%231A1A1A' stroke-width='1.6'/%3E%3C/svg%3E") left 0 / 240px 30px repeat-x; }
+.vlaggetjes i { flex: none; width: 36px; height: 34px; margin-top: calc(var(--y) + 1px); background: var(--k); clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: 50% 0; animation: vlag-wieg 3.2s ease-in-out var(--d) infinite; }
+@keyframes vlag-wieg { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+
+.sponsors { max-width: var(--max); width: calc(100% - 40px); margin: 10px auto 0; padding: 20px 0 22px; background: var(--wit); border-radius: var(--r); box-shadow: var(--schaduw); }
+.sponsors-titel { margin: 0 0 14px; font-family: "Jost", sans-serif; font-weight: 600; font-size: var(--fs-mini); text-transform: uppercase; letter-spacing: .18em; color: var(--grijs); }
 .carousel { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
 .carousel-band { display: flex; width: max-content; animation: sponsors-schuif 45s linear infinite; }
 .carousel:hover .carousel-band, .carousel:focus-within .carousel-band { animation-play-state: paused; }
 .carousel-reeks { display: flex; align-items: center; gap: 48px; padding-right: 48px; }
-.carousel-reeks img { height: 80px; width: auto; max-width: 150px; object-fit: contain; }
+.carousel-reeks img { height: 64px; width: auto; max-width: 140px; object-fit: contain; }
 .carousel-reeks a { display: block; transition: opacity .2s; }
-.carousel-reeks a:hover { opacity: .75; }
+.carousel-reeks a:hover { opacity: .7; }
 @keyframes sponsors-schuif { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) {
-  .carousel { overflow-x: auto; }
-  .carousel-band { animation: none; }
-}
 
-/* FAQ */
-.faq details { border-bottom: 1px solid var(--lijn); }
-.faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 16px; padding: 16px 0; font-family: "Jost", sans-serif; font-weight: 600; text-transform: uppercase; font-size: var(--fs-groot); color: var(--zwart); }
-.faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { content: "+"; color: var(--groen); font-size: 1.5rem; line-height: 1; }
-.faq details[open] summary::after { content: "–"; }
-.faq .antwoord { padding: 0 0 16px; }
-
-/* Kaartje locatie */
-.kaartlink { display: block; background: var(--licht); border: 1px solid var(--lijn); border-radius: 4px; padding: 22px; text-decoration: none; color: var(--tekst); }
-.kaartlink strong { display: block; font-family: "Jost", sans-serif; font-size: var(--fs-h3); color: var(--zwart); margin-bottom: 4px; }
-
-/* Google Maps */
-.kaart-embed { position: relative; aspect-ratio: 4 / 3; border-radius: 4px; overflow: hidden; background: var(--licht); }
-.kaart-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-
-/* ---------- Festivalmodus ---------- */
-.hero-festival { min-height: 440px; }
-.hero-knoppen { display: flex; gap: 12px; justify-content: center; margin-top: 22px; flex-wrap: wrap; }
-
-/* Line-up */
-.lineup { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; }
-.lineup-kaart { position: relative; display: block; overflow: hidden; border-radius: 4px; text-decoration: none; background: var(--zwart); aspect-ratio: 16 / 10; }
-.lineup-kaart img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; opacity: .85; }
-.lineup-kaart:hover img { transform: scale(1.05); opacity: 1; }
-.lineup-kaart::after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 40%, rgba(0,0,0,.8)); }
-.lineup-naam, .lineup-dag { position: absolute; left: 14px; right: 14px; z-index: 1; color: #fff; }
-.lineup-naam { bottom: 30px; font-family: "Jost", sans-serif; font-weight: 600; font-size: var(--fs-groot); text-transform: uppercase; line-height: 1.15; }
-.lineup-dag { bottom: 10px; font-size: var(--fs-klein); opacity: .9; }
-
-/* Line-up + blokkenschema in één — in de stijl van de FFH-collage */
-.lu-sectie { background: var(--licht); }
-.lu { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: stretch; }
-.lu-dag { display: flex; flex-direction: column; background: #fff; border-radius: 6px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,.06); }
-.lu-dag h3 { margin: 0; padding: 14px 18px 12px; background: var(--groen) var(--textuur) repeat; background-size: 400px auto; text-transform: none; }
-.lu-dag h3 a { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; color: var(--zwart); text-decoration: none; font-family: "Jost", sans-serif; font-weight: 700; font-size: var(--fs-h3); text-transform: uppercase; letter-spacing: .04em; line-height: 1.1; }
-.lu-dag h3 span { font-family: "Jost", sans-serif; font-weight: 600; font-size: var(--fs-klein); text-transform: uppercase; letter-spacing: .08em; }
-.lu-dag ul { list-style: none; margin: 0; padding: 10px 12px 4px; display: grid; gap: 4px; }
-.lu-kaart { display: grid; grid-template-columns: 70px 1fr; gap: 14px; align-items: center; padding: 8px 6px; border-radius: 6px; text-decoration: none; color: var(--zwart); transition: background .15s; }
-.lu-kaart:hover { background: var(--licht); }
-.lu-kaart img, .lu-leeg { width: 66px; height: 66px; object-fit: cover; display: block; background: var(--lijn); border: 3px solid #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,.25); transform: rotate(-3deg); transition: transform .2s; }
-.lu-dag li:nth-child(even) .lu-kaart img { transform: rotate(2.5deg); }
-.lu-kaart:hover img { transform: rotate(0) scale(1.06); }
-.lu-tekst { display: grid; gap: 2px; min-width: 0; }
-.lu-meta { display: flex; align-items: center; gap: 8px; }
-.lu-meta .tijd { color: var(--oranje); font-family: "Jost", sans-serif; font-weight: 700; font-size: var(--fs-groot); min-width: 0; line-height: 1; }
-.lu-naam { font-family: "Jost", sans-serif; font-weight: 600; text-transform: uppercase; font-size: var(--fs-tekst); line-height: 1.2; }
-.lu-alles { display: block; margin: auto 18px 16px; padding-top: 4px; font-weight: 700; text-decoration: none; }
-
-/* Programma (tijdschema) */
-.programma-sectie { background: var(--licht); }
-.programma { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-.dag-kolom { background: #fff; border-radius: 4px; padding: 22px; }
-.dag-kolom h3 { margin-bottom: 12px; }
-.dag-kolom h3 a { color: var(--zwart); text-decoration: none; }
-.dag-kolom ul { list-style: none; padding: 0; margin: 0; }
-.dag-kolom li { display: grid; grid-template-columns: 50px 1fr auto; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--lijn); }
-.dag-kolom li .tent { justify-self: end; }
-.dag-kolom li a { color: var(--zwart); font-weight: 700; text-decoration: none; }
-.dag-kolom li a:hover { color: var(--oranje); }
-.tijd { display: inline-block; min-width: 48px; font-family: "Jost", sans-serif; font-weight: 700; color: var(--oranje); }
-.bal { display: inline-block; background: var(--oranje); color: #fff; font-family: "Jost", sans-serif; font-weight: 600; font-size: var(--fs-mini); text-transform: uppercase; letter-spacing: .08em; padding: 2px 8px; border-radius: 3px; vertical-align: middle; }
-
-/* Dagpagina's — zoals de oude site: vierkant beeld links, tekst rechts */
-.dagtabs { display: flex; justify-content: center; margin: 4px 0 40px; }
-.dagtabs a { font-family: "Jost", sans-serif; font-weight: 600; font-size: var(--fs-klein); text-transform: uppercase; letter-spacing: .14em; text-decoration: none; padding: 9px 20px; border: 1px solid var(--zwart); margin-left: -1px; background: #fff; color: var(--zwart); }
-.dagtabs a[aria-current="page"] { background: var(--groen); border-color: var(--groen); color: #fff; position: relative; }
-.artiest { display: grid; grid-template-columns: 300px 1fr; gap: 30px; align-items: start; padding: 0 0 44px; scroll-margin-top: 20px; }
-.artiest h2 { font-weight: 600; text-transform: uppercase; font-size: var(--fs-h2); margin-bottom: .5em; }
-.artiest-tekst p { font-size: var(--fs-klein); margin-bottom: .7em; }
-.artiest-media .video, .artiest-foto { aspect-ratio: 1 / 1; border-radius: 0; }
-.artiest-foto { width: 100%; object-fit: cover; }
-.vlag { font-family: system-ui, "Apple Color Emoji", "Segoe UI Emoji", sans-serif; font-size: .85em; }
-.artiest-voet { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-top: 18px; flex-wrap: wrap; }
-.artiest-info { list-style: none; margin: 0; padding: 0; font-size: var(--fs-klein); }
-.artiest-info li { display: flex; align-items: center; gap: 7px; }
-.artiest-info svg { width: 14px; height: 14px; fill: var(--zwart); }
-.artiest-info li + li { margin-top: 6px; }
-.tent { display: inline-block; font-family: "Jost", sans-serif; font-weight: 600; font-size: var(--fs-mini); line-height: 1.5; text-transform: uppercase; letter-spacing: .1em; padding: 1px 7px; border-radius: 20px; background: var(--zwart); color: #fff; }
-.tent { background: var(--tent-groot); }
-.tent-bal { background: var(--tent-bal); }
-
-.artiest-acties { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-/* Social en Tickets: zelfde formaat */
-.pil { display: inline-flex; align-items: center; gap: 7px; height: 34px; padding: 0 14px; border-radius: 3px; font-size: var(--fs-klein); text-decoration: none; font-weight: 700; white-space: nowrap; max-width: 100%; }
-.pil svg { width: 15px; height: 15px; fill: currentColor; flex: none; }
-.pil span { overflow: hidden; text-overflow: ellipsis; }
-.pil-social { background: var(--licht); color: var(--zwart); }
-.pil-social:hover { background: var(--zwart); color: #fff; }
-.pil-tickets { background: var(--groen); color: #fff; }
-.pil-tickets:hover { background: var(--groen-donker); }
-
-/* Video: thumbnail tot je klikt */
-.video { position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; padding: 0; border: 0; border-radius: 4px; overflow: hidden; background: #000; cursor: pointer; }
-.video img { width: 100%; height: 100%; object-fit: cover; opacity: .9; }
-.video .play { position: absolute; left: 50%; top: 50%; width: 68px; height: 48px; margin: -24px 0 0 -34px; background: var(--groen); border-radius: 12px; transition: transform .2s; }
-.video .play::after { content: ""; position: absolute; left: 27px; top: 14px; border-style: solid; border-width: 10px 0 10px 17px; border-color: transparent transparent transparent #fff; }
-.video:hover .play { transform: scale(1.1); }
-.video-actief { cursor: default; }
-.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-
-/* Tekstpagina's (voorwaarden, privacy) */
-.tekstpagina { max-width: 820px; }
-.tekstpagina h3 { margin-top: 1.6em; }
-
-@media (max-width: 860px) {
-  .programma, .lu { grid-template-columns: 1fr; }
-  .dagtabs a { padding: 8px 12px; font-size: var(--fs-mini); letter-spacing: .1em; }
-  .artiest { grid-template-columns: 1fr; gap: 16px; }
-}
-
-/* ---------- Speelse bouwstenen (Over ons, Praktisch, Medewerkers) ---------- */
-.sectie-licht { background: var(--licht); }
-.intro { max-width: 720px; margin: 0 auto 34px; text-align: center; font-size: var(--fs-groot); }
-.intro h2 { margin-bottom: .4em; }
-.intro-tussen { margin-top: 50px; margin-bottom: 22px; }
-.klein-mail { font-size: var(--fs-klein); margin: 10px 0 0; opacity: .8; }
-.kicker { display: inline-block; font-family: "Jost", sans-serif; font-weight: 600; font-size: var(--fs-mini); text-transform: uppercase; letter-spacing: .16em; color: var(--groen-donker); margin-bottom: 8px; }
-
-/* Foto's als scheve kaartjes, zoals de collage */
-.polaroid { background: #fff; padding: 10px; border-radius: 10px; box-shadow: 0 10px 28px rgba(0,0,0,.14); transform: rotate(-2deg); transition: transform .3s; }
-.polaroid.rechts { transform: rotate(2deg); }
-.polaroid:hover { transform: rotate(0) scale(1.01); }
-.polaroid img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 6px; display: block; }
-.polaroid figcaption { font-size: var(--fs-klein); color: var(--grijs); padding: 8px 4px 0; text-align: center; }
-.duo { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; }
-.duo.omgekeerd > :first-child { order: 2; }
-
-/* Icoonkaartjes */
-.icoon-kaarten { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; }
-.icoon-kaart { background: #fff; border-radius: 10px; padding: 24px 20px; box-shadow: 0 4px 16px rgba(0,0,0,.06); text-align: center; transition: transform .2s; }
-.icoon-kaart:hover { transform: translateY(-3px); }
-.sectie-licht .icoon-kaart { background: #fff; }
-.sectie:not(.sectie-licht) .icoon-kaart { background: var(--licht); box-shadow: none; }
-.icoon { display: grid; place-items: center; width: 58px; height: 58px; margin: 0 auto 12px; border-radius: 50%; background: var(--groen) var(--textuur); background-size: 200px auto; color: #fff; }
-.icoon svg { width: 28px; height: 28px; fill: currentColor; }
-.icoon-kaart h3 { font-size: var(--fs-groot); margin-bottom: .3em; }
-.icoon-kaart p { margin: 0; font-size: var(--fs-klein); }
-
-/* Pillen / labels */
-.pillen { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 0 0 18px; }
-.pillen li { background: #fff; border: 2px solid var(--groen); color: var(--zwart); border-radius: 30px; padding: 5px 14px; font-family: "Jost", sans-serif; font-weight: 600; font-size: var(--fs-klein); }
-.pillen.vol li { background: var(--groen); color: #fff; }
-.pillen-titel { font-family: "Jost", sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; font-size: var(--fs-klein); margin: 0 0 8px; }
-
-/* Snelmenu bovenaan Praktisch */
-.snelnav { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 22px 16px 0; }
-.snelnav a { display: inline-flex; align-items: center; gap: 8px; padding: 9px 18px; border-radius: 30px; background: #fff; border: 2px solid var(--groen); color: var(--zwart); font-family: "Jost", sans-serif; font-weight: 600; font-size: var(--fs-klein); text-transform: uppercase; letter-spacing: .08em; text-decoration: none; }
-.snelnav a:hover { background: var(--groen); color: #fff; }
-.snelnav .icoon { width: 26px; height: 26px; margin: 0 0 0 -8px; }
-.snelnav .icoon svg { width: 14px; height: 14px; }
-.snelnav a:hover .icoon { background: #fff; color: var(--groen); }
-
-/* Route-kaartjes */
-.route { display: grid; gap: 16px; }
-.route-kaart { background: #fff; border-radius: 10px; padding: 20px 22px; box-shadow: 0 4px 16px rgba(0,0,0,.06); }
-.route-kaart h3 { display: flex; align-items: center; gap: 10px; font-size: var(--fs-groot); }
-.route-kaart h3 .icoon { width: 38px; height: 38px; margin: 0; }
-.route-kaart h3 .icoon svg { width: 20px; height: 20px; }
-.route-kaart ol { margin: 0; padding-left: 20px; }
-.route-kaart li { margin-bottom: 4px; }
-.kaart-embed.polaroid { padding: 10px; aspect-ratio: auto; }
-.kaart-embed.polaroid iframe { position: static; width: 100%; aspect-ratio: 4 / 3; border-radius: 6px; display: block; }
-
-/* Feitjes (camping) */
-.feiten { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 18px 0; }
-.feit { background: var(--licht); border-radius: 8px; padding: 12px 14px; }
-.feit strong { display: block; font-family: "Jost", sans-serif; text-transform: uppercase; font-size: var(--fs-mini); letter-spacing: .1em; color: var(--groen-donker); }
-
-/* Logies-raster */
-.logies { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; margin-top: 30px; }
-.logies a { display: flex; align-items: center; justify-content: center; height: 78px; background: #fff; border-radius: 10px; padding: 10px; box-shadow: 0 3px 12px rgba(0,0,0,.06); transition: transform .2s; overflow: hidden; }
-.logies a:hover { transform: translateY(-3px) rotate(-1deg); }
-.logies img { max-width: 100%; max-height: 58px; width: auto; height: auto; object-fit: contain; }
-
-/* FAQ als kaart */
-.faq-kaart { max-width: 860px; margin: 0 auto; background: #fff; border-radius: 10px; padding: 8px 28px; box-shadow: 0 4px 16px rgba(0,0,0,.06); }
-.faq-kaart details:last-child { border-bottom: 0; }
-
-/* Afsluitende oproep in een kaart */
-.mail-oproep { max-width: 760px; margin: 0 auto; text-align: center; background: var(--groen) var(--textuur); background-size: 400px auto; border-radius: 14px; padding: 40px 28px; transform: rotate(-.6deg); box-shadow: 0 10px 28px rgba(0,0,0,.12); }
-.mail-oproep > * { transform: rotate(.6deg); }
-.mail-oproep h2 { margin-bottom: .3em; }
-.mail-oproep p { color: var(--zwart); font-size: var(--fs-groot); }
-.mail-oproep .btn { margin-top: 6px; }
-
-@media (max-width: 860px) {
-  .duo { grid-template-columns: 1fr; gap: 30px; }
-  .duo.omgekeerd > :first-child { order: 0; }
-  .feiten { grid-template-columns: 1fr; }
-  .icoon-kaarten { grid-template-columns: 1fr 1fr; gap: 12px; }
-  .icoon-kaart { padding: 18px 12px; }
-  .icoon-kaart:last-child:nth-child(odd) { grid-column: span 2; }
-  .icoon { width: 48px; height: 48px; }
-  .icoon-kaart h3 { font-size: var(--fs-klein); }
-  .icoon-kaart p { font-size: var(--fs-klein); }
-  .logies { grid-template-columns: 1fr 1fr; }
-}
-
-/* Footer: vlaggetjes, slogan, scheve contactkaartjes, donkere onderbalk */
-.site-footer { position: relative; padding: 0; text-align: center; color: var(--zwart); overflow: hidden; }
-.footer-in { padding: 34px 16px 34px; }
-.site-footer .logo { width: 260px; margin: 0 auto 6px; transition: transform .3s; }
-.site-footer .logo:hover { transform: rotate(-2deg) scale(1.03); }
-.footer-slogan { font-family: "Jost", sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; font-size: var(--fs-h1); color: #fff; text-shadow: 0 2px 0 var(--groen-donker), 0 4px 14px rgba(0,0,0,.25); transform: rotate(-2deg); margin: 0 0 16px; }
-.site-footer .socials { justify-content: center; gap: 10px; margin-bottom: 26px; }
-.site-footer .socials a { width: 42px; height: 42px; border-radius: 50%; transition: transform .2s, background .2s, color .2s; }
-.site-footer .socials a:hover { background: #fff; color: var(--zwart); transform: translateY(-4px) rotate(-8deg); }
-.site-footer .socials svg { width: 19px; height: 19px; }
-
-/* Vlaggetjeslijn */
-.vlaggetjes { display: flex; gap: 4px; height: 58px; padding-left: 2px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='30'%3E%3Cpath d='M0 2 Q120 30 240 2' fill='none' stroke='%23111' stroke-width='1.6'/%3E%3C/svg%3E") left 0 / 240px 30px repeat-x; }
-.vlaggetjes i { flex: none; width: 36px; height: 34px; margin-top: calc(var(--y) + 1px); background: var(--k); clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: 50% 0; animation: vlag-wieg 3.2s ease-in-out var(--d) infinite; }
-@keyframes vlag-wieg { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
-
-/* Contact als scheve kaartjes */
-.contact { list-style: none; padding: 0; margin: 0 auto; max-width: 1140px; display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; font-size: var(--fs-klein); }
-.contact li { display: flex; align-items: center; gap: 10px; background: #fff; padding: 12px 18px; border-radius: 10px; box-shadow: 0 6px 16px rgba(0,0,0,.12); transform: rotate(-1.5deg); transition: transform .2s, box-shadow .2s; }
-.contact li:nth-child(even) { transform: rotate(1.5deg); }
-.contact li:hover { transform: rotate(0) translateY(-4px); box-shadow: 0 10px 22px rgba(0,0,0,.18); }
-.contact svg { width: 22px; height: 22px; padding: 4px; border-radius: 50%; background: var(--groen); fill: #fff; flex: none; }
+.footer-in { padding: 44px 20px 40px; }
+.site-footer .logo { width: 240px; margin: 0 auto 6px; }
+.footer-slogan { font-family: "Jost", sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; font-size: var(--fs-h1); color: var(--wit); text-shadow: 0 2px 0 var(--groen-donker), 0 6px 18px rgba(0, 0, 0, .2); margin: 0 0 18px; }
+.socials { display: flex; gap: 10px; }
+.socials a { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: var(--zwart); color: var(--wit); transition: background .2s, color .2s, transform .2s; }
+.socials a:hover { background: var(--wit); color: var(--zwart); transform: translateY(-3px); }
+.socials svg { width: 18px; height: 18px; fill: currentColor; }
+.site-footer .socials { justify-content: center; margin-bottom: 28px; }
+.contact { list-style: none; padding: 0; margin: 0 auto; max-width: var(--max); display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; font-size: var(--fs-klein); }
+.contact li { display: flex; align-items: center; gap: 10px; background: var(--wit); padding: 8px 16px 8px 8px; border-radius: 999px; }
+.contact svg { width: 26px; height: 26px; padding: 5px; border-radius: 50%; background: var(--groen); fill: var(--wit); flex: none; }
 .contact a { color: var(--zwart); text-decoration: none; font-weight: 700; }
 .contact a:hover { text-decoration: underline; }
-
-/* Onderbalk */
-.footer-onder { position: relative; background: var(--groen-donker); color: #fff; padding: 16px 70px; }
+.footer-onder { position: relative; background: var(--groen-donker); color: var(--wit); padding: 16px 70px; }
 .klein { font-size: var(--fs-mini); margin: 0; }
-.klein a { color: #fff; }
-.naar-boven { position: absolute; right: 16px; top: -24px; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: var(--zwart); color: #fff; box-shadow: 0 6px 16px rgba(0,0,0,.25); transition: transform .2s, background .2s; }
-.naar-boven:hover { background: #fff; color: var(--zwart); transform: translateY(-5px); }
-.naar-boven svg { width: 22px; height: 22px; fill: currentColor; }
+.klein a { color: var(--wit); }
+.naar-boven { position: absolute; right: 16px; top: -22px; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--zwart); color: var(--wit); box-shadow: 0 6px 16px rgba(0, 0, 0, .25); transition: transform .2s, background .2s; }
+.naar-boven:hover { background: var(--wit); color: var(--zwart); transform: translateY(-4px); }
+.naar-boven svg { width: 20px; height: 20px; fill: currentColor; }
 
-@media (max-width: 640px) {
-  .contact { flex-direction: column; align-items: center; }
-  .footer-onder { padding: 18px 16px 18px; }
-  .naar-boven { right: 12px; }
+/* ---------- Tablet ---------- */
+@media (max-width: 1020px) {
+  .kop { gap: 16px; }
+  .brand img { width: 170px; }
+  .nav a { padding: 10px 9px; letter-spacing: .08em; }
+}
+
+/* ---------- Gsm en kleine tablet ---------- */
+@media (max-width: 860px) {
+  .menu-knop { display: grid; }
+  .kop { justify-content: space-between; }
+  .nav { display: none; position: absolute; left: 0; right: 0; top: 100%; background: var(--wit); border-bottom: 1px solid var(--lijn); box-shadow: var(--schaduw-hoog); padding: 10px 20px 18px; }
+  .site-header.open .nav { display: block; }
+  .nav ul { flex-direction: column; gap: 2px; }
+  .nav a { padding: 12px 14px; font-size: var(--fs-tekst); }
+  .nav .sub, .heeft-sub:hover .sub { display: flex; position: static; box-shadow: none; margin: 0; padding: 0 0 6px 16px; min-width: 0; }
+  .nav .sub a { font-size: var(--fs-klein); color: var(--grijs); padding: 8px 14px; }
+  .heeft-sub > a::after { display: none; }
+  .duo, .grid-3, .lu { grid-template-columns: 1fr; }
+  .duo.omgekeerd > :first-child { order: 0; }
+  .artiest { grid-template-columns: 1fr; gap: 18px; }
+  .feiten { grid-template-columns: 1fr; }
+  .icoon-kaarten { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .icoon-kaart { padding: 20px 14px; }
+  .icoon-kaart:last-child:nth-child(odd) { grid-column: span 2; }
+  .logies { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 520px) {
+  :root { --kop: 64px; }
+  .brand img { width: 156px; }
+  .kop .btn-tickets { height: 38px; padding: 0 16px; }
+  .oproep-in { flex-direction: column; align-items: flex-start; }
+  .oproep { background-position: 70% 55%; }
+  .oproep::before { background: rgba(20, 30, 10, .45); }
+  .faq-kaart { padding: 4px 18px; }
+  .faq summary { font-size: var(--fs-tekst); }
+  .dagtabs a { padding: 9px 14px; }
+  .carousel-reeks { gap: 32px; padding-right: 32px; }
+  .carousel-reeks img { height: 50px; max-width: 110px; }
+  .footer-onder { padding: 16px 70px 16px 20px; text-align: left; }
+  .polaroid, .polaroid.rechts { margin: 0 10px 10px 0; }
+  .polaroid::before, .polaroid.rechts::before { inset: 10px -10px -10px 10px; }
 }
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   .vlaggetjes i { animation: none; }
-  .site-footer *, .contact li { transition: none; }
-}
-
-/* Tickets (Ecwid) */
-.winkel { min-height: 420px; }
-/* Whiskytasting verborgen (categorie 142997555) */
-.winkel .grid-category--id-142997555 { display: none !important; }
-
-/* Mobiel */
-@media (max-width: 860px) {
-  .grid-3, .grid-2 { grid-template-columns: 1fr; }
-  .omgekeerd > :first-child { order: 2; }
-  .kaart img { aspect-ratio: 4 / 3; }
-}
-@media (max-width: 640px) {
-  .site-header .top { padding: 14px 16px 12px; }
-  .topbalk-info { font-size: var(--fs-mini); }
-  .menu-knop { display: inline-flex; align-items: center; gap: 10px; background: none; border: 0; padding: 0; font-family: "Jost", sans-serif; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; font-size: var(--fs-klein); cursor: pointer; color: var(--zwart); }
-  .hamburger, .hamburger::before, .hamburger::after { display: block; width: 20px; height: 2px; background: currentColor; position: relative; }
-  .hamburger::before, .hamburger::after { content: ""; position: absolute; left: 0; }
-  .hamburger::before { top: -6px; } .hamburger::after { top: 6px; }
-  .nav-in { flex-wrap: wrap; min-height: 56px; }
-  .nav-in > ul { display: none; order: 3; width: 100%; flex-direction: column; margin: 0 0 10px; border-top: 1px solid var(--lijn); }
-  .nav.open .nav-in > ul { display: flex; }
-  .nav a:not(.btn) { padding: 12px 4px; }
-  .nav .sub, .nav .heeft-sub:hover .sub { position: static; display: flex; box-shadow: none; border-top: 0; padding: 0 0 6px 14px; min-width: 0; }
-  .nav .sub a:not(.btn) { padding: 7px 4px; font-size: var(--fs-klein); color: var(--grijs); }
-  .nav .heeft-sub > a::after { display: none; }
-  .hero { min-height: 240px; }
-  .zonnebloem { height: 180px; }
-  .logos { grid-template-columns: repeat(3, 1fr); gap: 14px 18px; }
-  .carousel-reeks { gap: 32px; padding-right: 32px; }
-  .carousel-reeks img { height: 60px; max-width: 110px; }
-  .carousel-band { animation-duration: 35s; }
-  .logos img { max-width: 100px; }
-  .oproep-in { flex-direction: column; align-items: flex-start; }
-  .oproep { padding: 56px 0; background-position: 70% 55%; }
-  .oproep::before { background: rgba(20,30,10,.45); }
-  .topbalk-info { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .lineup { grid-template-columns: 1fr 1fr; gap: 10px; }
-  .lineup-naam { font-size: var(--fs-klein); bottom: 26px; left: 10px; right: 10px; }
-  .lineup-dag { font-size: var(--fs-mini); left: 10px; }
-  .hero h1 { font-size: var(--fs-hero); }
-  .hero-knoppen .btn { padding: 0 16px; }
-  .sectie { padding: 40px 0; }
+  .carousel { overflow-x: auto; }
+  .carousel-band { animation: none; }
 }

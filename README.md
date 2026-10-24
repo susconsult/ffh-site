@@ -17,16 +17,16 @@ Vervangt de oude WordPress/Elementor-site. Gewone statische HTML, geen framework
 | `/whiskytasting` | Korte link naar de verborgen Whiskytasting in de winkel |
 | `/404.html` | Eigen foutpagina |
 
-## Opbouw en stijl (afgekeken van grote festivals)
+## Opbouw en stijl (redesign, tak `redesign`)
 
-- **Header:** donkergroene topbalk (datum · plaats · socials), groene band met logo, wit menu dat blijft plakken.
-- **Menu (zoals de oude site):** Home · Festival (Vr/Za/Zo, alleen festivalmodus) · Concerten · Over ons · Praktisch · Medewerkers, en rechts altijd de groene knop **Tickets**.
-- **Elke pagina:** groene titelband → inhoud → zwarte oproep-band (festivalmodus: Tickets + Line-up; anders: volg ons) → sponsors → footer. Overslaan met `cta: geen` bovenaan een pagina.
-- **Knoppen:** `btn btn-groen` = hoofdactie (tickets, witte tekst), `btn btn-zwart` = gewone actie, `btn btn-licht` = op donker/foto.
-- **Kleurenschema "Folk"** (kleuren van het logo-mannetje), alles als variabele bovenaan `style.css` — geen losse kleuren gebruiken:
-  groen `#80C04E` (textuur, Tickets) · donkergroen `#3E7A24` (balken, kopjes) · blauw `#2B4C7E` (Grote tent, links) · rood-oranje `#CA5430` (Bal tent, uren) · zwart `#1A1A1A` (tekst) · wit.
-- **Letterschaal:** 7 vaste maten als variabele (`--fs-hero`, `--fs-h1`, `--fs-h2`, `--fs-h3`, `--fs-groot`, `--fs-tekst`, `--fs-klein`, `--fs-mini`). Nieuwe stijlen gebruiken altijd een van die maten.
-- **Vlaggetjes** zijn de rode draad: dezelfde slinger bovenaan elke pagina (titelband of hero) en bovenaan de footer, in de schemakleuren (donkergroen · blauw · rood-oranje · wit).
+- **Kop:** één witte balk die blijft plakken: logo links, menu (Home · Festival · Concerten · Over ons · Praktisch · Medewerkers), groene **Tickets**-knop rechts. Op gsm een menuknop.
+- **Elke pagina:** groene titelband (witte titel) → inhoud → zonnebloem-band met oproep → footer.
+- **Footer:** vlaggetjes (enkel hier), partners in een witte kaart, logo, "Tot in Genebos!", socials, contact, donkergroene onderbalk.
+- **Eén kaartstijl:** wit, afgerond (14px), zachte schaduw; op witte secties een dun randje i.p.v. schaduw.
+- **Foto's:** afgerond met een groen textuurvlak erachter (`polaroid`).
+- **Knoppen:** pilvorm. `btn-groen` = tickets/hoofdactie (witte tekst), `btn-zwart` = gewone actie, `btn-licht` = op foto.
+- **Kleurenschema "Folk"** (variabelen bovenaan `style.css`, geen losse kleuren): groen `#80C04E` · donkergroen `#3E7A24` · blauw `#2B4C7E` (Grote tent, links) · rood-oranje `#CA5430` (Bal tent, uren) · zwart `#1A1A1A` · wit.
+- **Letterschaal:** 7 maten (`--fs-hero` … `--fs-mini`). Altijd een van die maten gebruiken.
 
 ## Festivalmodus (de schakelaar)
 
