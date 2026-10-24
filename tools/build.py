@@ -45,16 +45,17 @@ SOCIALS = f"""<div class="socials">
         <a href="https://bit.ly/3628Mtj" aria-label="YouTube">{ICON['youtube']}</a>
       </div>"""
 
+# Menu zoals bij grote festivals: kort, gewone woorden. Logo = home. Tickets is een aparte knop.
 MENU = [
-    ("home", "Home", "/"),
-    ("programma", "Festival", f"/{DAGEN[0]}/"),   # alleen in festivalmodus, met de dagen als submenu
-    ("concerten", "Concerten", "/tickets/#!/Concerten/c/126605256"),
+    ("programma", "Line-up", f"/{DAGEN[0]}/"),   # alleen in festivalmodus, met de dagen als submenu
+    ("praktisch", "Info", "/praktisch/"),
     ("over-ons", "Over ons", "/over-ons/"),
-    ("praktisch", "Praktisch", "/praktisch/"),
-    ("medewerkers", "Medewerkers", "/medewerkers/"),
+    ("medewerkers", "Meewerken", "/medewerkers/"),
 ]
 if not FESTIVAL:
     MENU = [m for m in MENU if m[0] != "programma"]
+
+PLAATS = "Genebos, Ham"
 
 SPONSORS = [
     ("dpf-1", "De Pretfabriek", "https://depretfabriek.be?utm_source=FFH"),
@@ -82,25 +83,31 @@ def header(nav, dag=""):
         else:
             regels.append(f'        <li><a href="{href}"{actief if key == nav else ""}>{label}</a></li>')
     items = "\n".join(regels)
+    tickets_actief = actief if nav == "tickets" else ""
     return f"""<a class="skip" href="#inhoud">Ga naar de inhoud</a>
 <header class="site-header">
+  <div class="topbalk">
+    <div class="wrap topbalk-in">
+      <span class="topbalk-info"><strong>{DATUM_FESTIVAL}</strong> · {PLAATS}</span>
+      {SOCIALS}
+    </div>
+  </div>
   <div class="textuur">
     <div class="wrap top">
-      <a class="brand" href="/">
+      <a class="brand" href="/" aria-label="Folkfestival Ham — naar de homepagina">
         <img src="/assets/img/logo.webp" width="800" height="211" alt="Folkfestival Ham">
-        <span class="datum">{DATUM_FESTIVAL}</span>
       </a>
-      <div class="top-rechts">
-      {SOCIALS}
-        <a class="btn btn-oranje" href="/tickets/">Tickets</a>
-      </div>
     </div>
   </div>
   <nav class="nav" aria-label="Hoofdmenu">
-    <button class="menu-knop" type="button" aria-expanded="false">Menu</button>
-    <ul>
+    <div class="wrap nav-in">
+      <button class="menu-knop" type="button" aria-expanded="false" aria-controls="hoofdmenu"><span class="hamburger" aria-hidden="true"></span>Menu</button>
+      <ul id="hoofdmenu">
+        <li><a href="/"{actief if nav == "home" else ""}>Home</a></li>
 {items}
-    </ul>
+      </ul>
+      <a class="btn btn-tickets" href="/tickets/"{tickets_actief}>Tickets</a>
+    </div>
   </nav>
 </header>"""
 
@@ -160,6 +167,23 @@ def footer():
 </script>"""
 
 
+def oproep():
+    """Vaste band onderaan elke pagina (boven de sponsors)."""
+    if FESTIVAL:
+        return f"""<section class="oproep" aria-label="Tickets">
+  <div class="wrap oproep-in">
+    <div><strong>Folkfestival Ham</strong><span>{e(DATUM_FESTIVAL)} · {PLAATS}</span></div>
+    <div class="knoppen"><a class="btn btn-groen" href="/tickets/">Tickets</a><a class="btn btn-licht" href="/{DAGEN[0]}/">Line-up</a></div>
+  </div>
+</section>"""
+    return f"""<section class="oproep" aria-label="Volg ons">
+  <div class="wrap oproep-in">
+    <div><strong>Tot volgend jaar!</strong><span>Volg ons en hoor als eerste de nieuwe line-up.</span></div>
+    <div class="knoppen"><a class="btn btn-licht" href="https://www.facebook.com/FolkfestivalHam/">{ICON["facebook"]}Facebook</a><a class="btn btn-licht" href="https://www.instagram.com/FolkfestivalHam/">{ICON["instagram"]}Instagram</a></div>
+  </div>
+</section>"""
+
+
 def page(meta, body):
     title = meta["title"]
     full_title = "Folkfestival Ham" if title == "Folkfestival Ham" else f"{title} – Folkfestival Ham"
@@ -188,6 +212,7 @@ def page(meta, body):
 {header(meta.get('nav', ''), meta.get('dag', ''))}
 <main id="inhoud">
 {body.strip()}
+{"" if meta.get("cta") == "geen" else oproep()}
 </main>
 {footer()}
 </body>
@@ -299,12 +324,6 @@ def dagpagina(dag):
     {dag_tabs(dag)}
     {"".join(blokken)}
   </div>
-</section>
-<section class="band textuur" aria-label="Tickets">
-  <div class="wrap">
-    <strong>{e(info["titel"])} {e(info.get("datum",""))} — wees erbij!</strong>
-    <a class="btn btn-oranje" href="{TICKETS_FESTIVAL}">Koop je tickets</a>
-  </div>
 </section>"""
     meta = {"title": f'Programma {info["titel"].lower()}',
             "description": f'Het programma van Folkfestival Ham op {info["titel"].lower()} {info.get("datum","")}: ' + ", ".join(a["naam"] for a in PROGRAMMA["artiesten"].get(dag, [])) + ".",
@@ -326,7 +345,7 @@ def programma_html():
     for d in DAGEN:
         info = PROGRAMMA["dagen"][d]
         rijen = "".join(
-            f'<li><span class="tijd">{e(a.get("tijd",""))}</span> <a href="/{d}/#{artiest_id(a)}">{e(a["naam"])}</a> {a.get("vlag","")}{" <span class=\"bal\">Bal</span>" if a.get("bal") else ""}</li>'
+            f'<li><span class="tijd">{e(a.get("tijd",""))}</span><span><a href="/{d}/#{artiest_id(a)}">{e(a["naam"])}</a> {a.get("vlag","")}</span>{" <span class=\"tent tent-bal\">Bal tent</span>" if a.get("bal") else " <span class=\"tent\">Grote tent</span>"}</li>'
             for a in PROGRAMMA["artiesten"].get(d, []))
         kolommen.append(f'<div class="dag-kolom"><h3><a href="/{d}/">{e(info["titel"])} {e(info.get("datum",""))}</a></h3><ul>{rijen}</ul></div>')
     return '<div class="programma">' + "".join(kolommen) + "</div>"

@@ -21,32 +21,35 @@
 <body>
 <a class="skip" href="#inhoud">Ga naar de inhoud</a>
 <header class="site-header">
-  <div class="textuur">
-    <div class="wrap top">
-      <a class="brand" href="/">
-        <img src="/assets/img/logo.webp" width="800" height="211" alt="Folkfestival Ham">
-        <span class="datum">14 - 15 - 16 augustus 2026</span>
-      </a>
-      <div class="top-rechts">
+  <div class="topbalk">
+    <div class="wrap topbalk-in">
+      <span class="topbalk-info"><strong>14 - 15 - 16 augustus 2026</strong> · Genebos, Ham</span>
       <div class="socials">
         <a href="https://www.facebook.com/FolkfestivalHam/" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.8c0-.9.3-1.5 1.6-1.5h1.7V4.4c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1v2.4H7.7V14h2.7v8h3.1z"/></svg></a>
         <a href="https://www.instagram.com/FolkfestivalHam/" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7.3A4.7 4.7 0 1 0 12 16.7 4.7 4.7 0 0 0 12 7.3zm0 7.7a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm6-7.9a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0zM21.9 8.2c-.1-1.5-.4-2.8-1.5-3.9S17.9 2.9 16.4 2.8C14.9 2.7 9.1 2.7 7.6 2.8c-1.5.1-2.8.4-3.9 1.5S2.3 6.7 2.2 8.2c-.1 1.5-.1 6.1 0 7.6.1 1.5.4 2.8 1.5 3.9s2.4 1.4 3.9 1.5c1.5.1 7.3.1 8.8 0 1.5-.1 2.8-.4 3.9-1.5s1.4-2.4 1.5-3.9c.1-1.5.1-6.1 0-7.6zm-2 9.5c-.3.8-.9 1.4-1.7 1.7-1.2.5-3.9.4-5.2.4s-4 .1-5.2-.4a3 3 0 0 1-1.7-1.7c-.5-1.2-.4-3.9-.4-5.2s-.1-4 .4-5.2c.3-.8.9-1.4 1.7-1.7 1.2-.5 3.9-.4 5.2-.4s4-.1 5.2.4c.8.3 1.4.9 1.7 1.7.5 1.2.4 3.9.4 5.2s.1 4-.4 5.2z"/></svg></a>
         <a href="https://bit.ly/3628Mtj" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2C.5 9.1.5 12 .5 12s0 2.9.5 4.8a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-4.8.5-4.8s0-2.9-.5-4.8zM9.7 15.5v-7l6.1 3.5-6.1 3.5z"/></svg></a>
       </div>
-        <a class="btn btn-oranje" href="/tickets/">Tickets</a>
-      </div>
+    </div>
+  </div>
+  <div class="textuur">
+    <div class="wrap top">
+      <a class="brand" href="/" aria-label="Folkfestival Ham — naar de homepagina">
+        <img src="/assets/img/logo.webp" width="800" height="211" alt="Folkfestival Ham">
+      </a>
     </div>
   </div>
   <nav class="nav" aria-label="Hoofdmenu">
-    <button class="menu-knop" type="button" aria-expanded="false">Menu</button>
-    <ul>
+    <div class="wrap nav-in">
+      <button class="menu-knop" type="button" aria-expanded="false" aria-controls="hoofdmenu"><span class="hamburger" aria-hidden="true"></span>Menu</button>
+      <ul id="hoofdmenu">
         <li><a href="/">Home</a></li>
-        <li class="heeft-sub"><a href="/vrijdag/" aria-current="page">Festival</a><ul class="sub"><li><a href="/vrijdag/" aria-current="page">Vrijdag</a></li><li><a href="/zaterdag/">Zaterdag</a></li><li><a href="/zondag/">Zondag</a></li></ul></li>
-        <li><a href="/tickets/#!/Concerten/c/126605256">Concerten</a></li>
+        <li class="heeft-sub"><a href="/vrijdag/" aria-current="page">Line-up</a><ul class="sub"><li><a href="/vrijdag/" aria-current="page">Vrijdag</a></li><li><a href="/zaterdag/">Zaterdag</a></li><li><a href="/zondag/">Zondag</a></li></ul></li>
+        <li><a href="/praktisch/">Info</a></li>
         <li><a href="/over-ons/">Over ons</a></li>
-        <li><a href="/praktisch/">Praktisch</a></li>
-        <li><a href="/medewerkers/">Medewerkers</a></li>
-    </ul>
+        <li><a href="/medewerkers/">Meewerken</a></li>
+      </ul>
+      <a class="btn btn-tickets" href="/tickets/">Tickets</a>
+    </div>
   </nav>
 </header>
 <main id="inhoud">
@@ -77,10 +80,10 @@
 </article>
   </div>
 </section>
-<section class="band textuur" aria-label="Tickets">
-  <div class="wrap">
-    <strong>Vrijdag 14 augustus — wees erbij!</strong>
-    <a class="btn btn-oranje" href="/tickets/#!/Festival/c/126605753">Koop je tickets</a>
+<section class="oproep" aria-label="Tickets">
+  <div class="wrap oproep-in">
+    <div><strong>Folkfestival Ham</strong><span>14 - 15 - 16 augustus 2026 · Genebos, Ham</span></div>
+    <div class="knoppen"><a class="btn btn-groen" href="/tickets/">Tickets</a><a class="btn btn-licht" href="/vrijdag/">Line-up</a></div>
   </div>
 </section>
 </main>

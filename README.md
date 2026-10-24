@@ -17,7 +17,13 @@ Vervangt de oude WordPress/Elementor-site. Gewone statische HTML, geen framework
 | `/whiskytasting` | Korte link naar de verborgen Whiskytasting in de winkel |
 | `/404.html` | Eigen foutpagina |
 
-Menu-item "Concerten" gaat naar de categorie Concerten in de winkel.
+## Opbouw en stijl (afgekeken van grote festivals)
+
+- **Header:** zwarte topbalk (datum · plaats · socials), groene band met logo, wit menu dat blijft plakken.
+- **Menu:** Home · Line-up (Vr/Za/Zo, alleen festivalmodus) · Info · Over ons · Meewerken, en rechts altijd de groene knop **Tickets**.
+- **Elke pagina:** groene titelband → inhoud → zwarte oproep-band (festivalmodus: Tickets + Line-up; anders: volg ons) → sponsors → footer. Overslaan met `cta: geen` bovenaan een pagina.
+- **Knoppen:** `btn btn-groen` = hoofdactie (tickets), `btn btn-zwart` = gewone actie, `btn btn-licht` = op donker/foto. Oranje alleen als accent (uren, label Bal tent). Geen oranje knoppen meer.
+- Pagina "Praktisch" heet in het menu **Info**, "Medewerkers" heet **Meewerken** (adressen blijven /praktisch/ en /medewerkers/).
 
 ## Festivalmodus (de schakelaar)
 
