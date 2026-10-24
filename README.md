@@ -20,10 +20,9 @@ Vervangt de oude WordPress/Elementor-site. Gewone statische HTML, geen framework
 ## Opbouw en stijl (afgekeken van grote festivals)
 
 - **Header:** zwarte topbalk (datum · plaats · socials), groene band met logo, wit menu dat blijft plakken.
-- **Menu:** Home · Line-up (Vr/Za/Zo, alleen festivalmodus) · Info · Over ons · Meewerken, en rechts altijd de groene knop **Tickets**.
+- **Menu (zoals de oude site):** Home · Festival (Vr/Za/Zo, alleen festivalmodus) · Concerten · Over ons · Praktisch · Medewerkers, en rechts altijd de groene knop **Tickets**.
 - **Elke pagina:** groene titelband → inhoud → zwarte oproep-band (festivalmodus: Tickets + Line-up; anders: volg ons) → sponsors → footer. Overslaan met `cta: geen` bovenaan een pagina.
 - **Knoppen:** `btn btn-groen` = hoofdactie (tickets), `btn btn-zwart` = gewone actie, `btn btn-licht` = op donker/foto. Oranje alleen als accent (uren, label Bal tent). Geen oranje knoppen meer.
-- Pagina "Praktisch" heet in het menu **Info**, "Medewerkers" heet **Meewerken** (adressen blijven /praktisch/ en /medewerkers/).
 
 ## Festivalmodus (de schakelaar)
 
@@ -33,7 +32,7 @@ In `data/instellingen.json`:
 { "festivalmodus": true, "datum_festival": "14 - 15 - 16 augustus 2026" }
 ```
 
-- **Aan** (`true`): homepage met de line-up per dag — line-up en blokkenschema in één (`pages/home-festival.html`), menu-item "Line-up", en de dagpagina's `/vrijdag/`, `/zaterdag/`, `/zondag/`.
+- **Aan** (`true`): homepage met de line-up per dag — line-up en blokkenschema in één (`pages/home-festival.html`), menu-item "Festival", en de dagpagina's `/vrijdag/`, `/zaterdag/`, `/zondag/`.
 - **Uit** (`false`): homepage "Bedankt! Tot volgend jaar" (`pages/home.html`), geen dagpagina's; `/vrijdag/` enz. sturen naar de homepage.
 - Daarna `python3 tools/build.py`, committen en pushen. Of vraag Claude: "zet festivalmodus aan/uit".
 

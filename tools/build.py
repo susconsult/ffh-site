@@ -45,12 +45,13 @@ SOCIALS = f"""<div class="socials">
         <a href="https://bit.ly/3628Mtj" aria-label="YouTube">{ICON['youtube']}</a>
       </div>"""
 
-# Menu zoals bij grote festivals: kort, gewone woorden. Logo = home. Tickets is een aparte knop.
+# Menu zoals op de oude site (Home staat apart in header()). Tickets is een aparte knop rechts.
 MENU = [
-    ("programma", "Line-up", f"/{DAGEN[0]}/"),   # alleen in festivalmodus, met de dagen als submenu
-    ("praktisch", "Info", "/praktisch/"),
+    ("programma", "Festival", f"/{DAGEN[0]}/"),   # alleen in festivalmodus, met de dagen als submenu
+    ("concerten", "Concerten", "/tickets/#!/Concerten/c/126605256"),
     ("over-ons", "Over ons", "/over-ons/"),
-    ("medewerkers", "Meewerken", "/medewerkers/"),
+    ("praktisch", "Praktisch", "/praktisch/"),
+    ("medewerkers", "Medewerkers", "/medewerkers/"),
 ]
 if not FESTIVAL:
     MENU = [m for m in MENU if m[0] != "programma"]
