@@ -30,7 +30,8 @@ Menu-item "Concerten" gaat naar de categorie Concerten in de winkel.
 - **Whiskytasting staat niet in het categorie-overzicht** (CSS-regel in `style.css`, categorie 142997555), maar is wel bereikbaar via de directe link `folkfestivalham.be/whiskytasting` (doorverwijzing in `_redirects`). Weer tonen in het overzicht: de CSS-regel weghalen.
 - **Oude winkel-adressen** (`/tickets/Concerten-c126605256` enz.) worden doorverwezen via `public/_redirects`.
 - **Lettertypes** (Jost, Roboto) staan lokaal in `public/assets/fonts/` — geen Google Fonts.
-- **Geen** meetcodes, Google Tag Manager, Facebook-pixel of ingesloten Google Maps → geen eigen cookiebanner nodig. Komt er meting bij, dan wel.
+- **Google Maps** is ingesloten op `/praktisch/` (gewone embed, geen API-sleutel nodig).
+- **Geen** meetcodes, Google Tag Manager of Facebook-pixel.
 - Geen formulieren, geen database, geen variabelen in Cloudflare.
 
 ## Wat staat waar
