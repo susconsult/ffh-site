@@ -33,7 +33,7 @@ In `data/instellingen.json`:
 { "festivalmodus": true, "datum_festival": "14 - 15 - 16 augustus 2026" }
 ```
 
-- **Aan** (`true`): homepage met line-up en festivalprogramma (`pages/home-festival.html`), menu-item "Programma", en de dagpagina's `/vrijdag/`, `/zaterdag/`, `/zondag/`.
+- **Aan** (`true`): homepage met de line-up per dag — line-up en blokkenschema in één (`pages/home-festival.html`), menu-item "Line-up", en de dagpagina's `/vrijdag/`, `/zaterdag/`, `/zondag/`.
 - **Uit** (`false`): homepage "Bedankt! Tot volgend jaar" (`pages/home.html`), geen dagpagina's; `/vrijdag/` enz. sturen naar de homepage.
 - Daarna `python3 tools/build.py`, committen en pushen. Of vraag Claude: "zet festivalmodus aan/uit".
 

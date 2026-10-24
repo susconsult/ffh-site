@@ -176,6 +176,22 @@ h2[id], section[id], div[id] { scroll-margin-top: 80px; }
 .lineup-naam { bottom: 30px; font-family: "Jost", sans-serif; font-weight: 600; font-size: 1.15rem; text-transform: uppercase; line-height: 1.15; }
 .lineup-dag { bottom: 10px; font-size: .85rem; opacity: .9; }
 
+/* Line-up + blokkenschema in één */
+.lu-sectie { background: #f4f6f1; }
+.lu { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; align-items: start; }
+.lu-dag { background: #fff; border-radius: 4px; padding: 18px; }
+.lu-dag h3 { margin: 0 0 12px; font-size: 1.2rem; }
+.lu-dag h3 a { color: var(--zwart); text-decoration: none; }
+.lu-dag h3 span { color: var(--grijs); font-weight: 400; text-transform: none; font-size: .95rem; }
+.lu-dag ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.lu-kaart { display: grid; grid-template-columns: 72px 1fr; gap: 12px; align-items: center; padding: 6px; border-radius: 4px; text-decoration: none; color: var(--zwart); transition: background .15s; }
+.lu-kaart:hover { background: #f4f6f1; }
+.lu-kaart img, .lu-leeg { width: 72px; height: 72px; object-fit: cover; border-radius: 3px; background: #ddd; display: block; }
+.lu-tekst { display: grid; gap: 3px; min-width: 0; }
+.lu-meta { display: flex; align-items: center; gap: 8px; }
+.lu-naam { font-family: "Jost", sans-serif; font-weight: 600; text-transform: uppercase; font-size: 1rem; line-height: 1.2; }
+.lu-alles { display: inline-block; margin-top: 12px; font-weight: 700; text-decoration: none; }
+
 /* Programma (tijdschema) */
 .programma-sectie { background: #f4f6f1; }
 .programma { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
@@ -232,7 +248,7 @@ h2[id], section[id], div[id] { scroll-margin-top: 80px; }
 .tekstpagina h3 { margin-top: 1.6em; }
 
 @media (max-width: 860px) {
-  .programma { grid-template-columns: 1fr; }
+  .programma, .lu { grid-template-columns: 1fr; }
   .dagtabs a { padding: 8px 12px; font-size: .75rem; letter-spacing: .1em; }
   .artiest { grid-template-columns: 1fr; gap: 16px; }
 }

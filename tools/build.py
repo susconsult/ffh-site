@@ -332,12 +332,22 @@ def dagpagina(dag):
 
 
 def lineup_html():
-    kaarten = []
+    """Line-up en blokkenschema in één: per dag een kolom, artiesten in volgorde van optreden."""
+    kolommen = []
     for d in DAGEN:
+        info = PROGRAMMA["dagen"][d]
+        kaarten = []
         for a in PROGRAMMA["artiesten"].get(d, []):
-            img = f'<img src="{e(a["foto"])}" alt="" loading="lazy" width="960" height="540">' if a.get("foto") else ""
-            kaarten.append(f'<a class="lineup-kaart" href="/{d}/#{artiest_id(a)}">{img}<span class="lineup-naam">{e(a["naam"])} {a.get("vlag","")}</span><span class="lineup-dag">{e(PROGRAMMA["dagen"][d]["titel"])} {e(a.get("tijd",""))}</span></a>')
-    return '<div class="lineup">' + "".join(kaarten) + "</div>"
+            img = f'<img src="{e(a["foto"])}" alt="" loading="lazy" width="720" height="720">' if a.get("foto") else '<span class="lu-leeg"></span>'
+            tent = '<span class="tent tent-bal">Bal tent</span>' if a.get("bal") else '<span class="tent">Grote tent</span>'
+            kaarten.append(
+                f'<li><a class="lu-kaart" href="/{d}/#{artiest_id(a)}">{img}'
+                f'<span class="lu-tekst"><span class="lu-meta"><span class="tijd">{e(a.get("tijd",""))}</span>{tent}</span>'
+                f'<span class="lu-naam">{e(a["naam"])} <span class="vlag">{a.get("vlag","")}</span></span></span></a></li>')
+        kolommen.append(
+            f'<div class="lu-dag"><h3><a href="/{d}/">{e(info["titel"])} <span>{e(info.get("datum",""))}</span></a></h3>'
+            f'<ul>{"".join(kaarten)}</ul><a class="lu-alles" href="/{d}/">Alles over {e(info["titel"].lower())} →</a></div>')
+    return '<div class="lu">' + "".join(kolommen) + "</div>"
 
 
 def programma_html():
