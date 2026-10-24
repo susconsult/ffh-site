@@ -1,0 +1,141 @@
+/* Folkfestival Ham — huisstijl overgenomen van de vorige site */
+@font-face { font-family: "Jost"; src: url("/assets/fonts/jost.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Roboto"; src: url("/assets/fonts/roboto-400.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Roboto"; src: url("/assets/fonts/roboto-700.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+
+:root {
+  --groen: #80C04E;
+  --groen-licht: #99CE61;
+  --oranje: #CA5430;
+  --zwart: #111;
+  --tekst: #3d3d3d;
+  --grijs: #7A7A7A;
+  --wit: #fff;
+  --max: 1140px;
+  --textuur: url("/assets/img/achtergrond.webp");
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: "Roboto", system-ui, sans-serif; font-size: 16px; line-height: 1.6; color: var(--tekst); background: var(--wit); }
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--oranje); }
+h1, h2, h3, h4 { font-family: "Jost", sans-serif; color: var(--zwart); line-height: 1.15; margin: 0 0 .6em; }
+h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 600; text-transform: uppercase; }
+h3 { font-size: 1.25rem; font-weight: 500; text-transform: uppercase; }
+p { margin: 0 0 1em; }
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 16px; }
+.skip { position: absolute; left: -9999px; }
+.skip:focus { left: 16px; top: 16px; background: #fff; padding: 8px 12px; z-index: 10; }
+
+/* Groene textuur */
+.textuur { background: var(--groen) var(--textuur) repeat; background-size: 400px auto; }
+
+/* Header */
+.site-header .top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 16px 14px; }
+.brand { display: block; text-decoration: none; }
+.brand img { width: 330px; max-width: 62vw; }
+.brand .datum { display: block; font-family: "Jost", sans-serif; font-weight: 600; font-size: clamp(.95rem, 2.2vw, 1.35rem); color: var(--zwart); margin: 4px 0 0 22px; letter-spacing: .02em; }
+.top-rechts { display: flex; flex-direction: column; align-items: flex-end; gap: 14px; }
+.socials { display: flex; gap: 6px; }
+.socials a { display: grid; place-items: center; width: 30px; height: 30px; background: var(--zwart); color: #fff; border-radius: 3px; }
+.socials a:hover { background: var(--oranje); }
+.socials svg { width: 16px; height: 16px; fill: currentColor; }
+
+.btn { display: inline-block; font-family: "Jost", sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; text-decoration: none; padding: 10px 22px; border-radius: 3px; border: 0; cursor: pointer; font-size: 1rem; }
+.btn-oranje { background: var(--oranje); color: #fff; }
+.btn-oranje:hover { background: #a9431f; }
+.btn-groen { background: var(--groen); color: #fff; }
+.btn-groen:hover { background: #6aa83c; }
+
+/* Menu */
+.nav { background: #fff; border-top: 1px solid #e8e8e8; border-bottom: 1px solid #e8e8e8; }
+.nav ul { list-style: none; margin: 0; padding: 0; display: flex; justify-content: center; flex-wrap: wrap; }
+.nav a { display: block; padding: 12px 18px; font-family: "Jost", sans-serif; font-weight: 600; font-size: .95rem; letter-spacing: .18em; text-transform: uppercase; text-decoration: none; color: var(--zwart); }
+.nav a:hover, .nav a[aria-current="page"] { color: var(--groen); }
+.menu-knop { display: none; }
+
+/* Paginatitel */
+.paginatitel { padding: 34px 16px; text-align: center; }
+.paginatitel h1 { margin: 0; font-weight: 400; text-transform: uppercase; font-size: clamp(1.8rem, 4vw, 2.6rem); color: var(--zwart); }
+
+/* Secties */
+.sectie { padding: 56px 0; }
+.sectie-titel { text-align: center; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: center; }
+.kaart img { aspect-ratio: 1 / 1; object-fit: cover; width: 100%; margin-bottom: 14px; }
+.foto { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+
+/* Hero */
+.hero { position: relative; isolation: isolate; display: grid; place-items: center; min-height: 360px; background: #222 url("/assets/img/hero-bedankt.webp") center / cover no-repeat; text-align: center; }
+.hero::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.28); z-index: -1; }
+.hero h1 { font-size: clamp(3rem, 10vw, 7rem); color: #fff; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; margin: 0; text-shadow: 0 3px 18px rgba(0,0,0,.6); }
+.hero p { color: #fff; font-family: "Jost", sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: .12em; font-size: clamp(1rem, 2.4vw, 1.5rem); text-shadow: 0 2px 10px rgba(0,0,0,.7); margin: 0; }
+
+/* Nieuwsbrief-band */
+.band { padding: 26px 16px; }
+.band .wrap { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; text-align: center; }
+.band strong { font-family: "Jost", sans-serif; text-transform: uppercase; color: var(--zwart); font-size: 1.05rem; }
+
+/* Zonnebloem */
+.zonnebloem { height: 300px; background: url("/assets/img/zonnebloem.webp") center 55% / cover no-repeat; }
+
+/* Lijsten met vinkje */
+.vinkjes { list-style: none; padding: 0; margin: 0 0 1em; }
+.vinkjes li { position: relative; padding-left: 26px; margin-bottom: 6px; }
+.vinkjes li::before { content: ""; position: absolute; left: 0; top: .45em; width: 14px; height: 8px; border-left: 3px solid var(--groen); border-bottom: 3px solid var(--groen); transform: rotate(-45deg); }
+
+/* Logo-rijen (sponsors, logies) */
+.logos { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 18px 24px; align-items: center; }
+.logos img { width: 100%; max-width: 170px; margin: 0 auto; }
+.logos a { display: block; transition: opacity .2s; }
+.logos a:hover { opacity: .75; }
+.sponsors { padding: 34px 0; background: #fff; }
+
+/* FAQ */
+.faq details { border-bottom: 1px solid #e3e3e3; }
+.faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 16px; padding: 16px 0; font-family: "Jost", sans-serif; font-weight: 600; text-transform: uppercase; font-size: 1.15rem; color: var(--zwart); }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; color: var(--groen); font-size: 1.5rem; line-height: 1; }
+.faq details[open] summary::after { content: "–"; }
+.faq .antwoord { padding: 0 0 16px; }
+
+/* Kaartje locatie */
+.kaartlink { display: block; background: #f3f6ef; border: 1px solid #dfe7d6; border-radius: 4px; padding: 22px; text-decoration: none; color: var(--tekst); }
+.kaartlink strong { display: block; font-family: "Jost", sans-serif; font-size: 1.2rem; color: var(--zwart); margin-bottom: 4px; }
+
+/* Footer */
+.site-footer { padding: 40px 16px 18px; text-align: center; color: var(--zwart); }
+.site-footer .logo { width: 260px; margin: 0 auto 16px; }
+.site-footer .socials { justify-content: center; margin-bottom: 22px; }
+.contact { list-style: none; padding: 0; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 34px; font-size: .95rem; }
+.contact li { display: flex; align-items: center; gap: 8px; }
+.contact svg { width: 15px; height: 15px; fill: var(--zwart); flex: none; }
+.contact a { color: var(--zwart); text-decoration: none; }
+.contact a:hover { text-decoration: underline; }
+.klein { font-size: .8rem; margin-top: 22px; opacity: .8; }
+
+/* Tickets (Ecwid) */
+.winkel { min-height: 420px; }
+
+/* Mobiel */
+@media (max-width: 860px) {
+  .grid-3, .grid-2 { grid-template-columns: 1fr; }
+  .omgekeerd > :first-child { order: 2; }
+  .kaart img { aspect-ratio: 4 / 3; }
+}
+@media (max-width: 640px) {
+  .site-header .top { padding: 14px 16px 10px; }
+  .brand .datum { margin-left: 14px; }
+  .top-rechts { gap: 10px; }
+  .menu-knop { display: block; width: 100%; background: #fff; border: 0; padding: 12px; font-family: "Jost", sans-serif; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; font-size: .95rem; cursor: pointer; }
+  .nav ul { display: none; flex-direction: column; align-items: center; padding-bottom: 8px; }
+  .nav.open ul { display: flex; }
+  .hero { min-height: 240px; }
+  .zonnebloem { height: 180px; }
+  .logos { grid-template-columns: repeat(3, 1fr); gap: 14px 18px; }
+  .logos img { max-width: 100px; }
+  .site-header .btn { padding: 8px 14px; font-size: .9rem; }
+  .sectie { padding: 40px 0; }
+}
