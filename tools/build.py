@@ -218,13 +218,31 @@ def artiest_id(a):
     return re.sub(r"[^a-z0-9]+", "-", t).strip("-")
 
 
+TICKETS_FESTIVAL = "/tickets/#!/Festival/c/126605753"
+
+ICON["klok"] = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm.5-13H11v6l5.2 3.1.8-1.2-4.5-2.7z"/></svg>'
+ICON["bal"] = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm0-12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/></svg>'
+ICON["web"] = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.9 6h-2.9a15.7 15.7 0 0 0-1.4-3.6A8 8 0 0 1 18.9 8zM12 4c.8 1.2 1.5 2.5 1.9 4h-3.8c.4-1.5 1.1-2.8 1.9-4zM4.3 14a8.2 8.2 0 0 1 0-4h3.4a16.5 16.5 0 0 0 0 4zm.8 2h2.9c.3 1.3.8 2.5 1.4 3.6A8 8 0 0 1 5.1 16zM8 8H5.1a8 8 0 0 1 4.3-3.6C8.8 5.5 8.4 6.7 8 8zm4 12c-.8-1.2-1.5-2.5-1.9-4h3.8c-.4 1.5-1.1 2.8-1.9 4zm2.3-6H9.7a14.7 14.7 0 0 1 0-4h4.6a14.7 14.7 0 0 1 0 4zm.3 5.6c.6-1.1 1.1-2.3 1.4-3.6h2.9a8 8 0 0 1-4.3 3.6zm1.7-5.6a16.5 16.5 0 0 0 0-4h3.4a8.2 8.2 0 0 1 0 4z"/></svg>'
+
+
+def social_icoon(url):
+    u = (url or "").lower()
+    if "facebook.com" in u:
+        return ICON["facebook"], "Facebook"
+    if "instagram.com" in u:
+        return ICON["instagram"], "Instagram"
+    if "youtube.com" in u or "youtu.be" in u:
+        return ICON["youtube"], "YouTube"
+    return ICON["web"], "Website"
+
+
 def media(a):
-    """Foto of video van een artiest. Video laadt pas na een klik."""
+    """Vierkant beeld zoals op de oude site. Video laadt pas na een klik."""
     if a.get("youtube"):
         return (f'<button class="video" type="button" data-yt="{e(a["youtube"])}" aria-label="Speel video van {e(a["naam"])}">'
-                f'<img src="{e(a["foto"])}" alt="" loading="lazy" width="960" height="540"><span class="play" aria-hidden="true"></span></button>')
+                f'<img src="{e(a["foto"])}" alt="" loading="lazy" width="720" height="720"><span class="play" aria-hidden="true"></span></button>')
     if a.get("foto"):
-        return f'<img class="artiest-foto" src="{e(a["foto"])}" alt="{e(a["naam"])}" loading="lazy" width="960" height="540">'
+        return f'<img class="artiest-foto" src="{e(a["foto"])}" alt="{e(a["naam"])}" loading="lazy" width="720" height="720">'
     return ""
 
 
@@ -240,26 +258,37 @@ def dagpagina(dag):
     blokken = []
     for a in PROGRAMMA["artiesten"].get(dag, []):
         tekst = "".join(f"<p>{e(t)}</p>" for t in a.get("tekst", []))
-        tags = f'<span class="tijd">{e(a["tijd"])}</span>' if a.get("tijd") else ""
+        info_regels = ""
         if a.get("bal"):
-            tags += '<span class="bal">Bal</span>'
-        site = f'<p><a href="{e(a["website"])}" target="_blank" rel="noopener">Meer over {e(a["naam"])} →</a></p>' if a.get("website") else ""
+            info_regels += f'<li>{ICON["bal"]}Bal</li>'
+        if a.get("tijd"):
+            info_regels += f'<li>{ICON["klok"]}{e(a["tijd"])}</li>'
+        social = ""
+        if a.get("website"):
+            ico, lbl = social_icoon(a["website"])
+            social = f'<a class="artiest-social" href="{e(a["website"])}" target="_blank" rel="noopener" aria-label="{lbl} van {e(a["naam"])}" title="{lbl}">{ico}</a>'
         blokken.append(f"""<article class="artiest" id="{artiest_id(a)}">
   <div class="artiest-media">{media(a)}</div>
   <div class="artiest-tekst">
-    <div class="tags">{tags}</div>
     <h2>{e(a["naam"])} <span class="vlag">{a.get("vlag","")}</span></h2>
     {tekst}
-    {site}
+    <div class="artiest-voet">
+      <ul class="artiest-info">{info_regels}</ul>
+      <div class="artiest-acties">{social}<a class="btn btn-oranje" href="{TICKETS_FESTIVAL}">Tickets</a></div>
+    </div>
   </div>
 </article>""")
-    body = f"""<section class="paginatitel textuur"><h1>Programma</h1></section>
+    body = f"""<section class="paginatitel textuur"><h1>Festival programma</h1></section>
 <section class="sectie">
   <div class="wrap">
     {dag_tabs(dag)}
-    <h2 class="sectie-titel dagtitel">{e(info["titel"])} {e(info.get("datum",""))}</h2>
     {"".join(blokken)}
-    <p style="text-align:center;margin-top:30px"><a class="btn btn-oranje" href="/tickets/">Tickets</a></p>
+  </div>
+</section>
+<section class="band textuur" aria-label="Tickets">
+  <div class="wrap">
+    <strong>{e(info["titel"])} {e(info.get("datum",""))} — wees erbij!</strong>
+    <a class="btn btn-oranje" href="{TICKETS_FESTIVAL}">Koop je tickets</a>
   </div>
 </section>"""
     meta = {"title": f'Programma {info["titel"].lower()}',

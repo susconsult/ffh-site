@@ -155,18 +155,24 @@ p { margin: 0 0 1em; }
 .tijd { display: inline-block; min-width: 48px; font-family: "Jost", sans-serif; font-weight: 600; color: var(--oranje); }
 .bal { display: inline-block; background: var(--groen); color: #fff; font-family: "Jost", sans-serif; font-weight: 600; font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; padding: 2px 8px; border-radius: 3px; vertical-align: middle; }
 
-/* Dagpagina's */
-.dagtabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 30px; flex-wrap: wrap; }
-.dagtabs a { font-family: "Jost", sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; text-decoration: none; padding: 10px 22px; border-radius: 3px; background: #f0f0f0; color: var(--zwart); }
-.dagtabs a[aria-current="page"] { background: var(--groen); color: #fff; }
-.dagtitel { margin-bottom: 30px; }
-.artiest { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start; padding: 30px 0; border-top: 1px solid #eee; scroll-margin-top: 20px; }
-.artiest:nth-of-type(even) .artiest-media { order: 2; }
-.artiest h2 { text-transform: uppercase; margin-bottom: .4em; }
-.artiest .tags { display: flex; gap: 10px; align-items: center; margin-bottom: 8px; }
-.artiest .tags .tijd { font-size: 1.3rem; }
-.vlag { font-family: system-ui, "Apple Color Emoji", "Segoe UI Emoji", sans-serif; }
-.artiest-foto { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 4px; }
+/* Dagpagina's — zoals de oude site: vierkant beeld links, tekst rechts */
+.dagtabs { display: flex; justify-content: center; margin: 4px 0 40px; }
+.dagtabs a { font-family: "Jost", sans-serif; font-weight: 600; font-size: .9rem; text-transform: uppercase; letter-spacing: .14em; text-decoration: none; padding: 9px 20px; border: 1px solid var(--zwart); margin-left: -1px; background: #fff; color: var(--zwart); }
+.dagtabs a[aria-current="page"] { background: var(--groen); border-color: var(--groen); color: #fff; position: relative; }
+.artiest { display: grid; grid-template-columns: 300px 1fr; gap: 30px; align-items: start; padding: 0 0 44px; scroll-margin-top: 20px; }
+.artiest h2 { font-weight: 600; text-transform: uppercase; font-size: clamp(1.4rem, 2.6vw, 1.9rem); margin-bottom: .5em; }
+.artiest-tekst p { font-size: .95rem; margin-bottom: .7em; }
+.artiest-media .video, .artiest-foto { aspect-ratio: 1 / 1; border-radius: 0; }
+.artiest-foto { width: 100%; object-fit: cover; }
+.vlag { font-family: system-ui, "Apple Color Emoji", "Segoe UI Emoji", sans-serif; font-size: .85em; }
+.artiest-voet { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-top: 18px; flex-wrap: wrap; }
+.artiest-info { list-style: none; margin: 0; padding: 0; font-size: .95rem; }
+.artiest-info li { display: flex; align-items: center; gap: 7px; }
+.artiest-info svg { width: 14px; height: 14px; fill: var(--zwart); }
+.artiest-acties { display: flex; align-items: center; gap: 12px; }
+.artiest-social { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 3px; background: #eee; color: var(--grijs); }
+.artiest-social:hover { background: var(--zwart); color: #fff; }
+.artiest-social svg { width: 15px; height: 15px; fill: currentColor; }
 
 /* Video: thumbnail tot je klikt */
 .video { position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; padding: 0; border: 0; border-radius: 4px; overflow: hidden; background: #000; cursor: pointer; }
@@ -183,9 +189,8 @@ p { margin: 0 0 1em; }
 
 @media (max-width: 860px) {
   .programma { grid-template-columns: 1fr; }
-  .dagtabs a { padding: 9px 13px; font-size: .85rem; letter-spacing: .06em; }
+  .dagtabs a { padding: 8px 12px; font-size: .75rem; letter-spacing: .1em; }
   .artiest { grid-template-columns: 1fr; gap: 16px; }
-  .artiest:nth-of-type(even) .artiest-media { order: 0; }
 }
 
 /* Footer */
