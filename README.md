@@ -27,6 +27,7 @@ Menu-item "Concerten" gaat naar de categorie Concerten in de winkel.
 ## Onderdelen
 
 - **Tickets: Ecwid** (winkel-ID `68281592`). Producten, prijzen en bestellingen beheer je in het Ecwid-dashboard, niet hier. Ecwid toont zelf een cookiemelding.
+- **Whiskytasting staat niet in het categorie-overzicht** (CSS-regel in `style.css`, categorie 142997555), maar is wel bereikbaar via de directe link `folkfestivalham.be/whiskytasting` (doorverwijzing in `_redirects`). Weer tonen in het overzicht: de CSS-regel weghalen.
 - **Oude winkel-adressen** (`/tickets/Concerten-c126605256` enz.) worden doorverwezen via `public/_redirects`.
 - **Lettertypes** (Jost, Roboto) staan lokaal in `public/assets/fonts/` — geen Google Fonts.
 - **Geen** meetcodes, Google Tag Manager, Facebook-pixel of ingesloten Google Maps → geen eigen cookiebanner nodig. Komt er meting bij, dan wel.

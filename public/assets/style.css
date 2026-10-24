@@ -118,6 +118,8 @@ p { margin: 0 0 1em; }
 
 /* Tickets (Ecwid) */
 .winkel { min-height: 420px; }
+/* Whiskytasting verborgen (categorie 142997555) */
+.winkel .grid-category--id-142997555 { display: none !important; }
 
 /* Mobiel */
 @media (max-width: 860px) {
