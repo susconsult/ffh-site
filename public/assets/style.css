@@ -153,7 +153,7 @@ p { margin: 0 0 1em; }
 .dag-kolom li a { color: var(--zwart); font-weight: 700; text-decoration: none; }
 .dag-kolom li a:hover { color: var(--oranje); }
 .tijd { display: inline-block; min-width: 48px; font-family: "Jost", sans-serif; font-weight: 600; color: var(--oranje); }
-.bal { display: inline-block; background: var(--groen); color: #fff; font-family: "Jost", sans-serif; font-weight: 600; font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; padding: 2px 8px; border-radius: 3px; vertical-align: middle; }
+.bal { display: inline-block; background: var(--oranje); color: #fff; font-family: "Jost", sans-serif; font-weight: 600; font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; padding: 2px 8px; border-radius: 3px; vertical-align: middle; }
 
 /* Dagpagina's — zoals de oude site: vierkant beeld links, tekst rechts */
 .dagtabs { display: flex; justify-content: center; margin: 4px 0 40px; }
@@ -169,10 +169,18 @@ p { margin: 0 0 1em; }
 .artiest-info { list-style: none; margin: 0; padding: 0; font-size: .95rem; }
 .artiest-info li { display: flex; align-items: center; gap: 7px; }
 .artiest-info svg { width: 14px; height: 14px; fill: var(--zwart); }
-.artiest-acties { display: flex; align-items: center; gap: 12px; }
-.artiest-social { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 3px; background: #eee; color: var(--grijs); }
-.artiest-social:hover { background: var(--zwart); color: #fff; }
-.artiest-social svg { width: 15px; height: 15px; fill: currentColor; }
+.artiest-info li + li { margin-top: 6px; }
+.tent { display: inline-block; font-family: "Jost", sans-serif; font-weight: 600; font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; padding: 3px 10px; border-radius: 3px; background: var(--zwart); color: #fff; }
+.tent-bal { background: var(--oranje); }
+.artiest-acties { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+/* Social en Tickets: zelfde formaat */
+.pil { display: inline-flex; align-items: center; gap: 7px; height: 34px; padding: 0 14px; border-radius: 3px; font-size: .88rem; text-decoration: none; font-weight: 700; white-space: nowrap; max-width: 100%; }
+.pil svg { width: 15px; height: 15px; fill: currentColor; flex: none; }
+.pil span { overflow: hidden; text-overflow: ellipsis; }
+.pil-social { background: #f0f0f0; color: var(--zwart); }
+.pil-social:hover { background: var(--zwart); color: #fff; }
+.pil-tickets { background: var(--groen); color: #fff; }
+.pil-tickets:hover { background: #6aa83c; }
 
 /* Video: thumbnail tot je klikt */
 .video { position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; padding: 0; border: 0; border-radius: 4px; overflow: hidden; background: #000; cursor: pointer; }

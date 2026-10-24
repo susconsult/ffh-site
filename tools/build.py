@@ -236,6 +236,22 @@ def social_icoon(url):
     return ICON["web"], "Website"
 
 
+ICON["ticket"] = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 10V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v4a2 2 0 0 1 0 4v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 1 0-4zm-7 7.5h-2v-2h2zm0-4.5h-2v-2h2zm0-4.5h-2v-2h2z"/></svg>'
+
+
+def handle(url):
+    """Korte naam voor een social link: @pagina of domeinnaam."""
+    from urllib.parse import urlparse, unquote
+    u = urlparse(url or "")
+    host = u.netloc.lower().removeprefix("www.")
+    delen = [unquote(x) for x in u.path.split("/") if x]
+    if host in ("facebook.com", "instagram.com", "m.facebook.com"):
+        if delen and delen[0] == "people" and len(delen) > 1:
+            return delen[1].replace("-", " ")
+        return "@" + delen[0] if delen else host
+    return host
+
+
 def media(a):
     """Vierkant beeld zoals op de oude site. Video laadt pas na een klik."""
     if a.get("youtube"):
@@ -258,15 +274,14 @@ def dagpagina(dag):
     blokken = []
     for a in PROGRAMMA["artiesten"].get(dag, []):
         tekst = "".join(f"<p>{e(t)}</p>" for t in a.get("tekst", []))
-        info_regels = ""
-        if a.get("bal"):
-            info_regels += f'<li>{ICON["bal"]}Bal</li>'
+        tent = "Bal tent" if a.get("bal") else "Grote tent"
+        info_regels = f'<li><span class="tent{" tent-bal" if a.get("bal") else ""}">{tent}</span></li>'
         if a.get("tijd"):
             info_regels += f'<li>{ICON["klok"]}{e(a["tijd"])}</li>'
         social = ""
         if a.get("website"):
             ico, lbl = social_icoon(a["website"])
-            social = f'<a class="artiest-social" href="{e(a["website"])}" target="_blank" rel="noopener" aria-label="{lbl} van {e(a["naam"])}" title="{lbl}">{ico}</a>'
+            social = f'<a class="pil pil-social" href="{e(a["website"])}" target="_blank" rel="noopener" aria-label="{lbl} van {e(a["naam"])}">{ico}<span>{e(handle(a["website"]))}</span></a>'
         blokken.append(f"""<article class="artiest" id="{artiest_id(a)}">
   <div class="artiest-media">{media(a)}</div>
   <div class="artiest-tekst">
@@ -274,7 +289,7 @@ def dagpagina(dag):
     {tekst}
     <div class="artiest-voet">
       <ul class="artiest-info">{info_regels}</ul>
-      <div class="artiest-acties">{social}<a class="btn btn-oranje" href="{TICKETS_FESTIVAL}">Tickets</a></div>
+      <div class="artiest-acties">{social}<a class="pil pil-tickets" href="{TICKETS_FESTIVAL}">{ICON["ticket"]}<span>Tickets</span></a></div>
     </div>
   </div>
 </article>""")
