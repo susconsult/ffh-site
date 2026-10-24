@@ -99,8 +99,8 @@ p { margin: 0 0 1em; }
 .hero p { color: #fff; font-family: "Jost", sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: .12em; font-size: clamp(1rem, 2.4vw, 1.5rem); text-shadow: 0 2px 10px rgba(0,0,0,.7); margin: 0; }
 
 /* Vaste oproep-band onderaan elke pagina */
-.oproep { position: relative; isolation: isolate; background: #222 url("/assets/img/hero-bedankt.webp") center / cover no-repeat; color: #fff; padding: 46px 0; }
-.oproep::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(0,0,0,.62), rgba(0,0,0,.25)); }
+.oproep { position: relative; isolation: isolate; background: #3b4a1e url("/assets/img/zonnebloem.webp") center 55% / cover no-repeat; color: #fff; padding: 110px 0; }
+.oproep::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(20,30,10,.55), rgba(20,30,10,.15) 60%, rgba(0,0,0,0)); }
 .oproep-in { display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
 .oproep strong { text-shadow: 0 2px 10px rgba(0,0,0,.5); display: block; font-family: "Jost", sans-serif; font-size: clamp(1.3rem, 2.6vw, 1.7rem); text-transform: uppercase; letter-spacing: .04em; }
 .oproep span { opacity: .95; text-shadow: 0 1px 6px rgba(0,0,0,.6); }
@@ -306,6 +306,8 @@ h2[id], section[id], div[id] { scroll-margin-top: 80px; }
   .carousel-band { animation-duration: 35s; }
   .logos img { max-width: 100px; }
   .oproep-in { flex-direction: column; align-items: flex-start; }
+  .oproep { padding: 56px 0; background-position: 70% 55%; }
+  .oproep::before { background: rgba(20,30,10,.45); }
   .topbalk-info { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .lineup { grid-template-columns: 1fr 1fr; gap: 10px; }
   .lineup-naam { font-size: .9rem; bottom: 26px; left: 10px; right: 10px; }
