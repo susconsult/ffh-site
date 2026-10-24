@@ -31,7 +31,7 @@ In `data/instellingen.json`:
 - **Uit** (`false`): homepage "Bedankt! Tot volgend jaar" (`pages/home.html`), geen dagpagina's; `/vrijdag/` enz. sturen naar de homepage.
 - Daarna `python3 tools/build.py`, committen en pushen. Of vraag Claude: "zet festivalmodus aan/uit".
 
-**Programma** staat in `data/programma.json`: per dag de artiesten met naam, vlag, tijd, `bal` (true = dansoptreden), website, YouTube-code, foto en tekst. Foto's in `public/assets/img/artiesten/` (16:9). Video's laden pas na een klik (youtube-nocookie), dus geen cookiebanner nodig.
+**Programma** staat in `data/programma.json`: per dag de artiesten met naam, vlag, tijd, `bal` (true = label "Bal tent", false = "Grote tent"), website, YouTube-code, foto en tekst. Foto's in `public/assets/img/artiesten/` (16:9). Video's laden pas na een klik (youtube-nocookie), dus geen cookiebanner nodig.
 
 ## Hoe aanpassen
 
