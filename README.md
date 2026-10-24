@@ -26,7 +26,7 @@ Vervangt de oude WordPress/Elementor-site. Gewone statische HTML, geen framework
 - **Kleurenschema "Folk"** (kleuren van het logo-mannetje), alles als variabele bovenaan `style.css` — geen losse kleuren gebruiken:
   groen `#80C04E` (textuur, Tickets) · donkergroen `#3E7A24` (balken, kopjes) · blauw `#2B4C7E` (Grote tent, links) · rood-oranje `#CA5430` (Bal tent, uren) · zwart `#1A1A1A` (tekst) · wit.
 - **Letterschaal:** 7 vaste maten als variabele (`--fs-hero`, `--fs-h1`, `--fs-h2`, `--fs-h3`, `--fs-groot`, `--fs-tekst`, `--fs-klein`, `--fs-mini`). Nieuwe stijlen gebruiken altijd een van die maten.
-- **Vlaggetjes** zijn de rode draad: dezelfde slinger bovenaan elke pagina (titelband of hero) en bovenaan de footer, in de schemakleuren (donkergroen · blauw · rood-oranje · wit).
+- **Vlaggetjes** enkel bovenaan de footer, in de schemakleuren (donkergroen · blauw · rood-oranje · wit).
 
 ## Festivalmodus (de schakelaar)
 

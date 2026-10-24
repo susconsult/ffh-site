@@ -457,11 +457,6 @@ def main():
     for meta, body in pages:
         import re as _re
         body = _re.sub(r"\{\{ICOON:(\w+)\}\}", lambda m: icoon(m.group(1)), body)
-        # Vlaggetjes als rode draad: dezelfde slinger bovenaan elke pagina als in de footer
-        for start in ('<section class="paginatitel textuur">', '<section class="hero hero-festival">', '<section class="hero">'):
-            if start in body:
-                body = body.replace(start, start + vlaggetjes(), 1)
-                break
         body = body.replace("{{LINEUP}}", lineup_html()).replace("{{PROGRAMMA}}", programma_html()).replace("{{DATUM}}", e(DATUM_FESTIVAL))
         p = meta["path"]
         out = PUBLIC / "404.html" if p == "/404" else PUBLIC / p.strip("/") / "index.html"
