@@ -19,10 +19,14 @@ Vervangt de oude WordPress/Elementor-site. Gewone statische HTML, geen framework
 
 ## Opbouw en stijl (afgekeken van grote festivals)
 
-- **Header:** zwarte topbalk (datum · plaats · socials), groene band met logo, wit menu dat blijft plakken.
+- **Header:** donkergroene topbalk (datum · plaats · socials), groene band met logo, wit menu dat blijft plakken.
 - **Menu (zoals de oude site):** Home · Festival (Vr/Za/Zo, alleen festivalmodus) · Concerten · Over ons · Praktisch · Medewerkers, en rechts altijd de groene knop **Tickets**.
 - **Elke pagina:** groene titelband → inhoud → zwarte oproep-band (festivalmodus: Tickets + Line-up; anders: volg ons) → sponsors → footer. Overslaan met `cta: geen` bovenaan een pagina.
-- **Knoppen:** `btn btn-groen` = hoofdactie (tickets), `btn btn-zwart` = gewone actie, `btn btn-licht` = op donker/foto. Tent-labels: Grote tent donkerblauw, Bal tent paars (bewust geen rood/groen). Geen oranje knoppen meer.
+- **Knoppen:** `btn btn-groen` = hoofdactie (tickets, witte tekst), `btn btn-zwart` = gewone actie, `btn btn-licht` = op donker/foto.
+- **Kleurenschema "Folk"** (kleuren van het logo-mannetje), alles als variabele bovenaan `style.css` — geen losse kleuren gebruiken:
+  groen `#80C04E` (textuur, Tickets) · donkergroen `#3E7A24` (balken, kopjes) · blauw `#2B4C7E` (Grote tent, links) · rood-oranje `#CA5430` (Bal tent, uren) · zwart `#1A1A1A` (tekst) · wit.
+- **Letterschaal:** 7 vaste maten als variabele (`--fs-hero`, `--fs-h1`, `--fs-h2`, `--fs-h3`, `--fs-groot`, `--fs-tekst`, `--fs-klein`, `--fs-mini`). Nieuwe stijlen gebruiken altijd een van die maten.
+- **Vlaggetjes** zijn de rode draad: dezelfde slinger bovenaan elke pagina (titelband of hero) en bovenaan de footer, in de schemakleuren (donkergroen · blauw · rood-oranje · wit).
 
 ## Festivalmodus (de schakelaar)
 

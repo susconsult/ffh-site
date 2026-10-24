@@ -115,7 +115,7 @@ def header(nav, dag=""):
 
 # Vlaggetjeslijn bovenaan de footer. De lijn hangt door in bogen van 6 vlaggetjes (240px);
 # elk vlaggetje krijgt de hoogte van de lijn op zijn plek en wiegt zachtjes.
-VLAG_KLEUREN = ["#fff", "var(--tent-groot)", "var(--oranje)", "var(--zwart)", "var(--tent-bal)", "var(--groen-donker)"]
+VLAG_KLEUREN = ["var(--groen-donker)", "var(--blauw)", "var(--oranje)", "var(--wit)"]  # kleurenschema Folk (donkergroen: zichtbaar op de groene textuur)
 
 
 def vlaggetjes(aantal=66):
@@ -457,6 +457,11 @@ def main():
     for meta, body in pages:
         import re as _re
         body = _re.sub(r"\{\{ICOON:(\w+)\}\}", lambda m: icoon(m.group(1)), body)
+        # Vlaggetjes als rode draad: dezelfde slinger bovenaan elke pagina als in de footer
+        for start in ('<section class="paginatitel textuur">', '<section class="hero hero-festival">', '<section class="hero">'):
+            if start in body:
+                body = body.replace(start, start + vlaggetjes(), 1)
+                break
         body = body.replace("{{LINEUP}}", lineup_html()).replace("{{PROGRAMMA}}", programma_html()).replace("{{DATUM}}", e(DATUM_FESTIVAL))
         p = meta["path"]
         out = PUBLIC / "404.html" if p == "/404" else PUBLIC / p.strip("/") / "index.html"
