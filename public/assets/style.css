@@ -91,7 +91,21 @@ p { margin: 0 0 1em; }
 .logos img { width: 100%; max-width: 170px; margin: 0 auto; }
 .logos a { display: block; transition: opacity .2s; }
 .logos a:hover { opacity: .75; }
-.sponsors { padding: 34px 0; background: #fff; }
+.sponsors { padding: 30px 0; background: #fff; }
+
+/* Sponsor-carousel: schuift doorlopend, pauzeert bij hover */
+.carousel { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.carousel-band { display: flex; width: max-content; animation: sponsors-schuif 45s linear infinite; }
+.carousel:hover .carousel-band, .carousel:focus-within .carousel-band { animation-play-state: paused; }
+.carousel-reeks { display: flex; align-items: center; gap: 48px; padding-right: 48px; }
+.carousel-reeks img { height: 80px; width: auto; max-width: 150px; object-fit: contain; }
+.carousel-reeks a { display: block; transition: opacity .2s; }
+.carousel-reeks a:hover { opacity: .75; }
+@keyframes sponsors-schuif { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .carousel { overflow-x: auto; }
+  .carousel-band { animation: none; }
+}
 
 /* FAQ */
 .faq details { border-bottom: 1px solid #e3e3e3; }
@@ -137,6 +151,9 @@ p { margin: 0 0 1em; }
   .hero { min-height: 240px; }
   .zonnebloem { height: 180px; }
   .logos { grid-template-columns: repeat(3, 1fr); gap: 14px 18px; }
+  .carousel-reeks { gap: 32px; padding-right: 32px; }
+  .carousel-reeks img { height: 60px; max-width: 110px; }
+  .carousel-band { animation-duration: 35s; }
   .logos img { max-width: 100px; }
   .site-header .btn { padding: 8px 14px; font-size: .9rem; }
   .sectie { padding: 40px 0; }

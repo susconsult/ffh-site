@@ -92,9 +92,19 @@ def footer():
         for f, alt, url in SPONSORS
     )
     jaar = datetime.date.today().year
+    # Carousel: de logo's staan twee keer na elkaar zodat de band naadloos doorloopt.
+    # De tweede reeks is verborgen voor schermlezers en niet aanklikbaar met tab.
+    kopie = logos.replace('<a href=', '<a tabindex="-1" href=')
     return f"""<section class="sponsors" aria-label="Partners en sponsors">
-  <div class="wrap logos">
+  <div class="carousel">
+    <div class="carousel-band">
+      <div class="carousel-reeks">
 {logos}
+      </div>
+      <div class="carousel-reeks" aria-hidden="true">
+{kopie}
+      </div>
+    </div>
   </div>
 </section>
 <footer class="site-footer textuur">
