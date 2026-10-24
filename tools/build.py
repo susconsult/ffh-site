@@ -415,7 +415,9 @@ def main():
     (PUBLIC / "sitemap.xml").write_text(
         f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{sm}\n</urlset>\n',
         encoding="utf-8")
-    (PUBLIC / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n", encoding="utf-8")
+    # Festivalmodus uit: dagpagina's ook voor zoekmachines afsluiten
+    verbod = "" if FESTIVAL else "".join(f"Disallow: /{d}/\nDisallow: /{d}\n" for d in DAGEN)
+    (PUBLIC / "robots.txt").write_text(f"User-agent: *\n{verbod}Allow: /\n\nSitemap: {SITE}/sitemap.xml\n", encoding="utf-8")
     print(f"gebouwd: _redirects, sitemap.xml, robots.txt  (festivalmodus: {'AAN' if FESTIVAL else 'uit'})")
 
 

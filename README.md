@@ -33,7 +33,7 @@ In `data/instellingen.json`:
 ```
 
 - **Aan** (`true`): homepage met de line-up per dag — line-up en blokkenschema in één (`pages/home-festival.html`), menu-item "Festival", en de dagpagina's `/vrijdag/`, `/zaterdag/`, `/zondag/`.
-- **Uit** (`false`): homepage "Bedankt! Tot volgend jaar" (`pages/home.html`), geen dagpagina's; `/vrijdag/` enz. sturen naar de homepage.
+- **Uit** (`false`): homepage "Bedankt! Tot volgend jaar" (`pages/home.html`). Dagpagina's bestaan dan niet: `/vrijdag/` enz. sturen naar de homepage, staan niet in de sitemap, er linkt niets naartoe en `robots.txt` verbiedt ze voor zoekmachines.
 - Daarna `python3 tools/build.py`, committen en pushen. Of vraag Claude: "zet festivalmodus aan/uit".
 
 **Programma** staat in `data/programma.json`: per dag de artiesten met naam, vlag, tijd, `bal` (true = label "Bal tent", false = "Grote tent"), website, YouTube-code, foto en tekst. Foto's in `public/assets/img/artiesten/` (16:9). Video's laden pas na een klik (youtube-nocookie), dus geen cookiebanner nodig.
