@@ -349,17 +349,48 @@ h2[id], section[id], div[id] { scroll-margin-top: 80px; }
   .logies { grid-template-columns: 1fr 1fr; }
 }
 
-/* Footer */
-.site-footer { padding: 40px 16px 18px; text-align: center; color: var(--zwart); }
-.site-footer .logo { width: 260px; margin: 0 auto 16px; }
-.site-footer .socials { justify-content: center; margin-bottom: 22px; }
-.contact { list-style: none; padding: 0; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 34px; font-size: .95rem; }
-.contact li { display: flex; align-items: center; gap: 8px; }
-.contact svg { width: 15px; height: 15px; fill: var(--zwart); flex: none; }
-.contact a { color: var(--zwart); text-decoration: none; }
+/* Footer: vlaggetjes, slogan, scheve contactkaartjes, donkere onderbalk */
+.site-footer { position: relative; padding: 0; text-align: center; color: var(--zwart); overflow: hidden; }
+.footer-in { padding: 34px 16px 34px; }
+.site-footer .logo { width: 260px; margin: 0 auto 6px; transition: transform .3s; }
+.site-footer .logo:hover { transform: rotate(-2deg) scale(1.03); }
+.footer-slogan { font-family: "Jost", sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; font-size: clamp(1.6rem, 4.5vw, 2.6rem); color: #fff; text-shadow: 0 2px 0 var(--groen-donker), 0 4px 14px rgba(0,0,0,.25); transform: rotate(-2deg); margin: 0 0 16px; }
+.site-footer .socials { justify-content: center; gap: 10px; margin-bottom: 26px; }
+.site-footer .socials a { width: 42px; height: 42px; border-radius: 50%; transition: transform .2s, background .2s, color .2s; }
+.site-footer .socials a:hover { background: #fff; color: var(--zwart); transform: translateY(-4px) rotate(-8deg); }
+.site-footer .socials svg { width: 19px; height: 19px; }
+
+/* Vlaggetjeslijn */
+.vlaggetjes { display: flex; gap: 4px; height: 58px; padding-left: 2px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='30'%3E%3Cpath d='M0 2 Q120 30 240 2' fill='none' stroke='%23111' stroke-width='1.6'/%3E%3C/svg%3E") left 0 / 240px 30px repeat-x; }
+.vlaggetjes i { flex: none; width: 36px; height: 34px; margin-top: calc(var(--y) + 1px); background: var(--k); clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: 50% 0; animation: vlag-wieg 3.2s ease-in-out var(--d) infinite; }
+@keyframes vlag-wieg { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+
+/* Contact als scheve kaartjes */
+.contact { list-style: none; padding: 0; margin: 0 auto; max-width: 1140px; display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; font-size: .95rem; }
+.contact li { display: flex; align-items: center; gap: 10px; background: #fff; padding: 12px 18px; border-radius: 10px; box-shadow: 0 6px 16px rgba(0,0,0,.12); transform: rotate(-1.5deg); transition: transform .2s, box-shadow .2s; }
+.contact li:nth-child(even) { transform: rotate(1.5deg); }
+.contact li:hover { transform: rotate(0) translateY(-4px); box-shadow: 0 10px 22px rgba(0,0,0,.18); }
+.contact svg { width: 22px; height: 22px; padding: 4px; border-radius: 50%; background: var(--groen); fill: #fff; flex: none; }
+.contact a { color: var(--zwart); text-decoration: none; font-weight: 700; }
 .contact a:hover { text-decoration: underline; }
-.klein { font-size: .8rem; margin-top: 22px; opacity: .85; }
-.klein a { color: var(--zwart); }
+
+/* Onderbalk */
+.footer-onder { position: relative; background: var(--groen-donker); color: #fff; padding: 16px 70px; }
+.klein { font-size: .8rem; margin: 0; }
+.klein a { color: #fff; }
+.naar-boven { position: absolute; right: 16px; top: -24px; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: var(--zwart); color: #fff; box-shadow: 0 6px 16px rgba(0,0,0,.25); transition: transform .2s, background .2s; }
+.naar-boven:hover { background: #fff; color: var(--zwart); transform: translateY(-5px); }
+.naar-boven svg { width: 22px; height: 22px; fill: currentColor; }
+
+@media (max-width: 640px) {
+  .contact { flex-direction: column; align-items: center; }
+  .footer-onder { padding: 18px 16px 18px; }
+  .naar-boven { right: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vlaggetjes i { animation: none; }
+  .site-footer *, .contact li { transition: none; }
+}
 
 /* Tickets (Ecwid) */
 .winkel { min-height: 420px; }

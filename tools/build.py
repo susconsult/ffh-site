@@ -113,6 +113,22 @@ def header(nav, dag=""):
 </header>"""
 
 
+# Vlaggetjeslijn bovenaan de footer. De lijn hangt door in bogen van 6 vlaggetjes (240px);
+# elk vlaggetje krijgt de hoogte van de lijn op zijn plek en wiegt zachtjes.
+VLAG_KLEUREN = ["#fff", "var(--tent-groot)", "var(--oranje)", "var(--zwart)", "var(--tent-bal)", "var(--groen-donker)"]
+
+
+def vlaggetjes(aantal=66):
+    import math
+    vlaggen = []
+    for i in range(aantal):
+        k = i % 6
+        y = round(14 * math.sin(math.pi * (k * 40 + 18) / 240), 1)
+        kleur = VLAG_KLEUREN[(i * 5) % len(VLAG_KLEUREN)]
+        vlaggen.append(f'<i style="--y:{y}px;--k:{kleur};--d:{(i % 7) * -0.37:.2f}s"></i>')
+    return '<div class="vlaggetjes" aria-hidden="true">' + "".join(vlaggen) + "</div>"
+
+
 def footer():
     logos = "\n".join(
         (f'      <a href="{url}" target="_blank" rel="noopener"><img src="/assets/img/sponsors/{f}.webp" alt="{alt}" loading="lazy"></a>'
@@ -136,15 +152,22 @@ def footer():
   </div>
 </section>
 <footer class="site-footer textuur">
-  <img class="logo" src="/assets/img/logo.webp" width="800" height="211" alt="Folkfestival Ham" loading="lazy">
-  {SOCIALS}
-  <ul class="contact">
-    <li>{ICON['huis']}<a href="https://www.celticartgallery.be">The Celtic Art Gallery vzw</a></li>
-    <li>{ICON['pin']}Genebosstraat 4, 3945 Genebos, België</li>
-    <li>{ICON['mail']}<a href="mailto:info@folkfestivalham.be">info@folkfestivalham.be</a></li>
-    <li>{ICON['tel']}<a href="tel:+3213671373">+32 (0)13 67 13 73</a></li>
-  </ul>
-  <p class="klein">© {jaar} The Celtic Art Gallery vzw · BE 0458.144.856 · <a href="/voorwaarden/">Voorwaarden</a> · <a href="/privacy/">Privacy</a></p>
+  {vlaggetjes()}
+  <div class="footer-in">
+    <img class="logo" src="/assets/img/logo.webp" width="800" height="211" alt="Folkfestival Ham" loading="lazy">
+    <p class="footer-slogan">Tot in Genebos!</p>
+    {SOCIALS}
+    <ul class="contact">
+      <li>{ICON['huis']}<a href="https://www.celticartgallery.be">The Celtic Art Gallery vzw</a></li>
+      <li>{ICON['pin']}<a href="https://maps.google.com/?q=Genebosstraat+4,+3945+Ham">Genebosstraat 4, 3945 Genebos</a></li>
+      <li>{ICON['mail']}<a href="mailto:info@folkfestivalham.be">info@folkfestivalham.be</a></li>
+      <li>{ICON['tel']}<a href="tel:+3213671373">+32 (0)13 67 13 73</a></li>
+    </ul>
+  </div>
+  <div class="footer-onder">
+    <p class="klein">© {jaar} The Celtic Art Gallery vzw · BE 0458.144.856 · <a href="/voorwaarden/">Voorwaarden</a> · <a href="/privacy/">Privacy</a></p>
+    <a class="naar-boven" href="#" aria-label="Terug naar boven"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5 4 13l1.4 1.4L11 8.8V20h2V8.8l5.6 5.6L20 13z"/></svg></a>
+  </div>
 </footer>
 <script>
   (function () {{
