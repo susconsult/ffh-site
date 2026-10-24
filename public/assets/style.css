@@ -1,5 +1,6 @@
 /* Folkfestival Ham — huisstijl overgenomen van de vorige site */
 @font-face { font-family: "Jost"; src: url("/assets/fonts/jost.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Permanent Marker"; src: url("/assets/fonts/permanent-marker.woff2") format("woff2"); font-weight: 400; font-display: swap; }
 @font-face { font-family: "Roboto"; src: url("/assets/fonts/roboto-400.woff2") format("woff2"); font-weight: 400; font-display: swap; }
 @font-face { font-family: "Roboto"; src: url("/assets/fonts/roboto-700.woff2") format("woff2"); font-weight: 700; font-display: swap; }
 
@@ -14,6 +15,7 @@
   --grijs: #7A7A7A;
   --wit: #fff;
   --max: 1140px;
+  --marker: "Permanent Marker", "Jost", cursive;
   --textuur: url("/assets/img/achtergrond.webp");
 }
 
@@ -178,21 +180,24 @@ h2[id], section[id], div[id] { scroll-margin-top: 80px; }
 .lineup-naam { bottom: 30px; font-family: "Jost", sans-serif; font-weight: 600; font-size: 1.15rem; text-transform: uppercase; line-height: 1.15; }
 .lineup-dag { bottom: 10px; font-size: .85rem; opacity: .9; }
 
-/* Line-up + blokkenschema in één */
+/* Line-up + blokkenschema in één — in de stijl van de FFH-collage */
 .lu-sectie { background: #f4f6f1; }
-.lu { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; align-items: start; }
-.lu-dag { background: #fff; border-radius: 4px; padding: 18px; }
-.lu-dag h3 { margin: 0 0 12px; font-size: 1.2rem; }
-.lu-dag h3 a { color: var(--zwart); text-decoration: none; }
-.lu-dag h3 span { color: var(--grijs); font-weight: 400; text-transform: none; font-size: .95rem; }
-.lu-dag ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-.lu-kaart { display: grid; grid-template-columns: 72px 1fr; gap: 12px; align-items: center; padding: 6px; border-radius: 4px; text-decoration: none; color: var(--zwart); transition: background .15s; }
+.lu { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: start; }
+.lu-dag { background: #fff; border-radius: 6px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,.06); }
+.lu-dag h3 { margin: 0; padding: 14px 18px 12px; background: var(--groen) var(--textuur) repeat; background-size: 400px auto; text-transform: none; }
+.lu-dag h3 a { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; color: var(--zwart); text-decoration: none; font-family: var(--marker); font-weight: 400; font-size: 1.6rem; line-height: 1.1; }
+.lu-dag h3 span { font-family: "Jost", sans-serif; font-weight: 600; font-size: .85rem; text-transform: uppercase; letter-spacing: .08em; }
+.lu-dag ul { list-style: none; margin: 0; padding: 10px 12px 4px; display: grid; gap: 4px; }
+.lu-kaart { display: grid; grid-template-columns: 70px 1fr; gap: 14px; align-items: center; padding: 8px 6px; border-radius: 6px; text-decoration: none; color: var(--zwart); transition: background .15s; }
 .lu-kaart:hover { background: #f4f6f1; }
-.lu-kaart img, .lu-leeg { width: 72px; height: 72px; object-fit: cover; border-radius: 3px; background: #ddd; display: block; }
-.lu-tekst { display: grid; gap: 3px; min-width: 0; }
+.lu-kaart img, .lu-leeg { width: 66px; height: 66px; object-fit: cover; display: block; background: #ddd; border: 3px solid #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,.25); transform: rotate(-3deg); transition: transform .2s; }
+.lu-dag li:nth-child(even) .lu-kaart img { transform: rotate(2.5deg); }
+.lu-kaart:hover img { transform: rotate(0) scale(1.06); }
+.lu-tekst { display: grid; gap: 2px; min-width: 0; }
 .lu-meta { display: flex; align-items: center; gap: 8px; }
-.lu-naam { font-family: "Jost", sans-serif; font-weight: 600; text-transform: uppercase; font-size: 1rem; line-height: 1.2; }
-.lu-alles { display: inline-block; margin-top: 12px; font-weight: 700; text-decoration: none; }
+.lu-meta .tijd { font-family: var(--marker); font-weight: 400; font-size: 1.15rem; min-width: 0; line-height: 1; }
+.lu-naam { font-family: "Jost", sans-serif; font-weight: 600; text-transform: uppercase; font-size: .98rem; line-height: 1.2; }
+.lu-alles { display: block; margin: 4px 18px 16px; font-weight: 700; text-decoration: none; }
 
 /* Programma (tijdschema) */
 .programma-sectie { background: #f4f6f1; }
@@ -223,7 +228,7 @@ h2[id], section[id], div[id] { scroll-margin-top: 80px; }
 .artiest-info li { display: flex; align-items: center; gap: 7px; }
 .artiest-info svg { width: 14px; height: 14px; fill: var(--zwart); }
 .artiest-info li + li { margin-top: 6px; }
-.tent { display: inline-block; font-family: "Jost", sans-serif; font-weight: 600; font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; padding: 3px 10px; border-radius: 3px; background: var(--zwart); color: #fff; }
+.tent { display: inline-block; font-family: "Jost", sans-serif; font-weight: 600; font-size: .6rem; line-height: 1.5; text-transform: uppercase; letter-spacing: .1em; padding: 1px 7px; border-radius: 20px; background: var(--zwart); color: #fff; }
 .tent { background: var(--tent-groot); }
 .tent-bal { background: var(--tent-bal); }
 
