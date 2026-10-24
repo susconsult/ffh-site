@@ -12,9 +12,26 @@ Vervangt de oude WordPress/Elementor-site. Gewone statische HTML, geen framework
 | `/praktisch/` | Route, camping, overnachten (logies-logo's), FAQ (`/praktisch/#faq`) |
 | `/medewerkers/` | Oproep medewerkers, mail naar medewerkers@folkfestivalham.be |
 | `/tickets/` | Ecwid-winkel (tickets) |
+| `/vrijdag/`, `/zaterdag/`, `/zondag/` | Dagprogramma — alleen in festivalmodus |
+| `/voorwaarden/`, `/privacy/` | Overgenomen van de oude site (nodig voor de ticketverkoop) |
+| `/whiskytasting` | Korte link naar de verborgen Whiskytasting in de winkel |
 | `/404.html` | Eigen foutpagina |
 
 Menu-item "Concerten" gaat naar de categorie Concerten in de winkel.
+
+## Festivalmodus (de schakelaar)
+
+In `data/instellingen.json`:
+
+```json
+{ "festivalmodus": true, "datum_festival": "14 - 15 - 16 augustus 2026" }
+```
+
+- **Aan** (`true`): homepage met line-up en festivalprogramma (`pages/home-festival.html`), menu-item "Programma", en de dagpagina's `/vrijdag/`, `/zaterdag/`, `/zondag/`.
+- **Uit** (`false`): homepage "Bedankt! Tot volgend jaar" (`pages/home.html`), geen dagpagina's; `/vrijdag/` enz. sturen naar de homepage.
+- Daarna `python3 tools/build.py`, committen en pushen. Of vraag Claude: "zet festivalmodus aan/uit".
+
+**Programma** staat in `data/programma.json`: per dag de artiesten met naam, vlag, tijd, `bal` (true = dansoptreden), website, YouTube-code, foto en tekst. Foto's in `public/assets/img/artiesten/` (16:9). Video's laden pas na een klik (youtube-nocookie), dus geen cookiebanner nodig.
 
 ## Hoe aanpassen
 
@@ -28,7 +45,7 @@ Menu-item "Concerten" gaat naar de categorie Concerten in de winkel.
 
 - **Tickets: Ecwid** (winkel-ID `68281592`). Producten, prijzen en bestellingen beheer je in het Ecwid-dashboard, niet hier. Ecwid toont zelf een cookiemelding.
 - **Whiskytasting staat niet in het categorie-overzicht** (CSS-regel in `style.css`, categorie 142997555), maar is wel bereikbaar via de directe link `folkfestivalham.be/whiskytasting` (doorverwijzing in `_redirects`). Weer tonen in het overzicht: de CSS-regel weghalen.
-- **Oude winkel-adressen** (`/tickets/Concerten-c126605256` enz.) worden doorverwezen via `public/_redirects`.
+- **Doorverwijzingen** (oude winkel-adressen, `/whiskytasting`, dagpagina's buiten festivalmodus) worden door `tools/build.py` in `public/_redirects` geschreven — niet met de hand aanpassen.
 - **Lettertypes** (Jost, Roboto) staan lokaal in `public/assets/fonts/` — geen Google Fonts.
 - **Google Maps** is ingesloten op `/praktisch/` (gewone embed, geen API-sleutel nodig).
 - **Geen** meetcodes, Google Tag Manager of Facebook-pixel.
@@ -44,11 +61,14 @@ Menu-item "Concerten" gaat naar de categorie Concerten in de winkel.
 | Domein / DNS | folkfestivalham.be — staat al achter Cloudflare, account nog na te kijken | (nog noteren) |
 | E-mail | info@ en medewerkers@folkfestivalham.be | (nog noteren) |
 
+## Bron oude site
+
+`bron-oude-site/` bevat de gescrapete teksten van de WordPress-site (incl. Media/foto's 2018–2023 en "Hoeveelheden en weetjes"). Niet gepubliceerd; alleen ter referentie.
+
 ## Open punten
 
 - [ ] Domein aan de Worker hangen (en `www` doorverwijzen) — eerst nakijken in welk Cloudflare-account het domein zit en waar de mail loopt.
 - [ ] In Ecwid de winkel-URL op `https://folkfestivalham.be/tickets/` laten staan (links in bevestigingsmails).
 - [ ] Nieuwsbrief: het oude formulier bewaarde inschrijvingen in WordPress. Beslissen: weg laten, of opnieuw (bv. naar een Google Sheet). Nu staat er een "volg ons"-band.
 - [ ] Oude nieuwsbrief-inschrijvingen uit WordPress exporteren vóór WordPress weggaat.
-- [ ] Ondernemingsnummer van de vzw toevoegen in de footer.
 - [ ] Line-up en datum 2027 zodra gekend.

@@ -1,0 +1,209 @@
+{
+  "dagen": {
+    "vrijdag": {
+      "titel": "Vrijdag",
+      "datum": "14 augustus"
+    },
+    "zaterdag": {
+      "titel": "Zaterdag",
+      "datum": "15 augustus"
+    },
+    "zondag": {
+      "titel": "Zondag",
+      "datum": "16 augustus"
+    }
+  },
+  "artiesten": {
+    "vrijdag": [
+      {
+        "naam": "Jan De Smet en de Grote Luxe",
+        "vlag": "🇧🇪",
+        "tijd": "19u30",
+        "bal": false,
+        "website": "https://garifuna.be/nl/jan-de-smet-en-de-grote-luxe",
+        "youtube": "oKyEEJUqaUA",
+        "foto": "/assets/img/artiesten/jan-de-smet-en-de-grote-luxe.webp",
+        "tekst": [
+          "Jan ken je natuurlijk als de creatieve duizendpoot achter De Nieuwe Snaar, maar deze keer komt hij met een luxueuze bezetting die garant staat voor muzikaliteit, humor en een flinke portie charme. Verwacht een mix van folk, chanson en verrassende wendingen – want bij Jan weet je één ding zeker: het wordt nooit saai. En ja, er is grote luxe… maar geen zorgen, je hoeft geen smoking aan. Gewoon komen, genieten en misschien zelfs meezingen (als je durft). Kortom: Jan De Smet & De Grote Luxe zetten de toon voor een weekend vol muziek en plezier."
+        ]
+      },
+      {
+        "naam": "Misztrál",
+        "vlag": "🇭🇺",
+        "tijd": "22u00",
+        "bal": false,
+        "website": "https://www.misztral.hu/",
+        "youtube": "IYFA7FYx6EA",
+        "foto": "/assets/img/artiesten/misztral.webp",
+        "tekst": [
+          "Misztrál charmeert ! Dat weten we als geen ander. Het is de enige band die in het dertigjarige bestaan van Folkfestival Ham voor de derde keer het podium beklimt. Ze brengen dan ook steeds iets bijzonders mee uit Hongarije: liedjes die beginnen als gedichten en landen als pure folk. Sinds 1997 zet de band zowel Hongaarse als internationale poëzie op muziek, van het Karpatenbekken tot Villon, Lorca en Baudelaire, stevig geworteld in traditionele klanken en toch heerlijk eigentijds. Live klinkt dat intiem én meeslepend: warme meerstemmigheid, fluiten en klarinet die twinkelen, een mondharp die prikkelt, plus luit, mandoline, cello, gitaren en percussie die alles laten dansen. Misztrál brengt poëzie met hartslag naar Ham. We zijn klaar voor kippenvelmomenten, keer drie."
+        ]
+      }
+    ],
+    "zaterdag": [
+      {
+        "naam": "Flavio",
+        "vlag": "🇧🇪",
+        "tijd": "13u00",
+        "bal": true,
+        "website": "",
+        "youtube": "",
+        "foto": "/assets/img/artiesten/flavio.webp",
+        "tekst": [
+          "Flavio is al sinds zijn elfde een vertrouwd gezicht op het festival. Wat ooit begon als een jonge bezoeker met een grote liefde voor muziek, groeide uit tot een gepassioneerde accordeonist die nu zelf deel uitmaakt van de festivalsfeer. Met zijn accordeon brengt hij leven in de brouwerij: vrolijke melodieën, opzwepende ritmes en een flinke portie enthousiasme zorgen ervoor dat niemand stil kan blijven staan. Hij verdiept zich al jaren in de muziek die hem zo raakt en dat hoor je terug in zijn spel. Zijn optredens zijn spontaan en ongedwongen, recht uit het hart, en sluiten perfect aan bij de warme, lokale sfeer van het festival. Of je nu even blijft luisteren of helemaal wordt meegezogen in de dans, Flavio zorgt telkens weer voor een muzikaal moment dat verbindt."
+        ]
+      },
+      {
+        "naam": "Sarah McQuaid",
+        "vlag": "🇬🇧",
+        "tijd": "14u30",
+        "bal": false,
+        "website": "https://sarahmcquaid.com/",
+        "youtube": "H-Phr3AwmIE",
+        "foto": "/assets/img/artiesten/sarah-mcquaid.webp",
+        "tekst": [
+          "Als je houdt van warme stemmen, prachtige gitaarlijnen en songs die recht naar je hart gaan, dan mag je Sarah McQuaid absoluut niet missen op Folkfestival Ham 2026. Sarah is een singer-songwriter met een stem die voelt als een knusse open haard op een frisse avond – intiem, eerlijk en altijd met een vleugje magie. Haar muziek beweegt zich moeiteloos tussen folk, jazz en blues, en ze weet elke noot te vullen met emotie en vakmanschap. Verwacht geen schreeuwerige show, maar een optreden dat je stil laat worden… en misschien zelfs kippenvel bezorgt. (Geen zorgen, kippenvel is inbegrepen in de ticketprijs.) Kortom: Sarah McQuaid brengt een moment van pure schoonheid naar het festival. Kom luisteren, adem in, en laat je meenemen door haar verhalen en melodieën."
+        ]
+      },
+      {
+        "naam": "Hamareel",
+        "vlag": "🇧🇪",
+        "tijd": "15u45",
+        "bal": true,
+        "website": "",
+        "youtube": "",
+        "foto": "/assets/img/artiesten/hamareel.webp",
+        "tekst": [
+          "Hamareel brengt muziekgezelligheid voor kriebelende dansbenen en levensgenietende luisteraars. Verwacht een optreden met folktunes van Ierland, Bretagne tot Scandinavië en België. Met een rijke bezetting van onder meer violen, fluit, zang, gitaar en bouzouki creëren ze een warme, volle klank die meteen uitnodigt om in beweging te komen. Hun muziek ademt traditie, maar leeft helemaal in het moment: energiek, speels en tegelijk meeslepend.",
+          "Of je nu komt om te dansen of gewoon om te genieten, Hamareel neemt je mee op een muzikale reis doorheen Europa. Van opzwepende ritmes tot gevoelige melodieën: elk nummer brengt een stukje folkcultuur tot leven. Laat je meeslepen, voel de muziek en ontdek zelf waarom Hamareel garant staat voor pure folkbeleving."
+        ]
+      },
+      {
+        "naam": "Roberta Gulisano",
+        "vlag": "🇮🇹",
+        "tijd": "17u30",
+        "bal": false,
+        "website": "https://www.facebook.com/RobertaLaGuli",
+        "youtube": "OdRu90Vq70Q",
+        "foto": "/assets/img/artiesten/roberta-gulisano.webp",
+        "tekst": [
+          "Roberta Gulisano is zo iemand die een podium opstapt en meteen klinkt alsof ze rechtstreeks uit een Siciliaans bergdorp is gewandeld én uit een futuristische folkstudio tegelijk. Dit krachtige talent met een warme, expressieve stem veroverde al heel Italië én Europa met haar intense, persoonlijke songs en rijke arrangementen. Verwacht een betoverende mix van folk, jazzinvloeden en mediterrane flair, gespeeld met een onweerstaanbare energie. Kortom: deze live‑ervaring wil je écht niet missen."
+        ]
+      },
+      {
+        "naam": "Drøn",
+        "vlag": "🇧🇪",
+        "tijd": "19u15",
+        "bal": true,
+        "website": "https://www.facebook.com/people/Dr%C3%B8n-Folkgroep/61550190965066/",
+        "youtube": "fVJhVX5eAYA",
+        "foto": "/assets/img/artiesten/drn.webp",
+        "tekst": [
+          "Laat je betoveren door de meeslepende klanken van de jonge, bruisende folkband Drøn!",
+          "De muzikale vonk tussen Pepijn De Pauw, Klaas Berghs en Hannelore Valentin sloeg over tijdens de eerste editie van de jongerenstage. Ze werden betoverd door elkaars unieke speelstijl en besloten samen de band Drøn te vormen. Gewapend met diatonisch accordeon, viool, bouzouki, doedelzak en dwarsfluit."
+        ]
+      },
+      {
+        "naam": "Grumpy O Sheep",
+        "vlag": "🇫🇷",
+        "tijd": "20u30",
+        "bal": false,
+        "website": "https://www.grumpyosheep.com/",
+        "youtube": "i3AvfWFFcYM",
+        "foto": "/assets/img/artiesten/grumpy-o-sheep.webp",
+        "tekst": [
+          "Als je het plezier van Ierse muziek, de energie van Spaanse gitaar en de Joie la Vivre van de Fransen in huis wilt halen, met de dynamiek die alleen twee echt getalenteerde jonge muzikanten kunnen brengen, vrijgevochten en ongestoord door regels, dan is East of Talisker het album dat je moet hebben. Grumpy O Sheep is een duo van artiesten, performers, theatermensen en straatmuzikanten in één."
+        ]
+      },
+      {
+        "naam": "Óscar Ibáñez & Tribo",
+        "vlag": "🇪🇸",
+        "tijd": "22u30",
+        "bal": false,
+        "website": "https://www.facebook.com/OscarIbanezOficial/",
+        "youtube": "ppmjBLLSNZw",
+        "foto": "/assets/img/artiesten/oscar-ibanez-tribo.webp",
+        "tekst": [
+          "Zaterdagavond wordt magisch op Folkfestival Ham 2026, want dan staat niemand minder dan Óscar Ibáñez & Tribo op het podium als headliner. Verwacht een vurige mix van Galicische folk, moderne grooves en virtuoze doedelzakklanken die je rechtstreeks naar het hart van Noord-Spanje katapulteren. Óscar Ibáñez is een meester van de gaita (Galicische doedelzak) en samen met zijn band Tribo brengt hij traditie en innovatie in perfecte harmonie. Het resultaat? Muziek die je niet alleen hoort, maar voelt – in je benen, je hart en misschien zelfs in je dansmoves (ja, we dagen je uit!). Kortom: zaterdagavond is het feest. Óscar Ibáñez & Tribo zorgen voor een show die je niet wil missen. Kom luisteren, kom dansen… en als je denkt dat een doedelzak alleen Schots klinkt, dan staat je een verrassing te wachten. Zorg dat je schoenen dansproof zijn!"
+        ]
+      }
+    ],
+    "zondag": [
+      {
+        "naam": "Fyndus",
+        "vlag": "🇧🇪",
+        "tijd": "12u30",
+        "bal": true,
+        "website": "https://www.fyndus.be/",
+        "youtube": "3FzlGSfZ0fo",
+        "foto": "/assets/img/artiesten/fyndus.webp",
+        "tekst": [
+          "Welkom in de wondere wereld van Fyndus, een nieuw muzikaal folkduo met Emma Coopman (zang, Keltische harp & diatonische accordeon) & Thomas Hoste (elektro-akoestische altdraailier & geluidseffecten).",
+          "Emma en Thomas brengen samen dansbare luistermuziek of luisterbare dansmuziek. Met hun instrumenten vertellen ze epische verhalen, doorweven van aardse en hemelse klanken. Oude Ierse teksten komen tot leven, badend in een mystieke sfeer, muziek waarin alle oerelementen vertegenwoordigd zijn."
+        ]
+      },
+      {
+        "naam": "Laura Cortese & Bert Ruymbeek",
+        "vlag": "🇧🇪",
+        "tijd": "14u30",
+        "bal": false,
+        "website": "https://www.cortese-ruymbeek.com/",
+        "youtube": "D8PF_mLiLlY",
+        "foto": "/assets/img/artiesten/laura-cortese-bert-ruymbeek.webp",
+        "tekst": [
+          "Sommige dromen hebben gewoon wat geduld nodig… Al jaren willen we Laura Cortese & Bert Ruymbeek op ons podium, maar in augustus zaten ze steevast in Canada. Dit jaar laten ze dat prachtige land even links liggen voor iets nóg mooiers: het gezellige Ham! (Ja, wij vinden dat ook een upgrade.) Laura Cortese brengt haar frisse, energieke folkstijl mee, vol strijkers en groove, en Bert Ruymbeek voegt daar zijn virtuoze accordeonklanken aan toe. Samen zorgen ze voor een unieke mix van traditie en vernieuwing – muziek die je raakt én in beweging zet. Verwacht een optreden dat bruist van creativiteit, warmte en plezier. Kortom: we zijn superblij dat deze twee toppers eindelijk bij ons staan. Kom luisteren, kom dansen… en vier mee dat Canada dit keer even moet wachten."
+        ]
+      },
+      {
+        "naam": "Hraybery",
+        "vlag": "🇺🇦",
+        "tijd": "16u00",
+        "bal": false,
+        "website": "https://www.facebook.com/hraybery/",
+        "youtube": "wS4Hpgr1oCI",
+        "foto": "/assets/img/artiesten/hraybery.webp",
+        "tekst": [
+          "Maak je klaar voor een muzikale tijdreis, want HrayBery brengt vergeten dansmuziek van 200 jaar geleden terug tot leven! Hun repertoire bestaat uit melodieën die ooit klonken op de kruispunten van culturen in de Poolse-Oekraïense grensstreek, eind 19e en begin 20e eeuw. Denk aan wervelende ritmes, meeslepende melodieën en een sfeer die je meteen doet verlangen naar een groot dorpsfeest – mét moderne energie. Kozakken, kolomyika’s, mazurka’s, polka’s en walsen zullen je om de oren vliegen. HrayBery combineert historische roots met hedendaagse flair, waardoor elk nummer voelt als een brug tussen toen en nu. Het resultaat? Muziek die niet alleen intrigeert, maar ook uitnodigt om te bewegen. Kortom: als je zin hebt in een optreden dat traditie, passie en feest samenbrengt, dan mag je HrayBery niet missen op Folkfestival Ham 2026. Party like it’s 1900 – maar zonder korset of hoge hoed."
+        ]
+      },
+      {
+        "naam": "Thalas",
+        "vlag": "🇧🇪",
+        "tijd": "17u30",
+        "bal": true,
+        "website": "https://www.thalas.be/",
+        "youtube": "rhBJzOvgkMQ",
+        "foto": "/assets/img/artiesten/thalas.webp",
+        "tekst": [
+          "Thalas brengt hedendaagse akoestische folk waarin jarenlange vriendschap en muzikale chemie samenkomen. Diatonisch accordeonist Guus Herremans en gitarist Ward Dhoore zijn geen onbekenden in de folkscene en speelden eerder in tal van gelauwerde projecten. Met Thalas creëren ze een intieme, gelaagde sound vol finesse, emotie en subtiele vernieuwing. Verwacht meeslepende melodieën en een warm, eigenzinnig geluid."
+        ]
+      },
+      {
+        "naam": "Luc Arbogast",
+        "vlag": "🇫🇷",
+        "tijd": "19u00",
+        "bal": false,
+        "website": "https://www.lucarbogast.fr/",
+        "youtube": "aQkp988B25k",
+        "foto": "/assets/img/artiesten/luc-arbogast.webp",
+        "tekst": [
+          "Na bijna 30 jaar op de wegen van Frankrijk, aan de voet van kathedralen, in het koor van de meest bescheiden kerken of in de Olympia, gaat Luc Arbogast in verbinding met zijn publiek door hen te laten lachen, zingen en dansen! Deze atypische troubadour zal u laten trillen op de klanken van zijn beroemde Ierse bouzouki, percussie, blaasinstrumenten en zijn beroemde belletjes!",
+          "Luc Arbogast is autodidact en speelt op gehoor zonder noten te kennen. Hij zingt en speelt muziek die geïnspireerd is door middeleeuwse muziek en boerentradities. Zijn lage tonen benadrukken de band met de aarde, zijn hoge tonen de band met de hemel.",
+          "Mis dit concert niet, u zult er betoverd en vol energie vandaan komen!"
+        ]
+      },
+      {
+        "naam": "Cara Band",
+        "vlag": "🇮🇪",
+        "tijd": "21u30",
+        "bal": false,
+        "website": "https://cara-music.com/en/band/",
+        "youtube": "ZRJDyv8NTr8",
+        "foto": "/assets/img/artiesten/cara-band.webp",
+        "tekst": [
+          "Voor alle duidelijkheid: Cara is geen pintje dat je aan de toog bestelt, maar een fantastische band die al jaren tot de top van de internationale folk behoort. Hun muziek is een heerlijke mix van Ierse en Schotse tradities, gebracht met virtuositeit, warmte en een vleugje eigenzinnigheid. Denk aan sprankelende melodieën, krachtige ritmes en harmonieën die je meteen meenemen naar de Keltische wereld. Cara staat bekend om hun verfijnde arrangementen en sterke samenspel, waarbij elke muzikant zijn eigen kleur toevoegt. Het resultaat? Een optreden dat zowel intiem als energiek is – perfect om even weg te dromen én om mee te genieten van pure vakmanschap. Cara Band is dan wel geen bier, het smaakt toch naar meer."
+        ]
+      }
+    ]
+  }
+}

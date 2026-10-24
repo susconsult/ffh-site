@@ -13,12 +13,21 @@ zodat Cloudflare zelf niets hoeft te bouwen.
 """
 from pathlib import Path
 import datetime
+import html
+import json
 
 ROOT = Path(__file__).resolve().parent.parent
 PAGES = ROOT / "pages"
 PUBLIC = ROOT / "public"
+DATA = ROOT / "data"
 SITE = "https://folkfestivalham.be"
-DATUM_FESTIVAL = "14 - 15 - 16 augustus 2026"
+
+# Instellingen: festivalmodus aan/uit en de datum in de header (data/instellingen.json)
+INST = json.loads((DATA / "instellingen.json").read_text(encoding="utf-8"))
+FESTIVAL = bool(INST.get("festivalmodus"))
+DATUM_FESTIVAL = INST.get("datum_festival", "")
+PROGRAMMA = json.loads((DATA / "programma.json").read_text(encoding="utf-8"))
+DAGEN = list(PROGRAMMA["dagen"].keys())  # vrijdag, zaterdag, zondag
 
 ICON = {
     "facebook": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.8c0-.9.3-1.5 1.6-1.5h1.7V4.4c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1v2.4H7.7V14h2.7v8h3.1z"/></svg>',
@@ -38,11 +47,14 @@ SOCIALS = f"""<div class="socials">
 
 MENU = [
     ("home", "Home", "/"),
+    ("programma", "Festival", f"/{DAGEN[0]}/"),   # alleen in festivalmodus, met de dagen als submenu
     ("concerten", "Concerten", "/tickets/#!/Concerten/c/126605256"),
     ("over-ons", "Over ons", "/over-ons/"),
     ("praktisch", "Praktisch", "/praktisch/"),
     ("medewerkers", "Medewerkers", "/medewerkers/"),
 ]
+if not FESTIVAL:
+    MENU = [m for m in MENU if m[0] != "programma"]
 
 SPONSORS = [
     ("dpf-1", "De Pretfabriek", "https://depretfabriek.be?utm_source=FFH"),
@@ -56,12 +68,20 @@ SPONSORS = [
 ]
 
 
-def header(nav):
+def header(nav, dag=""):
     actief = ' aria-current="page"'
-    items = "\n".join(
-        f'        <li><a href="{href}"{actief if key == nav else ""}>{label}</a></li>'
-        for key, label, href in MENU
-    )
+    regels = []
+    for key, label, href in MENU:
+        if key == "programma":
+            sub = "".join(
+                f'<li><a href="/{d}/"{actief if d == dag else ""}>{PROGRAMMA["dagen"][d]["titel"]}</a></li>'
+                for d in DAGEN)
+            regels.append(
+                f'        <li class="heeft-sub"><a href="{href}"{actief if key == nav else ""}>{label}</a>'
+                f'<ul class="sub">{sub}</ul></li>')
+        else:
+            regels.append(f'        <li><a href="{href}"{actief if key == nav else ""}>{label}</a></li>')
+    items = "\n".join(regels)
     return f"""<a class="skip" href="#inhoud">Ga naar de inhoud</a>
 <header class="site-header">
   <div class="textuur">
@@ -116,7 +136,7 @@ def footer():
     <li>{ICON['mail']}<a href="mailto:info@folkfestivalham.be">info@folkfestivalham.be</a></li>
     <li>{ICON['tel']}<a href="tel:+3213671373">+32 (0)13 67 13 73</a></li>
   </ul>
-  <p class="klein">© {jaar} The Celtic Art Gallery vzw</p>
+  <p class="klein">© {jaar} The Celtic Art Gallery vzw · BE 0458.144.856 · <a href="/voorwaarden/">Voorwaarden</a> · <a href="/privacy/">Privacy</a></p>
 </footer>
 <script>
   (function () {{
@@ -124,6 +144,17 @@ def footer():
     if (knop) knop.addEventListener('click', function () {{
       var open = nav.classList.toggle('open');
       knop.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }});
+    // Video's laden pas na een klik (youtube-nocookie), zodat er niets van YouTube laadt zonder actie
+    document.querySelectorAll('.video[data-yt]').forEach(function (v) {{
+      v.addEventListener('click', function () {{
+        var f = document.createElement('iframe');
+        f.src = 'https://www.youtube-nocookie.com/embed/' + v.dataset.yt + '?autoplay=1&rel=0';
+        f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+        f.allowFullscreen = true; f.title = v.getAttribute('aria-label') || 'Video';
+        var w = document.createElement('div'); w.className = 'video video-actief'; w.appendChild(f);
+        v.replaceWith(w);
+      }});
     }});
   }})();
 </script>"""
@@ -154,7 +185,7 @@ def page(meta, body):
   <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
-{header(meta.get('nav', ''))}
+{header(meta.get('nav', ''), meta.get('dag', ''))}
 <main id="inhoud">
 {body.strip()}
 </main>
@@ -175,10 +206,128 @@ def read(path):
     return meta, body
 
 
+# ---------- Festivalmodus: programma, line-up en dagpagina's ----------
+
+def e(t):
+    return html.escape(t or "", quote=True)
+
+
+def artiest_id(a):
+    import re, unicodedata
+    t = unicodedata.normalize("NFKD", a["naam"]).encode("ascii", "ignore").decode().lower()
+    return re.sub(r"[^a-z0-9]+", "-", t).strip("-")
+
+
+def media(a):
+    """Foto of video van een artiest. Video laadt pas na een klik."""
+    if a.get("youtube"):
+        return (f'<button class="video" type="button" data-yt="{e(a["youtube"])}" aria-label="Speel video van {e(a["naam"])}">'
+                f'<img src="{e(a["foto"])}" alt="" loading="lazy" width="960" height="540"><span class="play" aria-hidden="true"></span></button>')
+    if a.get("foto"):
+        return f'<img class="artiest-foto" src="{e(a["foto"])}" alt="{e(a["naam"])}" loading="lazy" width="960" height="540">'
+    return ""
+
+
+def dag_tabs(actief):
+    items = "".join(
+        f'<a href="/{d}/"{" aria-current=\"page\"" if d == actief else ""}>{e(PROGRAMMA["dagen"][d]["titel"])}</a>'
+        for d in DAGEN)
+    return f'<nav class="dagtabs" aria-label="Festivaldagen">{items}</nav>'
+
+
+def dagpagina(dag):
+    info = PROGRAMMA["dagen"][dag]
+    blokken = []
+    for a in PROGRAMMA["artiesten"].get(dag, []):
+        tekst = "".join(f"<p>{e(t)}</p>" for t in a.get("tekst", []))
+        tags = f'<span class="tijd">{e(a["tijd"])}</span>' if a.get("tijd") else ""
+        if a.get("bal"):
+            tags += '<span class="bal">Bal</span>'
+        site = f'<p><a href="{e(a["website"])}" target="_blank" rel="noopener">Meer over {e(a["naam"])} →</a></p>' if a.get("website") else ""
+        blokken.append(f"""<article class="artiest" id="{artiest_id(a)}">
+  <div class="artiest-media">{media(a)}</div>
+  <div class="artiest-tekst">
+    <div class="tags">{tags}</div>
+    <h2>{e(a["naam"])} <span class="vlag">{a.get("vlag","")}</span></h2>
+    {tekst}
+    {site}
+  </div>
+</article>""")
+    body = f"""<section class="paginatitel textuur"><h1>Programma</h1></section>
+<section class="sectie">
+  <div class="wrap">
+    {dag_tabs(dag)}
+    <h2 class="sectie-titel dagtitel">{e(info["titel"])} {e(info.get("datum",""))}</h2>
+    {"".join(blokken)}
+    <p style="text-align:center;margin-top:30px"><a class="btn btn-oranje" href="/tickets/">Tickets</a></p>
+  </div>
+</section>"""
+    meta = {"title": f'Programma {info["titel"].lower()}',
+            "description": f'Het programma van Folkfestival Ham op {info["titel"].lower()} {info.get("datum","")}: ' + ", ".join(a["naam"] for a in PROGRAMMA["artiesten"].get(dag, [])) + ".",
+            "path": f"/{dag}/", "nav": "programma", "dag": dag}
+    return meta, body
+
+
+def lineup_html():
+    kaarten = []
+    for d in DAGEN:
+        for a in PROGRAMMA["artiesten"].get(d, []):
+            img = f'<img src="{e(a["foto"])}" alt="" loading="lazy" width="960" height="540">' if a.get("foto") else ""
+            kaarten.append(f'<a class="lineup-kaart" href="/{d}/#{artiest_id(a)}">{img}<span class="lineup-naam">{e(a["naam"])} {a.get("vlag","")}</span><span class="lineup-dag">{e(PROGRAMMA["dagen"][d]["titel"])} {e(a.get("tijd",""))}</span></a>')
+    return '<div class="lineup">' + "".join(kaarten) + "</div>"
+
+
+def programma_html():
+    kolommen = []
+    for d in DAGEN:
+        info = PROGRAMMA["dagen"][d]
+        rijen = "".join(
+            f'<li><span class="tijd">{e(a.get("tijd",""))}</span> <a href="/{d}/#{artiest_id(a)}">{e(a["naam"])}</a> {a.get("vlag","")}{" <span class=\"bal\">Bal</span>" if a.get("bal") else ""}</li>'
+            for a in PROGRAMMA["artiesten"].get(d, []))
+        kolommen.append(f'<div class="dag-kolom"><h3><a href="/{d}/">{e(info["titel"])} {e(info.get("datum",""))}</a></h3><ul>{rijen}</ul></div>')
+    return '<div class="programma">' + "".join(kolommen) + "</div>"
+
+
+def redirects():
+    regels = [
+        "# Gegenereerd door tools/build.py — niet met de hand aanpassen",
+        "# Oude winkel-adressen van de WordPress-site -> nieuwe tickets-pagina",
+        "/tickets/Concerten-c126605256 /tickets/#!/Concerten/c/126605256 301",
+        "/tickets/Festival-c126605753 /tickets/#!/Festival/c/126605753 301",
+        "/tickets/Whiskytasting-c142997555 /tickets/#!/Whiskytasting/c/142997555 301",
+        "/tickets/cart /tickets/#!/~/cart 301",
+        "/tickets/account /tickets/#!/~/account 301",
+        "/tickets/account/favorites /tickets/#!/~/favorites 301",
+        "",
+        "# Korte directe link naar de (verborgen) Whiskytasting",
+        "/whiskytasting /tickets/#!/Whiskytasting/c/142997555 302",
+    ]
+    if not FESTIVAL:
+        regels += ["", "# Festivalmodus uit: dagpagina's sturen naar de homepage"]
+        for d in DAGEN:
+            regels += [f"/{d} / 302", f"/{d}/ / 302"]
+    return "\n".join(regels) + "\n"
+
+
 def main():
     urls = []
+    modus = "festival" if FESTIVAL else "normaal"
+    # Opkuis: dagpagina's van een vorige build weghalen als de modus uit staat
+    for d in DAGEN:
+        f = PUBLIC / d / "index.html"
+        if f.exists() and not FESTIVAL:
+            f.unlink()
+            f.parent.rmdir()
+    pages = []
     for src in sorted(PAGES.glob("*.html")):
         meta, body = read(src)
+        if meta.get("modus") and meta["modus"] != modus:
+            continue
+        pages.append((meta, body))
+    if FESTIVAL:
+        pages += [dagpagina(d) for d in DAGEN]
+    for meta, body in pages:
+        body = body.replace("{{LINEUP}}", lineup_html()).replace("{{PROGRAMMA}}", programma_html()).replace("{{DATUM}}", e(DATUM_FESTIVAL))
         p = meta["path"]
         out = PUBLIC / "404.html" if p == "/404" else PUBLIC / p.strip("/") / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)
@@ -186,13 +335,14 @@ def main():
         if not meta.get("noindex"):
             urls.append(p)
         print("gebouwd:", out.relative_to(ROOT))
+    (PUBLIC / "_redirects").write_text(redirects(), encoding="utf-8")
     today = datetime.date.today().isoformat()
     sm = "\n".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{today}</lastmod></url>" for u in sorted(urls))
     (PUBLIC / "sitemap.xml").write_text(
         f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{sm}\n</urlset>\n',
         encoding="utf-8")
     (PUBLIC / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n", encoding="utf-8")
-    print("gebouwd: sitemap.xml, robots.txt")
+    print(f"gebouwd: _redirects, sitemap.xml, robots.txt  (festivalmodus: {'AAN' if FESTIVAL else 'uit'})")
 
 
 if __name__ == "__main__":

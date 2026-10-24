@@ -1,3 +1,4 @@
+# Gegenereerd door tools/build.py — niet met de hand aanpassen
 # Oude winkel-adressen van de WordPress-site -> nieuwe tickets-pagina
 /tickets/Concerten-c126605256 /tickets/#!/Concerten/c/126605256 301
 /tickets/Festival-c126605753 /tickets/#!/Festival/c/126605753 301
@@ -8,3 +9,11 @@
 
 # Korte directe link naar de (verborgen) Whiskytasting
 /whiskytasting /tickets/#!/Whiskytasting/c/142997555 302
+
+# Festivalmodus uit: dagpagina's sturen naar de homepage
+/vrijdag / 302
+/vrijdag/ / 302
+/zaterdag / 302
+/zaterdag/ / 302
+/zondag / 302
+/zondag/ / 302

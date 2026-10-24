@@ -141,7 +141,7 @@
     <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5h20v14H2zm2 2v.5l8 5 8-5V7zm16 10V9.8l-8 5-8-5V17z"/></svg><a href="mailto:info@folkfestivalham.be">info@folkfestivalham.be</a></li>
     <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg><a href="tel:+3213671373">+32 (0)13 67 13 73</a></li>
   </ul>
-  <p class="klein">© 2026 The Celtic Art Gallery vzw</p>
+  <p class="klein">© 2026 The Celtic Art Gallery vzw · BE 0458.144.856 · <a href="/voorwaarden/">Voorwaarden</a> · <a href="/privacy/">Privacy</a></p>
 </footer>
 <script>
   (function () {
@@ -149,6 +149,17 @@
     if (knop) knop.addEventListener('click', function () {
       var open = nav.classList.toggle('open');
       knop.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    // Video's laden pas na een klik (youtube-nocookie), zodat er niets van YouTube laadt zonder actie
+    document.querySelectorAll('.video[data-yt]').forEach(function (v) {
+      v.addEventListener('click', function () {
+        var f = document.createElement('iframe');
+        f.src = 'https://www.youtube-nocookie.com/embed/' + v.dataset.yt + '?autoplay=1&rel=0';
+        f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+        f.allowFullscreen = true; f.title = v.getAttribute('aria-label') || 'Video';
+        var w = document.createElement('div'); w.className = 'video video-actief'; w.appendChild(f);
+        v.replaceWith(w);
+      });
     });
   })();
 </script>

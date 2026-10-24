@@ -55,6 +55,12 @@ p { margin: 0 0 1em; }
 .nav a:hover, .nav a[aria-current="page"] { color: var(--groen); }
 .menu-knop { display: none; }
 
+/* Submenu Festival -> Vrijdag / Zaterdag / Zondag */
+.nav .heeft-sub { position: relative; }
+.nav .sub { display: none; position: absolute; left: 50%; top: 100%; transform: translateX(-50%); min-width: 170px; background: #fff; box-shadow: 0 6px 18px rgba(0,0,0,.12); border-top: 3px solid var(--groen); z-index: 20; flex-direction: column; padding: 6px 0; }
+.nav .heeft-sub:hover .sub, .nav .heeft-sub:focus-within .sub { display: flex; }
+.nav .sub a { padding: 9px 18px; letter-spacing: .12em; text-align: center; }
+
 /* Paginatitel */
 .paginatitel { padding: 34px 16px; text-align: center; }
 .paginatitel h1 { margin: 0; font-weight: 400; text-transform: uppercase; font-size: clamp(1.8rem, 4vw, 2.6rem); color: var(--zwart); }
@@ -123,6 +129,65 @@ p { margin: 0 0 1em; }
 .kaart-embed { position: relative; aspect-ratio: 4 / 3; border-radius: 4px; overflow: hidden; background: #eef2ea; }
 .kaart-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
+/* ---------- Festivalmodus ---------- */
+.hero-festival { min-height: 440px; }
+.hero-knoppen { display: flex; gap: 12px; justify-content: center; margin-top: 22px; flex-wrap: wrap; }
+
+/* Line-up */
+.lineup { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; }
+.lineup-kaart { position: relative; display: block; overflow: hidden; border-radius: 4px; text-decoration: none; background: #222; aspect-ratio: 16 / 10; }
+.lineup-kaart img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; opacity: .85; }
+.lineup-kaart:hover img { transform: scale(1.05); opacity: 1; }
+.lineup-kaart::after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 40%, rgba(0,0,0,.8)); }
+.lineup-naam, .lineup-dag { position: absolute; left: 14px; right: 14px; z-index: 1; color: #fff; }
+.lineup-naam { bottom: 30px; font-family: "Jost", sans-serif; font-weight: 600; font-size: 1.15rem; text-transform: uppercase; line-height: 1.15; }
+.lineup-dag { bottom: 10px; font-size: .85rem; opacity: .9; }
+
+/* Programma (tijdschema) */
+.programma { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.dag-kolom { background: #fff; border-radius: 4px; padding: 22px; }
+.dag-kolom h3 { margin-bottom: 12px; }
+.dag-kolom h3 a { color: var(--zwart); text-decoration: none; }
+.dag-kolom ul { list-style: none; padding: 0; margin: 0; }
+.dag-kolom li { padding: 7px 0; border-bottom: 1px solid #eee; }
+.dag-kolom li a { color: var(--zwart); font-weight: 700; text-decoration: none; }
+.dag-kolom li a:hover { color: var(--oranje); }
+.tijd { display: inline-block; min-width: 48px; font-family: "Jost", sans-serif; font-weight: 600; color: var(--oranje); }
+.bal { display: inline-block; background: var(--groen); color: #fff; font-family: "Jost", sans-serif; font-weight: 600; font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; padding: 2px 8px; border-radius: 3px; vertical-align: middle; }
+
+/* Dagpagina's */
+.dagtabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 30px; flex-wrap: wrap; }
+.dagtabs a { font-family: "Jost", sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; text-decoration: none; padding: 10px 22px; border-radius: 3px; background: #f0f0f0; color: var(--zwart); }
+.dagtabs a[aria-current="page"] { background: var(--groen); color: #fff; }
+.dagtitel { margin-bottom: 30px; }
+.artiest { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start; padding: 30px 0; border-top: 1px solid #eee; scroll-margin-top: 20px; }
+.artiest:nth-of-type(even) .artiest-media { order: 2; }
+.artiest h2 { text-transform: uppercase; margin-bottom: .4em; }
+.artiest .tags { display: flex; gap: 10px; align-items: center; margin-bottom: 8px; }
+.artiest .tags .tijd { font-size: 1.3rem; }
+.vlag { font-family: system-ui, "Apple Color Emoji", "Segoe UI Emoji", sans-serif; }
+.artiest-foto { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 4px; }
+
+/* Video: thumbnail tot je klikt */
+.video { position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; padding: 0; border: 0; border-radius: 4px; overflow: hidden; background: #000; cursor: pointer; }
+.video img { width: 100%; height: 100%; object-fit: cover; opacity: .9; }
+.video .play { position: absolute; left: 50%; top: 50%; width: 68px; height: 48px; margin: -24px 0 0 -34px; background: var(--oranje); border-radius: 12px; transition: transform .2s; }
+.video .play::after { content: ""; position: absolute; left: 27px; top: 14px; border-style: solid; border-width: 10px 0 10px 17px; border-color: transparent transparent transparent #fff; }
+.video:hover .play { transform: scale(1.1); }
+.video-actief { cursor: default; }
+.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* Tekstpagina's (voorwaarden, privacy) */
+.tekstpagina { max-width: 820px; }
+.tekstpagina h3 { margin-top: 1.6em; }
+
+@media (max-width: 860px) {
+  .programma { grid-template-columns: 1fr; }
+  .dagtabs a { padding: 9px 13px; font-size: .85rem; letter-spacing: .06em; }
+  .artiest { grid-template-columns: 1fr; gap: 16px; }
+  .artiest:nth-of-type(even) .artiest-media { order: 0; }
+}
+
 /* Footer */
 .site-footer { padding: 40px 16px 18px; text-align: center; color: var(--zwart); }
 .site-footer .logo { width: 260px; margin: 0 auto 16px; }
@@ -132,7 +197,8 @@ p { margin: 0 0 1em; }
 .contact svg { width: 15px; height: 15px; fill: var(--zwart); flex: none; }
 .contact a { color: var(--zwart); text-decoration: none; }
 .contact a:hover { text-decoration: underline; }
-.klein { font-size: .8rem; margin-top: 22px; opacity: .8; }
+.klein { font-size: .8rem; margin-top: 22px; opacity: .85; }
+.klein a { color: var(--zwart); }
 
 /* Tickets (Ecwid) */
 .winkel { min-height: 420px; }
@@ -152,6 +218,8 @@ p { margin: 0 0 1em; }
   .menu-knop { display: block; width: 100%; background: #fff; border: 0; padding: 12px; font-family: "Jost", sans-serif; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; font-size: .95rem; cursor: pointer; }
   .nav ul { display: none; flex-direction: column; align-items: center; padding-bottom: 8px; }
   .nav.open ul { display: flex; }
+  .nav .sub, .nav .heeft-sub:hover .sub { position: static; transform: none; display: flex; box-shadow: none; border-top: 0; padding: 0; min-width: 0; }
+  .nav .sub a { padding: 6px 18px; font-size: .8rem; color: var(--grijs); }
   .hero { min-height: 240px; }
   .zonnebloem { height: 180px; }
   .logos { grid-template-columns: repeat(3, 1fr); gap: 14px 18px; }
