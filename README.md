@@ -22,7 +22,7 @@ Vervangt de oude WordPress/Elementor-site. Gewone statische HTML, geen framework
 - **Header:** zwarte topbalk (datum · plaats · socials), groene band met logo, wit menu dat blijft plakken.
 - **Menu (zoals de oude site):** Home · Festival (Vr/Za/Zo, alleen festivalmodus) · Concerten · Over ons · Praktisch · Medewerkers, en rechts altijd de groene knop **Tickets**.
 - **Elke pagina:** groene titelband → inhoud → zwarte oproep-band (festivalmodus: Tickets + Line-up; anders: volg ons) → sponsors → footer. Overslaan met `cta: geen` bovenaan een pagina.
-- **Knoppen:** `btn btn-groen` = hoofdactie (tickets), `btn btn-zwart` = gewone actie, `btn btn-licht` = op donker/foto. Oranje alleen als accent (uren, label Bal tent). Geen oranje knoppen meer.
+- **Knoppen:** `btn btn-groen` = hoofdactie (tickets), `btn btn-zwart` = gewone actie, `btn btn-licht` = op donker/foto. Tent-labels: Grote tent donkerblauw, Bal tent paars (bewust geen rood/groen). Geen oranje knoppen meer.
 
 ## Festivalmodus (de schakelaar)
 
