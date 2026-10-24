@@ -4,6 +4,11 @@ path: /404
 noindex: 1
 cta: geen
 ---
+<script>
+// Oude winkel-links (…-p123 of …-c123) doorsturen naar de nieuwe tickets-pagina
+(function(){var m=location.pathname.match(/^\/tickets\/(.+)-([pc])(\d+)\/?$/);
+if(m)location.replace('/tickets/#!/'+m[1]+'/'+m[2]+'/'+m[3]);})();
+</script>
 <section class="paginatitel textuur"><h1>Oeps, deze pagina bestaat niet</h1></section>
 
 <section class="sectie">

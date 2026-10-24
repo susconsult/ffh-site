@@ -6,6 +6,7 @@
 /tickets/cart /tickets/#!/~/cart 301
 /tickets/account /tickets/#!/~/account 301
 /tickets/account/favorites /tickets/#!/~/favorites 301
+/tickets/Whiskytasting-27-november-2026-p873206867 /tickets/#!/Whiskytasting-27-november-2026/p/873206867 301
 
 # Korte directe link naar de (verborgen) Whiskytasting
 /whiskytasting /tickets/#!/Whiskytasting/c/142997555 302
