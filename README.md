@@ -19,7 +19,7 @@ Vervangt de oude WordPress/Elementor-site. Gewone statische HTML, geen framework
 
 ## Opbouw en stijl (redesign, tak `redesign`)
 
-- **Kop:** één witte balk die blijft plakken: logo links, menu (Home · Festival · Concerten · Over ons · Praktisch · Medewerkers), groene **Tickets**-knop rechts. Op gsm een menuknop.
+- **Kop:** één balk op de groene textuur die blijft plakken (witte menutekst, actieve pagina donkergroen): logo links, menu (Home · Festival · Concerten · Over ons · Praktisch · Medewerkers), groene **Tickets**-knop rechts. Op gsm een menuknop.
 - **Elke pagina:** groene titelband (witte titel) → inhoud → zonnebloem-band met oproep → footer.
 - **Footer:** vlaggetjes (enkel hier), partners in een witte kaart, logo, "Tot in Genebos!", socials, contact, donkergroene onderbalk.
 - **Eén kaartstijl:** wit, afgerond (14px), zachte schaduw; op witte secties een dun randje i.p.v. schaduw.
