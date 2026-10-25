@@ -554,3 +554,8 @@ main > section:nth-of-type(even) .logies a { background: var(--wit); box-shadow:
 .artiest-media .video, .artiest-foto { border-radius: 55% 45% 48% 52% / 50% 56% 44% 50%; }
 .artiest:nth-of-type(even) .artiest-media .video, .artiest:nth-of-type(even) .artiest-foto { border-radius: 42% 58% 55% 45% / 57% 43% 57% 43%; }
 .lu-kaart img { border-radius: 58% 42% 50% 50% / 46% 54% 46% 54%; }
+
+/* Kop: geen zwarte lijn, wel een subtiele schaduw */
+.site-header { border-bottom: 0; box-shadow: 0 2px 14px rgba(26, 26, 26, .12); }
+.site-header.gescrold { box-shadow: 0 4px 20px rgba(26, 26, 26, .18); }
+@media (max-width: 860px) { .nav { border-bottom: 0; box-shadow: 0 10px 20px rgba(26, 26, 26, .15); } }
