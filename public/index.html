@@ -124,13 +124,19 @@ k.forEach(function(b){b.addEventListener('click',function(){z(b.dataset.dag);});
     <p class="gal-credit">Foto's: Jeroen De Bie</p>
   </div>
 </section>
-<dialog class="gal-groot" aria-label="Foto"><button type="button" class="gal-sluit" aria-label="Sluiten">×</button><img alt=""></dialog>
 <script>
 (function () {
-  var d = document.querySelector('.gal-groot'); if (!d || !d.showModal) return;
+  // Eén gedeeld fotovenster voor de hele pagina (de galerij kan meerdere keren op de pagina staan)
+  if (window.ffhGalerij) return; window.ffhGalerij = true;
+  var d = document.createElement('dialog'); d.className = 'gal-groot'; d.setAttribute('aria-label', 'Foto');
+  d.innerHTML = '<button type="button" class="gal-sluit" aria-label="Sluiten">×</button><img alt="">';
+  document.body.appendChild(d);
   var im = d.querySelector('img');
-  document.querySelectorAll('.gal-foto').forEach(function (a) {
-    a.addEventListener('click', function (ev) { ev.preventDefault(); im.src = a.href; im.alt = a.dataset.alt; d.showModal(); });
+  document.addEventListener('click', function (ev) {
+    var a = ev.target.closest && ev.target.closest('.gal-foto');
+    if (!a) return;
+    ev.preventDefault(); im.src = a.href; im.alt = a.dataset.alt || '';
+    if (d.showModal) d.showModal(); else window.open(a.href, '_blank');
   });
   d.addEventListener('click', function (ev) { if (ev.target === d || ev.target.classList.contains('gal-sluit')) d.close(); });
 })();
@@ -205,13 +211,19 @@ k.forEach(function(b){b.addEventListener('click',function(){z(b.dataset.dag);});
     <p class="gal-credit">Foto's: Jeroen De Bie</p>
   </div>
 </section>
-<dialog class="gal-groot" aria-label="Foto"><button type="button" class="gal-sluit" aria-label="Sluiten">×</button><img alt=""></dialog>
 <script>
 (function () {
-  var d = document.querySelector('.gal-groot'); if (!d || !d.showModal) return;
+  // Eén gedeeld fotovenster voor de hele pagina (de galerij kan meerdere keren op de pagina staan)
+  if (window.ffhGalerij) return; window.ffhGalerij = true;
+  var d = document.createElement('dialog'); d.className = 'gal-groot'; d.setAttribute('aria-label', 'Foto');
+  d.innerHTML = '<button type="button" class="gal-sluit" aria-label="Sluiten">×</button><img alt="">';
+  document.body.appendChild(d);
   var im = d.querySelector('img');
-  document.querySelectorAll('.gal-foto').forEach(function (a) {
-    a.addEventListener('click', function (ev) { ev.preventDefault(); im.src = a.href; im.alt = a.dataset.alt; d.showModal(); });
+  document.addEventListener('click', function (ev) {
+    var a = ev.target.closest && ev.target.closest('.gal-foto');
+    if (!a) return;
+    ev.preventDefault(); im.src = a.href; im.alt = a.dataset.alt || '';
+    if (d.showModal) d.showModal(); else window.open(a.href, '_blank');
   });
   d.addEventListener('click', function (ev) { if (ev.target === d || ev.target.classList.contains('gal-sluit')) d.close(); });
 })();
