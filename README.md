@@ -21,7 +21,7 @@ Vervangt de oude WordPress/Elementor-site. Gewone statische HTML, geen framework
 
 - **Affiche-stijl** (laatste blok in `style.css`): de site volgt de festivalaffiche. Overal de groene textuur, **zwarte vette letters op groen**, weinig wit. Kaarten zijn licht doorschijnend wit. Rood (pilletje van de affiche) = Tickets en accenten, zwart = gewone knoppen. Secties wisselen af: wit, groen, wit, groen (eerste sectie na titel of foto is wit). Partners in een witte strook boven de footer.
 
-- **Kop:** één balk op de groene textuur die blijft plakken (witte menutekst, actieve pagina donkergroen): logo links, menu (Home · Festival · Evenementen · Over ons · Praktisch · Medewerkers), groene **Tickets**-knop rechts. Op gsm een menuknop.
+- **Kop:** één balk op de groene textuur die blijft plakken (witte menutekst, actieve pagina donkergroen): logo links, menu (Home · Festival · Evenementen · Over ons · Praktisch · Medewerkers; Festival enkel in festivalmodus, Evenementen enkel daarbuiten), groene **Tickets**-knop rechts. Op gsm een menuknop.
 - **Elke pagina:** groene titelband (witte titel) → inhoud → zonnebloem-band met oproep → footer.
 - **Footer:** vlaggetjes (enkel hier), partners in een witte kaart, logo, "Tot in Genebos!", socials, contact, donkergroene onderbalk.
 - **Eén kaartstijl:** wit, afgerond (14px), zachte schaduw; op witte secties een dun randje i.p.v. schaduw.

@@ -94,6 +94,12 @@ def header(nav, dag=""):
             regels.append(
                 f'        <li class="heeft-sub alleen-festival"><a href="{href}"{actief if key == nav else ""}>{label}</a>'
                 f'<ul class="sub">{sub}</ul></li>')
+        elif key == "concerten":
+            # Evenementen enkel buiten festivalmodus
+            if PREVIEW:
+                regels.append(f'        <li class="alleen-normaal"><a href="{href}"{actief if key == nav else ""}>{label}</a></li>')
+            elif not FESTIVAL:
+                regels.append(f'        <li><a href="{href}"{actief if key == nav else ""}>{label}</a></li>')
         else:
             regels.append(f'        <li><a href="{href}"{actief if key == nav else ""}>{label}</a></li>')
     items = "\n".join(regels)

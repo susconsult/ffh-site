@@ -776,3 +776,5 @@ main .vlak-groen .pillen li:not(.vol li) { background: var(--doorschijnend); }
 .nav a[aria-current="page"] { color: var(--zwart); }
 .klein, .klein a { color: var(--wit); }
 .lu-kaart img { border-color: var(--groen-donker); }
+.nav li.alleen-normaal, .nav li.alleen-festival { display: list-item; }
+html[data-modus="festival"] .nav li.alleen-normaal, html[data-modus="normaal"] .nav li.alleen-festival { display: none !important; }
