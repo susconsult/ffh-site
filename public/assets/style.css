@@ -593,3 +593,13 @@ main > section:nth-of-type(even) .logies a { background: var(--wit); box-shadow:
   .nav .sub a, .nav .sub a:hover { padding: 8px 14px 8px 30px; }
 }
 @media (min-width: 861px) { .nav a, .nav a[aria-current="page"], .nav a:hover { padding-left: 16px; } .nav .sub a { padding-left: 14px; } }
+
+/* Agenda: Grote tent = groen patroon (zwarte tekst), Bal tent = hetzelfde patroon in roestkleur (witte tekst) */
+:root { --textuur-roest: url("/assets/img/achtergrond-roest.webp"); }
+.tt-blok { background: var(--groen) var(--textuur) repeat; background-size: 260px auto; color: var(--zwart); box-shadow: 0 3px 10px rgba(0,0,0,.12); }
+.tt-blok.tt-bal { background: var(--rood) var(--textuur-roest) repeat; background-size: 260px auto; color: var(--wit); }
+.tt-baankop { color: var(--groen-donker); }
+.tt-baankop-bal { color: var(--rood); }
+/* Tent-labels overal in dezelfde stijl */
+.tent { background: var(--groen) var(--textuur) repeat; background-size: 160px auto; color: var(--zwart); }
+.tent-bal { background: var(--rood) var(--textuur-roest) repeat; background-size: 160px auto; color: var(--wit); }
