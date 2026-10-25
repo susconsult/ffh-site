@@ -455,6 +455,14 @@ def _minuten(tijd):
     return int(u) * 60 + int(m or 0)
 
 
+def hero_artiesten():
+    """Mozaïek van alle artiestfoto's als achtergrond voor de festival-hero."""
+    fotos = [a for d in DAGEN for a in PROGRAMMA["artiesten"].get(d, []) if a.get("foto")]
+    tegels = "".join(f'<span style="background-image:url({e(a["foto"])})" title="{e(a["naam"])}"></span>' for a in fotos)
+    namen = " · ".join(e(a["naam"]) for d in DAGEN for a in PROGRAMMA["artiesten"].get(d, []))
+    return f'<div class="hero-mozaiek" aria-hidden="true">{tegels}{tegels}</div><p class="hero-namen">{namen}</p>'
+
+
 def lineup_html():
     """Line-up als timetable (zoals een agenda): per dag een kolom met twee banen (Grote tent, Bal tent),
     blokken op hun uur. Duur = tot het volgende optreden die dag (max 1u45), laatste optreden 1u30.
@@ -561,7 +569,7 @@ def main():
     for meta, body in pages:
         import re as _re
         body = _re.sub(r"\{\{ICOON:(\w+)\}\}", lambda m: icoon(m.group(1)), body)
-        body = body.replace("{{LINEUP}}", lineup_html()).replace("{{PROGRAMMA}}", programma_html()).replace("{{DATUM}}", e(DATUM_FESTIVAL))
+        body = body.replace("{{HERO_ARTIESTEN}}", hero_artiesten()).replace("{{LINEUP}}", lineup_html()).replace("{{PROGRAMMA}}", programma_html()).replace("{{DATUM}}", e(DATUM_FESTIVAL))
         p = meta["path"]
         out = PUBLIC / "404.html" if p == "/404" else PUBLIC / p.strip("/") / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)

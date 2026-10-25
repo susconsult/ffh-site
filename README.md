@@ -42,7 +42,7 @@ In `data/instellingen.json`:
 { "festivalmodus": true, "datum_festival": "14 - 15 - 16 augustus 2026" }
 ```
 
-- **Aan** (`true`): homepage met de line-up per dag — line-up en blokkenschema in één (`pages/home-festival.html`), menu-item "Festival", en de dagpagina's `/vrijdag/`, `/zaterdag/`, `/zondag/`.
+- **Aan** (`true`): hero met een mozaïek van alle artiestfoto's en hun namen, homepage met de line-up per dag — line-up en blokkenschema in één (`pages/home-festival.html`), menu-item "Festival", en de dagpagina's `/vrijdag/`, `/zaterdag/`, `/zondag/`.
 - **Uit** (`false`): homepage "Bedankt! Tot volgend jaar" (`pages/home.html`). Dagpagina's bestaan dan niet: `/vrijdag/` enz. sturen naar de homepage, staan niet in de sitemap, er linkt niets naartoe en `robots.txt` verbiedt ze voor zoekmachines.
 - Daarna `python3 tools/build.py`, committen en pushen. Of vraag Claude: "zet festivalmodus aan/uit".
 
