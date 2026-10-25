@@ -671,3 +671,42 @@ main .vlak-groen .pillen li:not(.vol li) { background: var(--doorschijnend); }
 .hero-festival .hero-inhoud { position: relative; z-index: 1; }
 .hero-namen { position: absolute; left: 0; right: 0; bottom: 18px; z-index: 1; margin: 0; padding: 0 20px; text-align: center; font-family: "Jost", sans-serif; font-weight: 700; font-size: var(--fs-klein) !important; letter-spacing: .08em !important; text-transform: uppercase; color: var(--wit); opacity: .9; }
 @media (max-width: 860px) { .hero-mozaiek { grid-template-columns: repeat(5, 1fr); } .hero-namen { display: none; } }
+
+/* ---------- Festival-hero: glijdende linten met artiesten ---------- */
+.hero-festival { display: flex; flex-direction: column; justify-content: center; gap: 0; min-height: auto; padding: clamp(40px, 6vw, 70px) 0 clamp(36px, 5vw, 56px);
+  background: var(--groen) var(--textuur) repeat; background-size: 400px auto; overflow: hidden; }
+.hero-festival::before { display: none; }
+.hero-festival .hero-inhoud { order: 0; padding: 0 20px; margin-bottom: clamp(28px, 4vw, 44px); }
+.hero-festival h1 { color: var(--zwart); text-shadow: none; font-size: var(--fs-hero); line-height: .95; }
+.hero-festival p { color: var(--zwart); font-weight: 800; font-size: var(--fs-h3); }
+.hero-festival .btn-licht { color: var(--zwart); border-color: var(--zwart); }
+.hero-festival .btn-licht:hover { background: var(--zwart); color: var(--groen); }
+.linten { order: 1; display: grid; gap: 12px; transform: rotate(-2deg); margin: 0 -40px; }
+.lint { overflow: hidden; }
+.lint-1 { background: var(--zwart); }
+.lint-2 { background: var(--rood) var(--textuur-roest) repeat; background-size: 300px auto; }
+.lint-3 { background: var(--wit); }
+.lint-band { display: flex; width: max-content; animation: lint-links 60s linear infinite; }
+.lint-2 .lint-band { animation-name: lint-rechts; animation-duration: 70s; }
+.lint-3 .lint-band { animation-duration: 80s; }
+.linten:hover .lint-band { animation-play-state: paused; }
+.lint-reeks { display: flex; align-items: center; }
+.lint-item { display: inline-flex; align-items: center; gap: 12px; padding: 10px 6px; text-decoration: none; white-space: nowrap; }
+.lint-item img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; flex: none; border: 2px solid currentColor; transition: transform .2s; }
+.lint-item:hover img { transform: scale(1.15) rotate(-6deg); }
+.lint-item span { font-family: "Jost", sans-serif; font-weight: 800; text-transform: uppercase; font-size: clamp(1.2rem, 2.6vw, 2rem); letter-spacing: .02em; line-height: 1; }
+.lint-item .vlag { font-style: normal; font-size: 1.2em; }
+.lint-ster { padding: 0 18px; font-size: 1.3rem; opacity: .7; }
+.lint-1 .lint-item, .lint-1 .lint-ster { color: var(--groen); }
+.lint-2 .lint-item, .lint-2 .lint-ster { color: var(--wit); }
+.lint-3 .lint-item, .lint-3 .lint-ster { color: var(--zwart); }
+.lint-3 .lint-item img { width: 40px; height: 40px; }
+.lint-3 .lint-item span { font-size: clamp(1rem, 2vw, 1.5rem); }
+@keyframes lint-links { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes lint-rechts { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+.hero-namen { display: none; }
+@media (max-width: 860px) {
+  .lint-item img { width: 40px; height: 40px; }
+  .lint-3 { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .lint-band { animation: none; } .lint { overflow-x: auto; } }

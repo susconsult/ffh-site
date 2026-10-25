@@ -456,11 +456,22 @@ def _minuten(tijd):
 
 
 def hero_artiesten():
-    """Mozaïek van alle artiestfoto's als achtergrond voor de festival-hero."""
-    fotos = [a for d in DAGEN for a in PROGRAMMA["artiesten"].get(d, []) if a.get("foto")]
-    tegels = "".join(f'<span style="background-image:url({e(a["foto"])})" title="{e(a["naam"])}"></span>' for a in fotos)
-    namen = " · ".join(e(a["naam"]) for d in DAGEN for a in PROGRAMMA["artiesten"].get(d, []))
-    return f'<div class="hero-mozaiek" aria-hidden="true">{tegels}{tegels}</div><p class="hero-namen">{namen}</p>'
+    """Festival-hero: linten met artiestnamen en ronde foto's die in tegengestelde richting voorbij glijden."""
+    acts = [(d, a) for d in DAGEN for a in PROGRAMMA["artiesten"].get(d, [])]
+    if not acts:
+        return ""
+    def stuk(a, d):
+        img = f'<img src="{e(a["foto"])}" alt="" loading="lazy" width="720" height="720">' if a.get("foto") else ""
+        return (f'<a class="lint-item" href="/{d}/#{artiest_id(a)}" tabindex="-1">{img}'
+                f'<span>{e(a["naam"])}</span><i class="vlag">{a.get("vlag","")}</i></a><b class="lint-ster" aria-hidden="true">✦</b>')
+    helft = (len(acts) + 1) // 2
+    rijen = [acts[:helft], acts[helft:], acts[::-1]]
+    linten = []
+    for i, rij in enumerate(rijen):
+        inhoud = "".join(stuk(a, d) for d, a in rij)
+        linten.append(f'<div class="lint lint-{i + 1}"><div class="lint-band">'
+                      f'<div class="lint-reeks">{inhoud}</div><div class="lint-reeks" aria-hidden="true">{inhoud}</div></div></div>')
+    return '<div class="linten" aria-hidden="true">' + "".join(linten) + "</div>"
 
 
 def lineup_html():
