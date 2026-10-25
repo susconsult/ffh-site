@@ -570,3 +570,8 @@ main > section:nth-of-type(even) .logies a { background: var(--wit); box-shadow:
 /* Groepen op de dagpagina's: gewoon afgeronde hoeken (video's blijven netjes) */
 .artiest-media .video, .artiest-foto,
 .artiest:nth-of-type(even) .artiest-media .video, .artiest:nth-of-type(even) .artiest-foto { border-radius: 18px; }
+
+/* Dagpagina's: één grote Tickets-knop onderaan */
+.dag-tickets { text-align: center; margin: 8px 0 0; }
+.btn-groot { height: 60px; padding: 0 40px; font-size: var(--fs-groot); }
+.btn-groot svg { width: 22px; height: 22px; }

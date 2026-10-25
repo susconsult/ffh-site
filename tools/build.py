@@ -363,7 +363,7 @@ def dagpagina(dag):
     {tekst}
     <div class="artiest-voet">
       <ul class="artiest-info">{info_regels}</ul>
-      <div class="artiest-acties">{social}<a class="pil pil-tickets" href="{TICKETS_FESTIVAL}">{ICON["ticket"]}<span>Tickets</span></a></div>
+      <div class="artiest-acties">{social}</div>
     </div>
   </div>
 </article>""")
@@ -372,6 +372,7 @@ def dagpagina(dag):
   <div class="wrap">
     {dag_tabs(dag)}
     {"".join(blokken)}
+    <p class="dag-tickets"><a class="btn btn-groen btn-groot" href="{TICKETS_FESTIVAL}">{ICON["ticket"]}Tickets voor {e(info["titel"].lower())}</a></p>
   </div>
 </section>"""
     meta = {"title": f'Programma {info["titel"].lower()}',
