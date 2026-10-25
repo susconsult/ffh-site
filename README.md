@@ -21,12 +21,12 @@ Vervangt de oude WordPress/Elementor-site. Gewone statische HTML, geen framework
 
 - **Affiche-stijl** (laatste blok in `style.css`): de site volgt de festivalaffiche. Overal de groene textuur, **zwarte vette letters op groen**, weinig wit. Kaarten zijn licht doorschijnend wit. Rood (pilletje van de affiche) = Tickets en accenten, zwart = gewone knoppen. Secties wisselen af: wit, groen, wit, groen (eerste sectie na titel of foto is wit). Partners in een witte strook boven de footer.
 
-- **Kop:** één balk op de groene textuur die blijft plakken (witte menutekst, actieve pagina donkergroen): logo links, menu (Home · Festival · Concerten · Over ons · Praktisch · Medewerkers), groene **Tickets**-knop rechts. Op gsm een menuknop.
+- **Kop:** één balk op de groene textuur die blijft plakken (witte menutekst, actieve pagina donkergroen): logo links, menu (Home · Festival · Evenementen · Over ons · Praktisch · Medewerkers), groene **Tickets**-knop rechts. Op gsm een menuknop.
 - **Elke pagina:** groene titelband (witte titel) → inhoud → zonnebloem-band met oproep → footer.
 - **Footer:** vlaggetjes (enkel hier), partners in een witte kaart, logo, "Tot in Genebos!", socials, contact, donkergroene onderbalk.
 - **Eén kaartstijl:** wit, afgerond (14px), zachte schaduw; op witte secties een dun randje i.p.v. schaduw.
 - **Foto's:** organische vormen (geschilderde look), geen schaduw of blok erachter.
-- **Menu-indicator:** het mannetje uit het logo staat boven het actieve menu-item (`assets/img/mannetje.webp`).
+- **Menu-indicator:** klein mannetje uit het logo vóór het actieve menu-item (`assets/img/mannetje.webp`).
 - **Line-up (homepage, festivalmodus):** timetable zoals een agenda: per dag een kolom met twee banen (Grote tent blauw, Bal tent rood), blokken op hun uur. Duur = tot het volgende optreden (max 1u45), laatste 1u30; een vaste eindtijd kan met het veld `"eind": "21u00"` per artiest in `data/programma.json`. Op gsm één dag tegelijk met dagknoppen.
 - **Knoppen:** pilvorm. `btn-groen` = tickets/hoofdactie (witte tekst), `btn-zwart` = gewone actie, `btn-licht` = op foto.
 - **Kleurenschema "Mannetje"** (afgeleid van het logo-mannetje en de groene achtergrond; variabelen bovenaan `style.css`): groen `#A2CD4F` (textuur) · donkergroen `#4A7A1F` (knoppen, menu, witte tekst) · rood `#CA4B22` (pilletje op de affiche: Tickets, Bal tent) · blauw `#1A67A9` (broek: Grote tent, links) · bruin `#AB6848` (haar: kleine kopjes) · crème `#FAF1E7` (lichte secties) · zwart · wit.

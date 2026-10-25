@@ -48,7 +48,7 @@ SOCIALS = f"""<div class="socials">
 # Menu zoals op de oude site (Home staat apart in header()). Tickets is een aparte knop rechts.
 MENU = [
     ("programma", "Festival", f"/{DAGEN[0]}/"),   # alleen in festivalmodus, met de dagen als submenu
-    ("concerten", "Concerten", "/tickets/#!/Concerten/c/126605256"),
+    ("concerten", "Evenementen", "/tickets/#!/Concerten/c/126605256"),
     ("over-ons", "Over ons", "/over-ons/"),
     ("praktisch", "Praktisch", "/praktisch/"),
     ("medewerkers", "Medewerkers", "/medewerkers/"),

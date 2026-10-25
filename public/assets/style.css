@@ -575,3 +575,21 @@ main > section:nth-of-type(even) .logies a { background: var(--wit); box-shadow:
 .dag-tickets { text-align: center; margin: 8px 0 0; }
 .btn-groot { height: 60px; padding: 0 40px; font-size: var(--fs-groot); }
 .btn-groot svg { width: 22px; height: 22px; }
+
+/* Over ons: foto in een hartvorm */
+.polaroid.hart img { border-radius: 0; aspect-ratio: 1 / 1;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 92'%3E%3Cpath d='M50 90C22 70 2 52 2 28 2 13 14 2 28 2c9 0 17 5 22 13C55 7 63 2 72 2c14 0 26 11 26 26 0 24-20 42-48 62z'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 92'%3E%3Cpath d='M50 90C22 70 2 52 2 28 2 13 14 2 28 2c9 0 17 5 22 13C55 7 63 2 72 2c14 0 26 11 26 26 0 24-20 42-48 62z'/%3E%3C/svg%3E") center / contain no-repeat; }
+
+/* Menu-indicator: klein mannetje vóór het actieve menu-item */
+.nav a { padding: 10px 12px 10px 12px; }
+.nav a::before { left: -2px; top: 50%; width: 12px; height: 24px; margin: -13px 0 0; transform: translateX(-4px); }
+.nav a[aria-current="page"], .nav a:hover { padding-left: 16px; }
+.nav a[aria-current="page"]::before { transform: none; }
+.nav a:hover::before { transform: none; }
+@media (max-width: 860px) {
+  .nav a, .nav a[aria-current="page"], .nav a:hover { padding: 12px 14px 12px 30px; }
+  .nav a::before { left: 10px; width: 12px; height: 24px; margin: -12px 0 0; }
+  .nav .sub a, .nav .sub a:hover { padding: 8px 14px 8px 30px; }
+}
+@media (min-width: 861px) { .nav a, .nav a[aria-current="page"], .nav a:hover { padding-left: 16px; } .nav .sub a { padding-left: 14px; } }
