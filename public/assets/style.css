@@ -839,3 +839,23 @@ html[data-modus="festival"] .nav li.alleen-normaal, html[data-modus="normaal"] .
   body.print-lineup .tt-naam { font-size: 8.5pt; }
   body.print-lineup .tt-tijd { font-size: 7.5pt; }
 }
+/* Afdruk: maten in mm zodat alles op één liggende A4 past (ook in Chrome/Safari) */
+@media print {
+  body.print-lineup .tt-dag, body.print-lineup .tt, body.print-lineup .tt-in { break-inside: auto !important; page-break-inside: auto !important; }
+  body.print-lineup .print-kop { margin: 0 0 3mm; gap: 6mm; }
+  body.print-lineup .print-kop img { width: 48mm; }
+  body.print-lineup .print-kop strong { font-size: 18pt; }
+  body.print-lineup .print-kop span { font-size: 9pt; }
+  body.print-lineup .tt { --uur: 10.5mm; --kop: 8mm; }
+  body.print-lineup .tt-in { grid-template-columns: 9mm repeat(3, 1fr) !important; gap: 0 4mm; }
+  body.print-lineup .tt-dag h3 { padding-bottom: 1.5mm; border-bottom-width: 2px; }
+  body.print-lineup .tt-dag h3 a { font-size: 12pt; }
+  body.print-lineup .tt-dag h3 span { font-size: 7pt; }
+  body.print-lineup .tt-banen { height: 6mm; }
+  body.print-lineup .tt-baankop { font-size: 6.5pt; }
+  body.print-lineup .tt-schaal { margin-top: calc(var(--kop) + 6mm); }
+  body.print-lineup .tt-schaal span { font-size: 7pt; }
+  body.print-lineup .tt-blok { padding: 1.2mm 2mm; border-radius: 2.5mm; gap: 0; }
+  body.print-lineup .tt-naam { font-size: 7.5pt; line-height: 1.1; }
+  body.print-lineup .tt-tijd { font-size: 6.5pt; }
+}
