@@ -866,3 +866,12 @@ html[data-modus="festival"] .nav li.alleen-normaal, html[data-modus="normaal"] .
   body.print-lineup .tt-naam { font-size: 8.5pt; }
   body.print-lineup .tt-tijd { font-size: 7pt; }
 }
+
+/* Vrijwilligers: "Doe je mee?" in affiche-stijl (groene textuur, zwarte letters, rode knop) */
+.mail-oproep { background: var(--groen) var(--textuur) repeat; background-size: 400px auto; border-radius: 28px 40px 30px 44px; padding: clamp(36px, 5vw, 56px) clamp(24px, 4vw, 48px); transform: none; box-shadow: none; }
+.mail-oproep > * { transform: none; }
+.mail-oproep h2 { color: var(--zwart); text-shadow: none; font-size: var(--fs-h1); }
+.mail-oproep p { color: var(--zwart); }
+.mail-oproep .btn { margin-top: 10px; }
+.mail-oproep .klein-mail { opacity: 1; margin-top: 16px; }
+.mail-oproep .klein-mail a { color: var(--zwart); font-weight: 700; }
