@@ -603,3 +603,62 @@ main > section:nth-of-type(even) .logies a { background: var(--wit); box-shadow:
 /* Tent-labels overal in dezelfde stijl */
 .tent { background: var(--groen) var(--textuur) repeat; background-size: 160px auto; color: var(--zwart); }
 .tent-bal { background: var(--rood) var(--textuur-roest) repeat; background-size: 160px auto; color: var(--wit); }
+
+/* =========================================================
+   Menu: altijd een menuknop; het menu schuift in vanaf de zijkant
+   ========================================================= */
+.kop { justify-content: space-between; }
+.menu-knop { display: grid !important; position: relative; z-index: 72; width: 46px; height: 46px; }
+.nav, .site-header .nav {
+  display: block !important; position: fixed; top: 0; right: 0; bottom: 0; left: auto; z-index: 70;
+  width: min(380px, 88vw); padding: 96px 28px 32px; overflow-y: auto;
+  background: var(--groen) var(--textuur) repeat; background-size: 400px auto;
+  box-shadow: -12px 0 40px rgba(26, 26, 26, .22); border: 0;
+  transform: translateX(105%); visibility: hidden; transition: transform .35s cubic-bezier(.2,.8,.2,1), visibility 0s .35s;
+}
+.site-header.open .nav { transform: none; visibility: visible; transition: transform .35s cubic-bezier(.2,.8,.2,1); }
+.menu-scherm { position: fixed; inset: 0; z-index: 65; background: rgba(26, 26, 26, .35); opacity: 0; pointer-events: none; transition: opacity .3s; }
+.site-header.open .menu-scherm { opacity: 1; pointer-events: auto; }
+.nav ul { flex-direction: column; gap: 4px; }
+.nav a, .nav a[aria-current="page"], .nav a:hover { display: block; padding: 12px 8px 12px 34px; font-size: var(--fs-h3); letter-spacing: .06em; font-weight: 800; text-decoration: none; }
+.nav a:hover { background: rgba(26, 26, 26, .08) !important; border-radius: 12px; }
+.nav a::before { left: 10px; top: 50%; width: 14px; height: 28px; margin: -14px 0 0; transform: none; }
+.heeft-sub > a::after { display: none; }
+.nav .sub, .heeft-sub:hover .sub, .heeft-sub:focus-within .sub { display: flex !important; position: static; flex-direction: column; gap: 0; margin: 0 0 6px; padding: 0 0 0 18px; background: transparent !important; box-shadow: none; min-width: 0; }
+.nav .sub::before { display: none; }
+.nav .sub a, .nav .sub a:hover, .nav .sub a[aria-current="page"] { font-size: var(--fs-tekst); font-weight: 700; padding: 8px 8px 8px 34px; background: transparent; color: var(--zwart); opacity: .85; }
+.nav .sub a::before { display: block; width: 11px; height: 22px; margin-top: -11px; }
+.nav .sub a[aria-current="page"]::before { opacity: 1; }
+.nav-extra { margin-top: 28px; padding-top: 22px; border-top: 2px solid rgba(26, 26, 26, .15); display: grid; gap: 16px; }
+.nav-extra .btn { width: 100%; }
+.nav-extra .socials { justify-content: flex-start; }
+body.menu-open { overflow: hidden; }
+@media (max-width: 520px) { .nav, .site-header .nav { padding-top: 84px; } }
+.nav .nav-extra a.btn, .nav .nav-extra a.btn:hover { display: inline-flex; padding: 0 24px; height: 50px; font-size: var(--fs-tekst); letter-spacing: .1em; border-radius: 999px; background: var(--rood) !important; color: var(--wit); }
+.nav .nav-extra a.btn:hover { background: var(--zwart) !important; }
+.nav .nav-extra .socials a, .nav .nav-extra .socials a:hover { display: grid; padding: 0; width: 42px; height: 42px; border-radius: 50%; background: var(--zwart) !important; color: var(--groen); font-size: 0; }
+.nav .nav-extra a::before { display: none; }
+
+/* ---------- Preview-schakelbalk (alleen op de preview) ---------- */
+html[data-modus="normaal"] .alleen-festival, html[data-modus="festival"] .alleen-normaal { display: none !important; }
+.alleen-festival, .alleen-normaal { display: contents; }
+.schakelbalk { position: relative; z-index: 80; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 8px 16px; background: var(--zwart); color: var(--wit); font-family: "Jost", sans-serif; font-size: var(--fs-klein); }
+.schakelbalk-label { background: var(--rood); color: var(--wit); border-radius: 999px; padding: 2px 10px; font-weight: 700; font-size: var(--fs-mini); text-transform: uppercase; letter-spacing: .1em; }
+.schakelbalk-tekst { font-weight: 800; text-transform: uppercase; letter-spacing: .12em; }
+.schakelbalk-uitleg { opacity: .6; font-size: var(--fs-mini); }
+.schakelaar { position: relative; width: 82px; height: 32px; border: 0; border-radius: 999px; cursor: pointer; background: #555; padding: 0; font-family: "Jost", sans-serif; font-weight: 800; font-size: var(--fs-mini); color: var(--wit); transition: background .2s; }
+.schakelaar[aria-checked="true"] { background: var(--groen-donker); }
+.schakelaar-knop { position: absolute; top: 3px; left: 3px; width: 26px; height: 26px; border-radius: 50%; background: var(--wit); transition: transform .2s; }
+.schakelaar[aria-checked="true"] .schakelaar-knop { transform: translateX(50px); }
+.schakelaar-aan, .schakelaar-uit { position: absolute; top: 50%; transform: translateY(-50%); letter-spacing: .08em; }
+.schakelaar-aan { left: 12px; } .schakelaar-uit { right: 10px; }
+.schakelaar[aria-checked="true"] .schakelaar-uit, .schakelaar[aria-checked="false"] .schakelaar-aan { display: none; }
+@media (max-width: 520px) { .schakelbalk-uitleg { display: none; } }
+/* Afwisseling wit/groen via klassen (vervangt de telling op nth-of-type) */
+main > section:nth-of-type(n):not(.oproep):not(.hero):not(.paginatitel) { background: transparent; }
+main .vlak-wit { background: var(--wit) !important; }
+main .vlak-groen { background: var(--groen) var(--textuur) repeat !important; background-size: 400px auto !important; }
+main .vlak-wit :is(.kaart, .info-kaart, .icoon-kaart, .route-kaart, .faq-kaart, .feit, .dagtabs, .pil-social) { background: rgba(162, 205, 79, .2); }
+main .vlak-groen :is(.kaart, .info-kaart, .icoon-kaart, .route-kaart, .faq-kaart, .feit, .dagtabs, .pil-social) { background: var(--doorschijnend); }
+main .vlak-wit .pillen li:not(.vol li) { background: rgba(162, 205, 79, .2); }
+main .vlak-groen .pillen li:not(.vol li) { background: var(--doorschijnend); }

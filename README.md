@@ -34,6 +34,8 @@ Vervangt de oude WordPress/Elementor-site. Gewone statische HTML, geen framework
 
 ## Festivalmodus (de schakelaar)
 
+**Preview-schakelaar (enkel tak `redesign`):** met `"preview_schakelaar": true` in `data/instellingen.json` bouwt de site beide versies en staat er bovenaan een zwarte balk **FESTIVAL MODE ON/OFF** om te wisselen (de keuze wordt onthouden in de browser). Op de tak `main` wordt die balk altijd uitgeschakeld, ook als de instelling er staat. Voor livegang: instelling weghalen of op `false`.
+
 In `data/instellingen.json`:
 
 ```json

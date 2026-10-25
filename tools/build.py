@@ -15,6 +15,7 @@ from pathlib import Path
 import datetime
 import html
 import json
+import re
 
 ROOT = Path(__file__).resolve().parent.parent
 PAGES = ROOT / "pages"
@@ -25,6 +26,18 @@ SITE = "https://folkfestivalham.be"
 # Instellingen: festivalmodus aan/uit en de datum in de header (data/instellingen.json)
 INST = json.loads((DATA / "instellingen.json").read_text(encoding="utf-8"))
 FESTIVAL = bool(INST.get("festivalmodus"))
+# Alleen voor de preview: een schakelbalk bovenaan om festivalmodus aan/uit te bekijken.
+# Bouwt beide versies; de bezoeker kiest met de schakelaar. NOOIT aanzetten op de live site (main).
+PREVIEW = bool(INST.get("preview_schakelaar"))
+# Veiligheid: op de live-tak (main) nooit de preview-schakelaar
+try:
+    import subprocess as _sp
+    if _sp.run(["git", "-C", str(ROOT), "branch", "--show-current"], capture_output=True, text=True).stdout.strip() == "main":
+        PREVIEW = False
+except Exception:
+    pass
+if PREVIEW:
+    FESTIVAL = True
 DATUM_FESTIVAL = INST.get("datum_festival", "")
 PROGRAMMA = json.loads((DATA / "programma.json").read_text(encoding="utf-8"))
 DAGEN = list(PROGRAMMA["dagen"].keys())  # vrijdag, zaterdag, zondag
@@ -79,7 +92,7 @@ def header(nav, dag=""):
                 f'<li><a href="/{d}/"{actief if d == dag else ""}>{PROGRAMMA["dagen"][d]["titel"]}</a></li>'
                 for d in DAGEN)
             regels.append(
-                f'        <li class="heeft-sub"><a href="{href}"{actief if key == nav else ""}>{label}</a>'
+                f'        <li class="heeft-sub alleen-festival"><a href="{href}"{actief if key == nav else ""}>{label}</a>'
                 f'<ul class="sub">{sub}</ul></li>')
         else:
             regels.append(f'        <li><a href="{href}"{actief if key == nav else ""}>{label}</a></li>')
@@ -96,7 +109,12 @@ def header(nav, dag=""):
         <li><a href="/"{actief if nav == "home" else ""}>Home</a></li>
 {items}
       </ul>
+      <div class="nav-extra">
+        <a class="btn btn-groen" href="/tickets/">Tickets</a>
+        {SOCIALS}
+      </div>
     </nav>
+    <div class="menu-scherm" aria-hidden="true"></div>
     <div class="kop-rechts">
       <a class="btn btn-tickets" href="/tickets/"{tickets_actief}>Tickets</a>
       <button class="menu-knop" type="button" aria-expanded="false" aria-controls="hoofdmenu" aria-label="Menu"><span class="hamburger" aria-hidden="true"></span></button>
@@ -164,10 +182,18 @@ def footer():
 <script>
   (function () {{
     var kop = document.querySelector('.site-header'), knop = document.querySelector('.menu-knop');
-    if (knop) knop.addEventListener('click', function () {{
-      var open = kop.classList.toggle('open');
+    var zetMenu = function (open) {{
+      kop.classList.toggle('open', open);
+      document.body.classList.toggle('menu-open', open);
       knop.setAttribute('aria-expanded', open ? 'true' : 'false');
-    }});
+      knop.setAttribute('aria-label', open ? 'Menu sluiten' : 'Menu');
+    }};
+    if (knop) {{
+      knop.addEventListener('click', function () {{ zetMenu(!kop.classList.contains('open')); }});
+      var scherm = document.querySelector('.menu-scherm');
+      if (scherm) scherm.addEventListener('click', function () {{ zetMenu(false); }});
+      document.addEventListener('keydown', function (ev) {{ if (ev.key === 'Escape') zetMenu(false); }});
+    }}
     // Schaduw onder de kop zodra je scrolt
     var zet = function () {{ kop.classList.toggle('gescrold', window.scrollY > 8); }};
     window.addEventListener('scroll', zet, {{ passive: true }}); zet();
@@ -186,9 +212,12 @@ def footer():
 </script>"""
 
 
-def oproep():
+def oproep(modus=None):
     """Vaste band onderaan elke pagina (boven de sponsors)."""
-    if FESTIVAL:
+    if PREVIEW and modus is None:
+        return (f'<div class="alleen-festival">{oproep("festival")}</div>'
+                f'<div class="alleen-normaal">{oproep("normaal")}</div>')
+    if (modus or ("festival" if FESTIVAL else "normaal")) == "festival":
         return f"""<section class="oproep" aria-label="Tickets">
   <div class="wrap oproep-in">
     <div><strong>Folkfestival Ham</strong><span>{e(DATUM_FESTIVAL)} · {PLAATS}</span></div>
@@ -201,6 +230,45 @@ def oproep():
     <div class="knoppen"><a class="btn btn-licht" href="https://www.facebook.com/FolkfestivalHam/">{ICON["facebook"]}Facebook</a><a class="btn btn-licht" href="https://www.instagram.com/FolkfestivalHam/">{ICON["instagram"]}Instagram</a></div>
   </div>
 </section>"""
+
+
+def schakelbalk():
+    if not PREVIEW:
+        return ""
+    return """<div class="schakelbalk" role="region" aria-label="Preview-instelling">
+  <span class="schakelbalk-label">Preview</span>
+  <span class="schakelbalk-tekst">Festival mode</span>
+  <button class="schakelaar" type="button" role="switch" aria-checked="true"><span class="schakelaar-knop"></span><span class="schakelaar-aan">ON</span><span class="schakelaar-uit">OFF</span></button>
+  <span class="schakelbalk-uitleg">Enkel zichtbaar op de preview</span>
+</div>
+<script>
+(function () {
+  var r = document.documentElement, k = 'ffh-preview-modus', m = 'festival';
+  try { m = localStorage.getItem(k) || 'festival'; } catch (e) {}
+  r.dataset.modus = m;
+  var b = document.querySelector('.schakelaar');
+  var zet = function (x) { r.dataset.modus = x; b.setAttribute('aria-checked', x === 'festival' ? 'true' : 'false'); try { localStorage.setItem(k, x); } catch (e) {} };
+  zet(m);
+  b.addEventListener('click', function () { zet(r.dataset.modus === 'festival' ? 'normaal' : 'festival'); });
+})();
+</script>"""
+
+
+def kleur_secties(body):
+    """Zet afwisselend wit/groen op de secties (na hero of titel eerst wit). Per variant apart geteld."""
+    def per_stuk(stuk):
+        n = [0]
+        def zet(m):
+            tag = m.group(0)
+            if re.search(r'class="[^"]*(hero|paginatitel|oproep)', tag):
+                n[0] = 0
+                return tag
+            n[0] += 1
+            kl = "vlak-wit" if n[0] % 2 else "vlak-groen"
+            return re.sub(r'class="', f'class="{kl} ', tag, count=1) if 'class="' in tag else tag.replace("<section", f'<section class="{kl}"', 1)
+        return re.sub(r"<section\b[^>]*>", zet, stuk)
+    delen = re.split(r'(<div class="alleen-(?:festival|normaal)">)', body)
+    return "".join(d if d.startswith('<div class="alleen-') else per_stuk(d) for d in delen)
 
 
 def page(meta, body):
@@ -228,9 +296,10 @@ def page(meta, body):
   <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
+{schakelbalk()}
 {header(meta.get('nav', ''), meta.get('dag', ''))}
 <main id="inhoud">
-{body.strip()}
+{kleur_secties(body.strip())}
 {"" if meta.get("cta") == "geen" else oproep()}
 </main>
 {footer()}
@@ -474,10 +543,18 @@ def main():
             f.unlink()
             f.parent.rmdir()
     pages = []
+    varianten = {}
     for src in sorted(PAGES.glob("*.html")):
         meta, body = read(src)
+        if PREVIEW and meta.get("modus"):
+            varianten[meta["modus"]] = (meta, body)
+            continue
         if meta.get("modus") and meta["modus"] != modus:
             continue
+        pages.append((meta, body))
+    if PREVIEW and varianten:
+        meta = dict(varianten.get("festival", next(iter(varianten.values())))[0])
+        body = "".join(f'<div class="alleen-{m}">{b}</div>' for m, (_, b) in varianten.items())
         pages.append((meta, body))
     if FESTIVAL:
         pages += [dagpagina(d) for d in DAGEN]
