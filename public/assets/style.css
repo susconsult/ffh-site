@@ -859,3 +859,10 @@ html[data-modus="festival"] .nav li.alleen-normaal, html[data-modus="normaal"] .
   body.print-lineup .tt-naam { font-size: 7.5pt; line-height: 1.1; }
   body.print-lineup .tt-tijd { font-size: 6.5pt; }
 }
+/* Afdruk: enkel de tabel (geen logo/titel bovenaan), tabel iets groter */
+@media print {
+  body.print-lineup .print-kop { display: none !important; }
+  body.print-lineup .tt { --uur: 12.5mm; }
+  body.print-lineup .tt-naam { font-size: 8.5pt; }
+  body.print-lineup .tt-tijd { font-size: 7pt; }
+}
