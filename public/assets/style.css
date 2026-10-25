@@ -906,3 +906,10 @@ html[data-modus="festival"] .nav li.alleen-normaal, html[data-modus="normaal"] .
   .nav a, .nav a[aria-current="page"], .nav a:hover { padding: 10px 8px 10px 15px; letter-spacing: .06em; }
   .kop .btn-tickets { padding: 0 16px; }
 }
+
+/* Cursor: het mannetje uit het logo (enkel met muis; op touch geen cursor) */
+@media (hover: hover) and (pointer: fine) {
+  html, body { cursor: url("/assets/img/cursor.png") 12 2, auto; }
+  a, button, summary, label, [role="switch"], .gal-foto, .tt-blok, .lu-kaart, .lint-item { cursor: url("/assets/img/cursor-klik.png") 10 2, pointer; }
+  input, textarea, select { cursor: auto; }
+}
