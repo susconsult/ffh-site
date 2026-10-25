@@ -559,3 +559,14 @@ main > section:nth-of-type(even) .logies a { background: var(--wit); box-shadow:
 .site-header { border-bottom: 0; box-shadow: 0 2px 14px rgba(26, 26, 26, .12); }
 .site-header.gescrold { box-shadow: 0 4px 20px rgba(26, 26, 26, .18); }
 @media (max-width: 860px) { .nav { border-bottom: 0; box-shadow: 0 10px 20px rgba(26, 26, 26, .15); } }
+
+/* Timetable: zuivere schemakleuren (Grote tent blauw #1A67A9, Bal tent rood #D43237), geen foto erdoor */
+.tt-blok { background: var(--tent-groot); }
+.tt-blok.tt-bal { background: var(--tent-bal); }
+.tt-blok img { display: none; }
+.tt-baankop { color: var(--tent-groot); }
+.tt-baankop-bal { color: var(--tent-bal); }
+
+/* Groepen op de dagpagina's: gewoon afgeronde hoeken (video's blijven netjes) */
+.artiest-media .video, .artiest-foto,
+.artiest:nth-of-type(even) .artiest-media .video, .artiest:nth-of-type(even) .artiest-foto { border-radius: 18px; }
