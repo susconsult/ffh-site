@@ -783,3 +783,23 @@ html[data-modus="festival"] .nav li.alleen-normaal, html[data-modus="normaal"] .
 .paginatitel { position: relative; isolation: isolate; overflow: hidden; padding: clamp(70px, 11vw, 130px) 20px; background: var(--zwart) var(--titelfoto, url("/assets/img/hero-bedankt.webp")) center 40% / cover no-repeat !important; }
 .paginatitel::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(26, 26, 26, .55), rgba(26, 26, 26, .35) 60%, rgba(26, 26, 26, .6)); }
 .paginatitel h1 { color: var(--wit); text-shadow: 0 3px 20px rgba(0, 0, 0, .45); }
+
+/* Nieuwe foto's 2026 */
+.hero:not(.hero-festival) { background-image: url("/assets/img/2026/dansen-in-de-tent.webp"); background-position: center 35%; }
+.kaart img { object-position: center 30%; }
+
+/* Fotogalerij op de homepage */
+.gal { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 200px; grid-auto-flow: dense; gap: 12px; }
+.gal-foto { display: block; overflow: hidden; border-radius: 16px; position: relative; }
+.gal-foto.breed { grid-column: span 2; grid-row: span 2; }
+.gal-foto.hoog { grid-row: span 2; }
+.gal-foto img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+.gal-foto:hover img { transform: scale(1.06); }
+.gal-credit { text-align: center; font-size: var(--fs-mini); opacity: .7; margin: 12px 0 0; }
+.gal-groot { padding: 0; border: 0; background: transparent; max-width: min(1200px, 94vw); max-height: 92vh; overflow: visible; }
+.gal-groot::backdrop { background: rgba(26, 26, 26, .85); }
+.gal-groot img { display: block; max-width: 100%; max-height: 88vh; border-radius: 14px; }
+.gal-sluit { position: absolute; top: -18px; right: -18px; width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--wit); color: var(--zwart); font-size: 28px; line-height: 1; cursor: pointer; }
+@media (max-width: 860px) { .gal { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 150px; } .gal-sluit { top: 8px; right: 8px; } }
+.polaroid img[src*="bar-bubbels"] { object-position: 78% center; }
+.polaroid img[src*="onthaal-30-jaar"] { object-position: 55% center; }

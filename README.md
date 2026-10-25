@@ -7,7 +7,7 @@ Vervangt de oude WordPress/Elementor-site. Gewone statische HTML, geen framework
 
 | Adres | Inhoud |
 |---|---|
-| `/` | Home: "Bedankt! Tot volgend jaar", drie blokken, volg-ons-band, zonnebloem |
+| `/` | Home: "Bedankt! Tot volgend jaar", volgende evenementen, drie blokken, fotogalerij (+ link naar alle foto's op Facebook) |
 | `/over-ons/` | Duurzaamheid, meewerken |
 | `/praktisch/` | Route, camping, overnachten (logies-logo's), FAQ (`/praktisch/#faq`) |
 | `/vrijwilligers/` | Oproep vrijwilligers, mail naar medewerkers@folkfestivalham.be (oud adres /medewerkers/ stuurt door) |
@@ -47,6 +47,11 @@ In `data/instellingen.json`:
 - Daarna `python3 tools/build.py`, committen en pushen. Of vraag Claude: "zet festivalmodus aan/uit".
 
 **Programma** staat in `data/programma.json`: per dag de artiesten met naam, vlag, tijd, `bal` (true = label "Bal tent", false = "Grote tent"), website, YouTube-code, foto en tekst. Foto's in `public/assets/img/artiesten/` (16:9). Video's laden pas na een klik (youtube-nocookie), dus geen cookiebanner nodig.
+
+## Foto's
+
+- Recente festivalfoto's staan in `public/assets/img/2026/` (© Jeroen De Bie, credit in de footer en onder de galerij).
+- Galerij op de homepage: lijst `GALERIJ` in `tools/build.py` (bestandsnaam, alt-tekst, vorm `breed`/`hoog`/leeg). Klik = foto groot.
 
 ## Hoe aanpassen
 

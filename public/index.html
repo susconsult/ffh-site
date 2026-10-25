@@ -95,17 +95,17 @@ k.forEach(function(b){b.addEventListener('click',function(){z(b.dataset.dag);});
     <h2 class="sectie-titel">Een samenkomst van cultuur, muziek en verbinding</h2>
     <div class="grid-3">
       <article class="kaart">
-        <img src="/assets/img/kracht-van-folk.webp" width="700" height="1050" alt="Muzikant met gitaar op het podium van Folkfestival Ham" loading="lazy">
+        <img src="/assets/img/2026/draailier-accordeon.webp" width="1400" height="934" alt="Muzikanten met draailier en accordeon op het podium" loading="lazy">
         <h3>De kracht van folk</h3>
         <p>Bij Folkfestival Ham geloven we in de kracht van muziek om mensen samen te brengen. Ons festival is meer dan een podium voor folkmuziek; het is een plek waar traditie en vernieuwing elkaar ontmoeten, en waar liefhebbers van over de hele wereld genieten van de authentieke klanken van een divers muzikaal aanbod.</p>
       </article>
       <article class="kaart">
-        <img src="/assets/img/duurzaam.webp" width="700" height="1050" alt="Gitaar, bekers en een setlist op een tafel op het festival" loading="lazy">
+        <img src="/assets/img/2026/pint-celtic.webp" width="1400" height="934" alt="Herbruikbare festivalpint van The Celtic Art Gallery" loading="lazy">
         <h3>Duurzaam en inclusief</h3>
         <p>We streven ernaar een duurzame en inclusieve ervaring te bieden, met respect voor de natuur, onze lokale gemeenschap, en de rijke culturele geschiedenis van folk. Door samenwerking met lokale partners en artiesten creëren we een festival waar iedereen zich welkom voelt, van jong tot oud, van dansers tot luisteraars.</p>
       </article>
       <article class="kaart">
-        <img src="/assets/img/traditie.webp" width="700" height="1050" alt="Houten wegwijzers op het festivalterrein in Genebos" loading="lazy">
+        <img src="/assets/img/2026/kringdans.webp" width="1600" height="1067" alt="Kringdans in de tent" loading="lazy">
         <h3>Traditie met toekomst</h3>
         <p>Met aandacht voor kwaliteit, creativiteit en verbinding blijven we bouwen aan een traditie die de ziel raakt en de wereld inspireert. Samen vieren we de magie van muziek en creëren we herinneringen die een leven lang meegaan. Welkom bij Folkfestival Ham, waar klanken verbinden!</p>
       </article>
@@ -113,7 +113,30 @@ k.forEach(function(b){b.addEventListener('click',function(){z(b.dataset.dag);});
   </div>
 </section>
 
-<section class="vlak-wit sectie zonder-top">
+<section class="vlak-wit sectie galerij" id="fotos">
+  <div class="wrap">
+    <div class="intro">
+      <span class="kicker">Sfeerbeelden</span>
+      <h2>Zo voelt Folkfestival Ham</h2>
+    </div>
+    <div class="gal"><a class="gal-foto breed" href="/assets/img/2026/dansen-in-de-tent.webp" data-alt="Dansen in de tent"><img src="/assets/img/2026/dansen-in-de-tent.webp" alt="Dansen in de tent" loading="lazy"></a><a class="gal-foto hoog" href="/assets/img/2026/drummer.webp" data-alt="Drummer op het podium"><img src="/assets/img/2026/drummer.webp" alt="Drummer op het podium" loading="lazy"></a><a class="gal-foto " href="/assets/img/2026/zandbak.webp" data-alt="Kinderen spelen in de zandbak"><img src="/assets/img/2026/zandbak.webp" alt="Kinderen spelen in de zandbak" loading="lazy"></a><a class="gal-foto " href="/assets/img/2026/knutselen.webp" data-alt="Knutselen in de kinderzone"><img src="/assets/img/2026/knutselen.webp" alt="Knutselen in de kinderzone" loading="lazy"></a><a class="gal-foto " href="/assets/img/2026/duim-omhoog.webp" data-alt="Duim omhoog in de tent"><img src="/assets/img/2026/duim-omhoog.webp" alt="Duim omhoog in de tent" loading="lazy"></a><a class="gal-foto hoog" href="/assets/img/2026/accordeonist.webp" data-alt="Accordeonist op het podium"><img src="/assets/img/2026/accordeonist.webp" alt="Accordeonist op het podium" loading="lazy"></a><a class="gal-foto " href="/assets/img/2026/plezier.webp" data-alt="Plezier tussen vrijwilligers"><img src="/assets/img/2026/plezier.webp" alt="Plezier tussen vrijwilligers" loading="lazy"></a><a class="gal-foto " href="/assets/img/2026/kader-1.webp" data-alt="Vrijwilliger met een gouden kader"><img src="/assets/img/2026/kader-1.webp" alt="Vrijwilliger met een gouden kader" loading="lazy"></a></div>
+    <p class="knoppen midden"><a class="btn btn-zwart" href="https://www.facebook.com/FolkfestivalHam/photos" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.8c0-.9.3-1.5 1.6-1.5h1.7V4.4c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1v2.4H7.7V14h2.7v8h3.1z"/></svg>Bekijk alle foto's op Facebook</a></p>
+    <p class="gal-credit">Foto's: Jeroen De Bie</p>
+  </div>
+</section>
+<dialog class="gal-groot" aria-label="Foto"><button type="button" class="gal-sluit" aria-label="Sluiten">×</button><img alt=""></dialog>
+<script>
+(function () {
+  var d = document.querySelector('.gal-groot'); if (!d || !d.showModal) return;
+  var im = d.querySelector('img');
+  document.querySelectorAll('.gal-foto').forEach(function (a) {
+    a.addEventListener('click', function (ev) { ev.preventDefault(); im.src = a.href; im.alt = a.dataset.alt; d.showModal(); });
+  });
+  d.addEventListener('click', function (ev) { if (ev.target === d || ev.target.classList.contains('gal-sluit')) d.close(); });
+})();
+</script>
+
+<section class="vlak-groen sectie zonder-top">
   <div class="wrap faq-kort">
     <h2 class="sectie-titel">Goed om te weten</h2>
     <div class="grid-3">
@@ -153,17 +176,17 @@ k.forEach(function(b){b.addEventListener('click',function(){z(b.dataset.dag);});
     <h2 class="sectie-titel">Een samenkomst van cultuur, muziek en verbinding</h2>
     <div class="grid-3">
       <article class="kaart">
-        <img src="/assets/img/kracht-van-folk.webp" width="700" height="1050" alt="Muzikant met gitaar op het podium van Folkfestival Ham" loading="lazy">
+        <img src="/assets/img/2026/draailier-accordeon.webp" width="1400" height="934" alt="Muzikanten met draailier en accordeon op het podium" loading="lazy">
         <h3>De kracht van folk</h3>
         <p>Bij Folkfestival Ham geloven we in de kracht van muziek om mensen samen te brengen. Ons festival is meer dan een podium voor folkmuziek; het is een plek waar traditie en vernieuwing elkaar ontmoeten, en waar liefhebbers van over de hele wereld genieten van de authentieke klanken van een divers muzikaal aanbod.</p>
       </article>
       <article class="kaart">
-        <img src="/assets/img/duurzaam.webp" width="700" height="1050" alt="Gitaar, bekers en een setlist op een tafel op het festival" loading="lazy">
+        <img src="/assets/img/2026/pint-celtic.webp" width="1400" height="934" alt="Herbruikbare festivalpint van The Celtic Art Gallery" loading="lazy">
         <h3>Duurzaam en inclusief</h3>
         <p>We streven ernaar een duurzame en inclusieve ervaring te bieden, met respect voor de natuur, onze lokale gemeenschap, en de rijke culturele geschiedenis van folk. Door samenwerking met lokale partners en artiesten creëren we een festival waar iedereen zich welkom voelt, van jong tot oud, van dansers tot luisteraars.</p>
       </article>
       <article class="kaart">
-        <img src="/assets/img/traditie.webp" width="700" height="1050" alt="Houten wegwijzers op het festivalterrein in Genebos" loading="lazy">
+        <img src="/assets/img/2026/kringdans.webp" width="1600" height="1067" alt="Kringdans in de tent" loading="lazy">
         <h3>Traditie met toekomst</h3>
         <p>Met aandacht voor kwaliteit, creativiteit en verbinding blijven we bouwen aan een traditie die de ziel raakt en de wereld inspireert. Samen vieren we de magie van muziek en creëren we herinneringen die een leven lang meegaan. Welkom bij Folkfestival Ham, waar klanken verbinden!</p>
       </article>
@@ -171,7 +194,28 @@ k.forEach(function(b){b.addEventListener('click',function(){z(b.dataset.dag);});
   </div>
 </section>
 
-
+<section class="vlak-wit sectie galerij" id="fotos">
+  <div class="wrap">
+    <div class="intro">
+      <span class="kicker">Sfeerbeelden</span>
+      <h2>Zo voelt Folkfestival Ham</h2>
+    </div>
+    <div class="gal"><a class="gal-foto breed" href="/assets/img/2026/dansen-in-de-tent.webp" data-alt="Dansen in de tent"><img src="/assets/img/2026/dansen-in-de-tent.webp" alt="Dansen in de tent" loading="lazy"></a><a class="gal-foto hoog" href="/assets/img/2026/drummer.webp" data-alt="Drummer op het podium"><img src="/assets/img/2026/drummer.webp" alt="Drummer op het podium" loading="lazy"></a><a class="gal-foto " href="/assets/img/2026/zandbak.webp" data-alt="Kinderen spelen in de zandbak"><img src="/assets/img/2026/zandbak.webp" alt="Kinderen spelen in de zandbak" loading="lazy"></a><a class="gal-foto " href="/assets/img/2026/knutselen.webp" data-alt="Knutselen in de kinderzone"><img src="/assets/img/2026/knutselen.webp" alt="Knutselen in de kinderzone" loading="lazy"></a><a class="gal-foto " href="/assets/img/2026/duim-omhoog.webp" data-alt="Duim omhoog in de tent"><img src="/assets/img/2026/duim-omhoog.webp" alt="Duim omhoog in de tent" loading="lazy"></a><a class="gal-foto hoog" href="/assets/img/2026/accordeonist.webp" data-alt="Accordeonist op het podium"><img src="/assets/img/2026/accordeonist.webp" alt="Accordeonist op het podium" loading="lazy"></a><a class="gal-foto " href="/assets/img/2026/plezier.webp" data-alt="Plezier tussen vrijwilligers"><img src="/assets/img/2026/plezier.webp" alt="Plezier tussen vrijwilligers" loading="lazy"></a><a class="gal-foto " href="/assets/img/2026/kader-1.webp" data-alt="Vrijwilliger met een gouden kader"><img src="/assets/img/2026/kader-1.webp" alt="Vrijwilliger met een gouden kader" loading="lazy"></a></div>
+    <p class="knoppen midden"><a class="btn btn-zwart" href="https://www.facebook.com/FolkfestivalHam/photos" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.8c0-.9.3-1.5 1.6-1.5h1.7V4.4c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1v2.4H7.7V14h2.7v8h3.1z"/></svg>Bekijk alle foto's op Facebook</a></p>
+    <p class="gal-credit">Foto's: Jeroen De Bie</p>
+  </div>
+</section>
+<dialog class="gal-groot" aria-label="Foto"><button type="button" class="gal-sluit" aria-label="Sluiten">×</button><img alt=""></dialog>
+<script>
+(function () {
+  var d = document.querySelector('.gal-groot'); if (!d || !d.showModal) return;
+  var im = d.querySelector('img');
+  document.querySelectorAll('.gal-foto').forEach(function (a) {
+    a.addEventListener('click', function (ev) { ev.preventDefault(); im.src = a.href; im.alt = a.dataset.alt; d.showModal(); });
+  });
+  d.addEventListener('click', function (ev) { if (ev.target === d || ev.target.classList.contains('gal-sluit')) d.close(); });
+})();
+</script>
 </div>
 <div class="alleen-festival"><section class="oproep" aria-label="Tickets">
   <div class="wrap oproep-in">
@@ -247,7 +291,7 @@ k.forEach(function(b){b.addEventListener('click',function(){z(b.dataset.dag);});
     </ul>
   </div>
   <div class="footer-onder">
-    <p class="klein">© 2026 The Celtic Art Gallery vzw · BE 0458.144.856 · <a href="/voorwaarden/">Voorwaarden</a> · <a href="/privacy/">Privacy</a></p>
+    <p class="klein">© 2026 The Celtic Art Gallery vzw · BE 0458.144.856 · Foto's: Jeroen De Bie · <a href="/voorwaarden/">Voorwaarden</a> · <a href="/privacy/">Privacy</a></p>
     <a class="naar-boven" href="#" aria-label="Terug naar boven"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5 4 13l1.4 1.4L11 8.8V20h2V8.8l5.6 5.6L20 13z"/></svg></a>
   </div>
 </footer>

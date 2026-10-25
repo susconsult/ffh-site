@@ -181,7 +181,7 @@ def footer():
     </ul>
   </div>
   <div class="footer-onder">
-    <p class="klein">© {jaar} The Celtic Art Gallery vzw · BE 0458.144.856 · <a href="/voorwaarden/">Voorwaarden</a> · <a href="/privacy/">Privacy</a></p>
+    <p class="klein">© {jaar} The Celtic Art Gallery vzw · BE 0458.144.856 · Foto's: Jeroen De Bie · <a href="/voorwaarden/">Voorwaarden</a> · <a href="/privacy/">Privacy</a></p>
     <a class="naar-boven" href="#" aria-label="Terug naar boven"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5 4 13l1.4 1.4L11 8.8V20h2V8.8l5.6 5.6L20 13z"/></svg></a>
   </div>
 </footer>
@@ -442,7 +442,7 @@ def dagpagina(dag):
     </div>
   </div>
 </article>""")
-    body = f"""<section class="paginatitel textuur" style="--titelfoto:url(/assets/img/hero-bedankt.webp)"><h1>Festival programma</h1></section>
+    body = f"""<section class="paginatitel textuur" style="--titelfoto:url(/assets/img/2026/draailier-accordeon.webp)"><h1>Festival programma</h1></section>
 <section class="sectie">
   <div class="wrap">
     {dag_tabs(dag)}
@@ -476,6 +476,43 @@ def hero_artiesten():
     lint = (f'<div class="linten" aria-hidden="true"><div class="lint lint-1"><div class="lint-band">'
             f'<div class="lint-reeks">{inhoud}</div><div class="lint-reeks" aria-hidden="true">{inhoud}</div></div></div></div>')
     return mozaiek + lint
+
+
+GALERIJ = [
+    ("dansen-in-de-tent", "Dansen in de tent", "breed"), ("drummer", "Drummer op het podium", "hoog"),
+    ("zandbak", "Kinderen spelen in de zandbak", ""), ("knutselen", "Knutselen in de kinderzone", ""),
+    ("duim-omhoog", "Duim omhoog in de tent", ""), ("accordeonist", "Accordeonist op het podium", "hoog"),
+    ("plezier", "Plezier tussen vrijwilligers", ""), ("kader-1", "Vrijwilliger met een gouden kader", ""),
+]
+
+
+def galerij_html():
+    """Kleine fotogalerij op de homepage, met link naar alle foto's op Facebook. Klik = groter bekijken."""
+    tegels = "".join(
+        f'<a class="gal-foto {vorm}" href="/assets/img/2026/{f}.webp" data-alt="{e(alt)}"><img src="/assets/img/2026/{f}.webp" alt="{e(alt)}" loading="lazy"></a>'
+        for f, alt, vorm in GALERIJ)
+    return f"""<section class="sectie galerij" id="fotos">
+  <div class="wrap">
+    <div class="intro">
+      <span class="kicker">Sfeerbeelden</span>
+      <h2>Zo voelt Folkfestival Ham</h2>
+    </div>
+    <div class="gal">{tegels}</div>
+    <p class="knoppen midden"><a class="btn btn-zwart" href="https://www.facebook.com/FolkfestivalHam/photos" target="_blank" rel="noopener">{ICON["facebook"]}Bekijk alle foto's op Facebook</a></p>
+    <p class="gal-credit">Foto's: Jeroen De Bie</p>
+  </div>
+</section>
+<dialog class="gal-groot" aria-label="Foto"><button type="button" class="gal-sluit" aria-label="Sluiten">×</button><img alt=""></dialog>
+<script>
+(function () {{
+  var d = document.querySelector('.gal-groot'); if (!d || !d.showModal) return;
+  var im = d.querySelector('img');
+  document.querySelectorAll('.gal-foto').forEach(function (a) {{
+    a.addEventListener('click', function (ev) {{ ev.preventDefault(); im.src = a.href; im.alt = a.dataset.alt; d.showModal(); }});
+  }});
+  d.addEventListener('click', function (ev) {{ if (ev.target === d || ev.target.classList.contains('gal-sluit')) d.close(); }});
+}})();
+</script>"""
 
 
 def lineup_html():
@@ -589,12 +626,12 @@ def main():
         import re as _re
         body = _re.sub(r"\{\{ICOON:(\w+)\}\}", lambda m: icoon(m.group(1)), body)
         # Paginatitel: foto met filter erachter i.p.v. de groene band
-        TITELFOTO = {"/over-ons/": "vrijwilligers", "/praktisch/": "camping", "/vrijwilligers/": "medewerkers-2",
-                     "/tickets/": "hero-bedankt", "/voorwaarden/": "zonnebloem", "/privacy/": "zonnebloem"}
-        foto = meta.get("titelfoto") or TITELFOTO.get(meta["path"], "hero-bedankt")
+        TITELFOTO = {"/over-ons/": "2026/dansende-armen", "/praktisch/": "camping", "/vrijwilligers/": "2026/kader-2",
+                     "/tickets/": "2026/dansen-in-de-tent", "/voorwaarden/": "zonnebloem", "/privacy/": "zonnebloem"}
+        foto = meta.get("titelfoto") or TITELFOTO.get(meta["path"], "2026/dansen-in-de-tent")
         body = body.replace('<section class="paginatitel textuur">',
                             f'<section class="paginatitel textuur" style="--titelfoto:url(/assets/img/{foto}.webp)">', 1)
-        body = body.replace("{{HERO_ARTIESTEN}}", hero_artiesten()).replace("{{LINEUP}}", lineup_html()).replace("{{PROGRAMMA}}", programma_html()).replace("{{DATUM}}", e(DATUM_FESTIVAL))
+        body = body.replace("{{GALERIJ}}", galerij_html()).replace("{{HERO_ARTIESTEN}}", hero_artiesten()).replace("{{LINEUP}}", lineup_html()).replace("{{PROGRAMMA}}", programma_html()).replace("{{DATUM}}", e(DATUM_FESTIVAL))
         p = meta["path"]
         out = PUBLIC / "404.html" if p == "/404" else PUBLIC / p.strip("/") / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)
