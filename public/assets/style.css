@@ -372,3 +372,102 @@ p { margin: 0 0 1em; }
   .carousel { overflow-x: auto; }
   .carousel-band { animation: none; }
 }
+
+/* =========================================================
+   AFFICHE-STIJL — de site volgt de festivalaffiche:
+   overal de groene textuur, zwarte vette letters op groen, weinig wit,
+   rood pilletje als accent (zoals "30 jaar festival"), witte strook enkel voor de partners.
+   ========================================================= */
+:root {
+  --tekst: var(--zwart);
+  --doorschijnend: rgba(255, 255, 255, .42);   /* kaarten: licht, laat het groen doorschijnen */
+  --doorschijnend-hover: rgba(255, 255, 255, .62);
+  --lijn: rgba(26, 26, 26, .16);
+}
+body { background: var(--groen) var(--textuur) repeat; background-size: 400px auto; color: var(--zwart); }
+a { color: var(--zwart); }
+h1, h2, h3 { color: var(--zwart); }
+h2 { font-weight: 800; letter-spacing: .02em; }
+.sectie-licht, .lu-sectie, .textuur, .paginatitel { background: transparent; }
+.kicker, .feit strong, .pillen-titel { color: var(--zwart); opacity: .75; }
+.grijs, .kaart p, .info-kaart p, .icoon-kaart p, .faq .antwoord { color: var(--zwart); }
+.intro { color: var(--zwart); }
+
+/* Kop: groen, zwarte letters, rode Tickets-pil */
+.site-header { background: var(--groen) var(--textuur) repeat; background-size: 400px auto; border-bottom: 2px solid var(--zwart); }
+.nav a { color: var(--zwart); text-shadow: none; font-weight: 700; }
+.nav a:hover { background: rgba(26, 26, 26, .1); }
+.nav a[aria-current="page"] { background: var(--zwart); color: var(--groen); }
+.kop .btn-tickets, .btn-tickets { background: var(--rood); color: var(--wit); box-shadow: none; }
+.kop .btn-tickets:hover, .btn-tickets:hover { background: var(--zwart); }
+.menu-knop { background: var(--zwart); }
+.hamburger, .hamburger::before, .hamburger::after { background: var(--groen); }
+.site-header.open .hamburger { background: transparent; }
+
+/* Paginatitels zoals de affiche: groot, zwart, vet */
+.paginatitel h1 { color: var(--zwart); text-shadow: none; font-weight: 800; font-size: clamp(2.4rem, 6vw, 4rem); letter-spacing: .01em; }
+
+/* Knoppen: rood = tickets, zwart = de rest */
+.btn-groen { background: var(--rood); color: var(--wit); }
+.btn-groen:hover { background: var(--zwart); }
+.btn-zwart { background: var(--zwart); color: var(--groen); }
+.btn-zwart:hover { background: var(--rood); color: var(--wit); }
+.pil-tickets { background: var(--rood); color: var(--wit); }
+.pil-tickets:hover { background: var(--zwart); }
+.pil-social { background: var(--doorschijnend); color: var(--zwart); }
+
+/* Kaarten: geen wit blok, maar licht doorschijnend op het groen */
+.kaart, .info-kaart, .icoon-kaart, .route-kaart, .faq-kaart, .lu-dag, .feit,
+.sectie:not(.sectie-licht):not(.lu-sectie) .icoon-kaart, .sectie:not(.sectie-licht) .info-kaart, .sectie:not(.sectie-licht) .feit, .sectie-licht .feit {
+  background: var(--doorschijnend); box-shadow: none; border: 0;
+}
+.info-kaart:hover { background: var(--doorschijnend-hover); box-shadow: none; }
+.info-kaart span { color: var(--zwart); text-decoration: underline; }
+.icoon { background: var(--zwart); color: var(--groen); }
+.snelnav a { background: var(--doorschijnend); }
+.snelnav a:hover { background: var(--zwart); color: var(--groen); }
+.pillen li { background: var(--doorschijnend); }
+.pillen.vol li { background: var(--zwart); color: var(--groen); }
+.faq summary::after { background: var(--zwart); color: var(--groen); }
+.logies a { background: var(--wit); border: 0; }
+
+/* Foto's: zwart vlak erachter i.p.v. groen (anders verdwijnt het op het groen) */
+.polaroid::before { background: var(--zwart); }
+
+/* Line-up zoals de affiche: dag klein, namen groot en zwart */
+.lu-dag { background: transparent; }
+.lu-dag h3 { background: transparent; padding: 0 8px 8px; border-bottom: 3px solid var(--zwart); }
+.lu-dag h3 a { color: var(--zwart); text-shadow: none; font-weight: 800; font-size: var(--fs-h3); }
+.lu-dag ul { padding: 8px 0; }
+.lu-kaart:hover { background: var(--doorschijnend); }
+.lu-naam { font-weight: 800; font-size: var(--fs-tekst); }
+.lu-kaart img { border: 2px solid var(--zwart); }
+.lu-alles { color: var(--zwart); text-decoration: underline; margin-left: 8px; }
+.tijd { color: var(--zwart); }
+.artiest-info svg { fill: var(--zwart); }
+.dagtabs { background: var(--doorschijnend); }
+.dagtabs a[aria-current="page"] { background: var(--zwart); color: var(--groen); }
+.artiest { border-bottom-color: var(--lijn); }
+
+/* Medewerkers-oproep: rood blok zoals het pilletje */
+.mail-oproep { background: var(--rood); }
+.mail-oproep h2, .mail-oproep p { color: var(--wit); text-shadow: none; }
+
+/* Footer: groen, zwarte letters; partners in een witte strook onderaan zoals de affiche */
+.site-footer { display: flex; flex-direction: column; background: transparent; }
+.footer-slogan { color: var(--zwart); text-shadow: none; font-weight: 800; }
+.socials a { background: var(--zwart); color: var(--groen); }
+.contact li { background: var(--doorschijnend); }
+.contact svg { background: var(--zwart); fill: var(--groen); }
+.sponsors { order: 3; width: 100%; max-width: none; margin: 0; border-radius: 0; box-shadow: none; background: var(--wit); padding: 22px 0; }
+.footer-onder { order: 4; background: var(--zwart); }
+.klein, .klein a { color: var(--groen); }
+.naar-boven { background: var(--rood); }
+
+/* Gsm-menu */
+@media (max-width: 860px) {
+  .nav { background: var(--groen) var(--textuur); background-size: 400px auto; border-bottom: 2px solid var(--zwart); }
+  .nav .sub a { color: var(--zwart); opacity: .8; }
+  .nav .sub a:hover { background: rgba(26, 26, 26, .1); }
+  .nav a[aria-current="page"] { background: var(--zwart); color: var(--groen); }
+}
