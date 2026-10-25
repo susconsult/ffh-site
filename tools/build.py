@@ -64,7 +64,7 @@ MENU = [
     ("concerten", "Evenementen", "/tickets/#!/Concerten/c/126605256"),
     ("over-ons", "Over ons", "/over-ons/"),
     ("praktisch", "Praktisch", "/praktisch/"),
-    ("medewerkers", "Medewerkers", "/medewerkers/"),
+    ("vrijwilligers", "Vrijwilligers", "/vrijwilligers/"),
 ]
 if not FESTIVAL:
     MENU = [m for m in MENU if m[0] != "programma"]
@@ -546,6 +546,10 @@ def redirects():
         "/tickets/account/favorites /tickets/#!/~/favorites 301",
         "/tickets/Whiskytasting-27-november-2026-p873206867 /tickets/#!/Whiskytasting-27-november-2026/p/873206867 301",
         "",
+        "# Medewerkers heet nu Vrijwilligers",
+        "/medewerkers /vrijwilligers/ 301",
+        "/medewerkers/ /vrijwilligers/ 301",
+        "",
         "# Korte directe link naar de (verborgen) Whiskytasting",
         "/whiskytasting /tickets/#!/Whiskytasting/c/142997555 302",
     ]
@@ -585,7 +589,7 @@ def main():
         import re as _re
         body = _re.sub(r"\{\{ICOON:(\w+)\}\}", lambda m: icoon(m.group(1)), body)
         # Paginatitel: foto met filter erachter i.p.v. de groene band
-        TITELFOTO = {"/over-ons/": "vrijwilligers", "/praktisch/": "camping", "/medewerkers/": "medewerkers-2",
+        TITELFOTO = {"/over-ons/": "vrijwilligers", "/praktisch/": "camping", "/vrijwilligers/": "medewerkers-2",
                      "/tickets/": "hero-bedankt", "/voorwaarden/": "zonnebloem", "/privacy/": "zonnebloem"}
         foto = meta.get("titelfoto") or TITELFOTO.get(meta["path"], "hero-bedankt")
         body = body.replace('<section class="paginatitel textuur">',
