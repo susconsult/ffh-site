@@ -1,4 +1,10 @@
 User-agent: *
+Disallow: /vrijdag/
+Disallow: /vrijdag
+Disallow: /zaterdag/
+Disallow: /zaterdag
+Disallow: /zondag/
+Disallow: /zondag
 Allow: /
 
 Sitemap: https://folkfestivalham.be/sitemap.xml
