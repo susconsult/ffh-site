@@ -42,8 +42,8 @@ In `data/instellingen.json`:
 { "festivalmodus": true, "datum_festival": "14 - 15 - 16 augustus 2026" }
 ```
 
-- **Aan** (`true`): hero met glijdende linten van artiestnamen en ronde foto's (pauzeert bij hover, klik = naar de artiest), homepage met de line-up per dag — line-up en blokkenschema in één (`pages/home-festival.html`), menu-item "Festival", en de dagpagina's `/vrijdag/`, `/zaterdag/`, `/zondag/`.
-- **Uit** (`false`): homepage "Bedankt! Tot volgend jaar" (`pages/home.html`). Dagpagina's bestaan dan niet: `/vrijdag/` enz. sturen naar de homepage, staan niet in de sitemap, er linkt niets naartoe en `robots.txt` verbiedt ze voor zoekmachines.
+- **Aan** (`true`): hero met een mozaïek van alle artiestfoto's als achtergrond en één traag lint met namen en ronde foto's onderaan (pauzeert bij hover), homepage met de line-up per dag — line-up en blokkenschema in één (`pages/home-festival.html`), menu-item "Festival", en de dagpagina's `/vrijdag/`, `/zaterdag/`, `/zondag/`.
+- **Uit** (`false`): homepage "Bedankt! Tot volgend jaar" met de focus op **Volgende evenementen**: live uit de Ecwid-categorie Concerten (126605256) — nieuwe evenementen verschijnen vanzelf als ze daar in de winkel staan (`pages/home.html`). Dagpagina's bestaan dan niet: `/vrijdag/` enz. sturen naar de homepage, staan niet in de sitemap, er linkt niets naartoe en `robots.txt` verbiedt ze voor zoekmachines.
 - Daarna `python3 tools/build.py`, committen en pushen. Of vraag Claude: "zet festivalmodus aan/uit".
 
 **Programma** staat in `data/programma.json`: per dag de artiesten met naam, vlag, tijd, `bal` (true = label "Bal tent", false = "Grote tent"), website, YouTube-code, foto en tekst. Foto's in `public/assets/img/artiesten/` (16:9). Video's laden pas na een klik (youtube-nocookie), dus geen cookiebanner nodig.

@@ -710,3 +710,50 @@ main .vlak-groen .pillen li:not(.vol li) { background: var(--doorschijnend); }
   .lint-3 { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { .lint-band { animation: none; } .lint { overflow-x: auto; } }
+
+/* Festival-hero: video (of bewegende foto) met groene filter, linten erover */
+.hero-festival { position: relative; isolation: isolate; background: var(--zwart); }
+.hero-video { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
+.hero-video-foto { background: url("/assets/img/hero-bedankt.webp") center / cover no-repeat; animation: hero-zweef 24s ease-in-out infinite alternate; }
+@keyframes hero-zweef { from { transform: scale(1.05) translate(0, 0); } to { transform: scale(1.18) translate(-3%, -2%); } }
+.hero-filter { position: absolute; inset: 0; z-index: -1; background: var(--groen) var(--textuur) repeat; background-size: 400px auto; mix-blend-mode: multiply; opacity: .92; }
+.hero-filter::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(162,205,79,.55), rgba(162,205,79,.15) 55%, rgba(26,26,26,.25)); }
+@media (prefers-reduced-motion: reduce) { .hero-video-foto { animation: none; } }
+
+/* Evenementen op de homepage */
+.winkel-home { min-height: 300px; }
+.winkel-home .ec-breadcrumbs, .winkel-home .ec-store__category-page > .ec-page-title, .winkel-home .ecwid-search-widget, .winkel-home .ec-footer { display: none !important; }
+
+/* Rustiger festival-hero: 1 dun traag lint, geen foto's, sterkere groene filter zodat de titel leesbaar blijft */
+.hero-filter { opacity: 1; }
+.hero-filter::after { background: rgba(162, 205, 79, .62); }
+.lint-2, .lint-3 { display: none; }
+.linten { transform: none; margin: 0; gap: 0; }
+.lint-1 { background: var(--zwart); }
+.lint-1 .lint-band { animation-duration: 90s; }
+.lint-item { padding: 12px 4px; }
+.lint-item img { display: none; }
+.lint-item span { font-size: var(--fs-groot); letter-spacing: .08em; }
+.lint-ster { padding: 0 16px; font-size: var(--fs-tekst); }
+.hero-festival { padding-bottom: 0; min-height: clamp(440px, 58vw, 620px); justify-content: flex-end; }
+.hero-festival .hero-inhoud { margin: auto 0; padding-top: 40px; }
+
+/* Festival-hero definitief: mozaïek van artiesten als achtergrond + één traag lint onderaan */
+.hero-festival { background: var(--zwart); justify-content: flex-end; padding: 0; min-height: clamp(460px, 58vw, 640px); }
+.hero-festival::before { display: block; z-index: -1; background: linear-gradient(180deg, rgba(26,26,26,.30), rgba(26,26,26,.50) 55%, rgba(26,26,26,.75)); }
+.hero-festival .hero-inhoud { margin: auto 0; padding: 40px 20px; }
+.hero-festival h1, .hero-festival p { color: var(--wit); text-shadow: 0 3px 20px rgba(0,0,0,.45); }
+.hero-festival .btn-licht { color: var(--wit); border-color: var(--wit); }
+.hero-festival .btn-licht:hover { background: var(--wit); color: var(--zwart); }
+.hero-video, .hero-filter { display: none; }
+.linten { transform: none; margin: 0; gap: 0; width: 100%; }
+.lint-1 { background: var(--groen) var(--textuur) repeat; background-size: 400px auto; }
+.lint-1 .lint-band { animation-duration: 100s; }
+.lint-1 .lint-item, .lint-1 .lint-ster { color: var(--zwart); }
+.lint-item img { width: 44px; height: 44px; border: 2px solid var(--zwart); }
+.lint-item span { font-size: var(--fs-groot); letter-spacing: .06em; }
+.lint-ster { padding: 0 16px; font-size: var(--fs-tekst); }
+@media (max-width: 860px) { .lint-item img { width: 36px; height: 36px; } }
+.hero-festival .hero-mozaiek { z-index: -2; }
+.hero-festival::before { z-index: -1; }
+.lint-1 .lint-item img { display: block; }

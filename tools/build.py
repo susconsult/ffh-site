@@ -456,22 +456,20 @@ def _minuten(tijd):
 
 
 def hero_artiesten():
-    """Festival-hero: linten met artiestnamen en ronde foto's die in tegengestelde richting voorbij glijden."""
+    """Festival-hero: mozaïek van alle artiestfoto's als achtergrond + één traag lint met namen en ronde foto's."""
     acts = [(d, a) for d in DAGEN for a in PROGRAMMA["artiesten"].get(d, [])]
     if not acts:
         return ""
-    def stuk(a, d):
-        img = f'<img src="{e(a["foto"])}" alt="" loading="lazy" width="720" height="720">' if a.get("foto") else ""
+    tegels = "".join(f'<span style="background-image:url({e(a["foto"])})"></span>' for d, a in acts if a.get("foto"))
+    mozaiek = f'<div class="hero-mozaiek" aria-hidden="true">{tegels}{tegels}</div>'
+    def stuk(d, a):
+        img = f'<img src="{e(a["foto"])}" alt="" width="720" height="720">' if a.get("foto") else ""
         return (f'<a class="lint-item" href="/{d}/#{artiest_id(a)}" tabindex="-1">{img}'
                 f'<span>{e(a["naam"])}</span><i class="vlag">{a.get("vlag","")}</i></a><b class="lint-ster" aria-hidden="true">✦</b>')
-    helft = (len(acts) + 1) // 2
-    rijen = [acts[:helft], acts[helft:], acts[::-1]]
-    linten = []
-    for i, rij in enumerate(rijen):
-        inhoud = "".join(stuk(a, d) for d, a in rij)
-        linten.append(f'<div class="lint lint-{i + 1}"><div class="lint-band">'
-                      f'<div class="lint-reeks">{inhoud}</div><div class="lint-reeks" aria-hidden="true">{inhoud}</div></div></div>')
-    return '<div class="linten" aria-hidden="true">' + "".join(linten) + "</div>"
+    inhoud = "".join(stuk(d, a) for d, a in acts)
+    lint = (f'<div class="linten" aria-hidden="true"><div class="lint lint-1"><div class="lint-band">'
+            f'<div class="lint-reeks">{inhoud}</div><div class="lint-reeks" aria-hidden="true">{inhoud}</div></div></div></div>')
+    return mozaiek + lint
 
 
 def lineup_html():
