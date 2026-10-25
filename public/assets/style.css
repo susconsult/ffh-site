@@ -12,7 +12,7 @@
   /* Kleurenschema "Mannetje" — afgeleid van het logo-mannetje en de groene achtergrond */
   --groen: #A2CD4F;          /* achtergrond van de affiche: textuur, lichte accenten */
   --groen-donker: #4A7A1F;   /* donkerder groen: knoppen, menu, balken (witte tekst) */
-  --rood: #D43237;           /* gestreepte trui: Bal tent, uren */
+  --rood: #CA4B22;           /* rood van het pilletje op de affiche: Tickets, Bal tent */
   --blauw: #1A67A9;          /* broek: Grote tent, links */
   --bruin: #AB6848;          /* haar: kleine kopjes */
   --creme: #FAF1E7;          /* huid, heel licht: lichte secties */
@@ -560,7 +560,7 @@ main > section:nth-of-type(even) .logies a { background: var(--wit); box-shadow:
 .site-header.gescrold { box-shadow: 0 4px 20px rgba(26, 26, 26, .18); }
 @media (max-width: 860px) { .nav { border-bottom: 0; box-shadow: 0 10px 20px rgba(26, 26, 26, .15); } }
 
-/* Timetable: zuivere schemakleuren (Grote tent blauw #1A67A9, Bal tent rood #D43237), geen foto erdoor */
+/* Timetable: zuivere schemakleuren (Grote tent blauw #1A67A9, Bal tent rood #CA4B22), geen foto erdoor */
 .tt-blok { background: var(--tent-groot); }
 .tt-blok.tt-bal { background: var(--tent-bal); }
 .tt-blok img { display: none; }

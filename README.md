@@ -29,7 +29,7 @@ Vervangt de oude WordPress/Elementor-site. Gewone statische HTML, geen framework
 - **Menu-indicator:** het mannetje uit het logo staat boven het actieve menu-item (`assets/img/mannetje.webp`).
 - **Line-up (homepage, festivalmodus):** timetable zoals een agenda: per dag een kolom met twee banen (Grote tent blauw, Bal tent rood), blokken op hun uur. Duur = tot het volgende optreden (max 1u45), laatste 1u30; een vaste eindtijd kan met het veld `"eind": "21u00"` per artiest in `data/programma.json`. Op gsm één dag tegelijk met dagknoppen.
 - **Knoppen:** pilvorm. `btn-groen` = tickets/hoofdactie (witte tekst), `btn-zwart` = gewone actie, `btn-licht` = op foto.
-- **Kleurenschema "Mannetje"** (afgeleid van het logo-mannetje en de groene achtergrond; variabelen bovenaan `style.css`): groen `#A2CD4F` (textuur) · donkergroen `#4A7A1F` (knoppen, menu, witte tekst) · rood `#D43237` (trui: Bal tent, uren) · blauw `#1A67A9` (broek: Grote tent, links) · bruin `#AB6848` (haar: kleine kopjes) · crème `#FAF1E7` (lichte secties) · zwart · wit.
+- **Kleurenschema "Mannetje"** (afgeleid van het logo-mannetje en de groene achtergrond; variabelen bovenaan `style.css`): groen `#A2CD4F` (textuur) · donkergroen `#4A7A1F` (knoppen, menu, witte tekst) · rood `#CA4B22` (pilletje op de affiche: Tickets, Bal tent) · blauw `#1A67A9` (broek: Grote tent, links) · bruin `#AB6848` (haar: kleine kopjes) · crème `#FAF1E7` (lichte secties) · zwart · wit.
 - **Letterschaal:** 7 maten (`--fs-hero` … `--fs-mini`). Altijd een van die maten gebruiken.
 
 ## Festivalmodus (de schakelaar)
