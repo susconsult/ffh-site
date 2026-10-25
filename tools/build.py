@@ -442,7 +442,7 @@ def dagpagina(dag):
     </div>
   </div>
 </article>""")
-    body = f"""<section class="paginatitel textuur"><h1>Festival programma</h1></section>
+    body = f"""<section class="paginatitel textuur" style="--titelfoto:url(/assets/img/hero-bedankt.webp)"><h1>Festival programma</h1></section>
 <section class="sectie">
   <div class="wrap">
     {dag_tabs(dag)}
@@ -584,6 +584,12 @@ def main():
     for meta, body in pages:
         import re as _re
         body = _re.sub(r"\{\{ICOON:(\w+)\}\}", lambda m: icoon(m.group(1)), body)
+        # Paginatitel: foto met filter erachter i.p.v. de groene band
+        TITELFOTO = {"/over-ons/": "vrijwilligers", "/praktisch/": "camping", "/medewerkers/": "medewerkers-2",
+                     "/tickets/": "hero-bedankt", "/voorwaarden/": "zonnebloem", "/privacy/": "zonnebloem"}
+        foto = meta.get("titelfoto") or TITELFOTO.get(meta["path"], "hero-bedankt")
+        body = body.replace('<section class="paginatitel textuur">',
+                            f'<section class="paginatitel textuur" style="--titelfoto:url(/assets/img/{foto}.webp)">', 1)
         body = body.replace("{{HERO_ARTIESTEN}}", hero_artiesten()).replace("{{LINEUP}}", lineup_html()).replace("{{PROGRAMMA}}", programma_html()).replace("{{DATUM}}", e(DATUM_FESTIVAL))
         p = meta["path"]
         out = PUBLIC / "404.html" if p == "/404" else PUBLIC / p.strip("/") / "index.html"

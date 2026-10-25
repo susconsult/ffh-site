@@ -778,3 +778,8 @@ main .vlak-groen .pillen li:not(.vol li) { background: var(--doorschijnend); }
 .lu-kaart img { border-color: var(--groen-donker); }
 .nav li.alleen-normaal, .nav li.alleen-festival { display: list-item; }
 html[data-modus="festival"] .nav li.alleen-normaal, html[data-modus="normaal"] .nav li.alleen-festival { display: none !important; }
+
+/* Paginatitel op een foto met filter (geen groen-op-groen met de kop) */
+.paginatitel { position: relative; isolation: isolate; overflow: hidden; padding: clamp(70px, 11vw, 130px) 20px; background: var(--zwart) var(--titelfoto, url("/assets/img/hero-bedankt.webp")) center 40% / cover no-repeat !important; }
+.paginatitel::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(26, 26, 26, .55), rgba(26, 26, 26, .35) 60%, rgba(26, 26, 26, .6)); }
+.paginatitel h1 { color: var(--wit); text-shadow: 0 3px 20px rgba(0, 0, 0, .45); }
