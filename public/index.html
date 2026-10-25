@@ -307,6 +307,13 @@ k.forEach(function(b){b.addEventListener('click',function(){z(b.dataset.dag);});
       if (scherm) scherm.addEventListener('click', function () { zetMenu(false); });
       document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape') zetMenu(false); });
     }
+    // Ankerlinks (#fotos, #line-up ...): spring naar het zichtbare exemplaar (in de preview staan beide versies op de pagina)
+    document.addEventListener('click', function (ev) {
+      var a = ev.target.closest && ev.target.closest('a[href^="#"]');
+      if (!a || a.getAttribute('href').length < 2) return;
+      var doel = [].slice.call(document.querySelectorAll('[id="' + a.getAttribute('href').slice(1) + '"]')).filter(function (el) { return el.offsetParent; })[0];
+      if (doel) { ev.preventDefault(); doel.scrollIntoView({ behavior: 'smooth' }); history.replaceState(null, '', a.getAttribute('href')); }
+    });
     // Schaduw onder de kop zodra je scrolt
     var zet = function () { kop.classList.toggle('gescrold', window.scrollY > 8); };
     window.addEventListener('scroll', zet, { passive: true }); zet();
