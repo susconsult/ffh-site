@@ -19,8 +19,10 @@ modus: festival
 <section class="sectie lu-sectie" id="line-up">
   <div class="wrap">
     <h2 class="sectie-titel">Line-up</h2>
+    <div class="print-kop"><img src="/assets/img/logo.png" alt="Folkfestival Ham"><div><strong>Line-up</strong><span>{{DATUM}} · Genebosstraat 4, Ham · folkfestivalham.be</span></div></div>
     {{LINEUP}}
-    <p class="knoppen midden"><a class="btn btn-groen" href="/tickets/">Tickets</a> <a class="btn btn-zwart" href="/praktisch/">Praktische info</a></p>
+    <p class="knoppen midden"><a class="btn btn-groen" href="/tickets/">Tickets</a> <a class="btn btn-zwart" href="/praktisch/">Praktische info</a> <button class="btn btn-zwart lineup-print" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 8H5a3 3 0 0 0-3 3v6h4v4h12v-4h4v-6a3 3 0 0 0-3-3zm-3 11H8v-5h8zm3-7a1 1 0 1 1 0-2 1 1 0 0 1 0 2zM18 3H6v4h12z"/></svg>Druk de line-up af</button></p>
+    <script>document.querySelectorAll('.lineup-print').forEach(function(b){b.addEventListener('click',function(){document.body.classList.add('print-lineup');window.print();});});window.addEventListener('afterprint',function(){document.body.classList.remove('print-lineup');});</script>
   </div>
 </section>
 

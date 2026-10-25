@@ -814,3 +814,28 @@ html[data-modus="festival"] .nav li.alleen-normaal, html[data-modus="normaal"] .
 .site-footer .socials a, .nav .nav-extra .socials a, .nav .nav-extra .socials a:hover { background: rgba(26, 26, 26, .12) !important; }
 .site-footer .socials a:hover { background: var(--zwart) !important; color: var(--wit); }
 .menu-knop { background: rgba(26, 26, 26, .12); }
+
+/* ---------- Line-up afdrukken (knop "Druk de line-up af") ---------- */
+.print-kop { display: none; }
+@page lineup { size: A4 landscape; margin: 10mm; }
+@media print {
+  body.print-lineup { background: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body.print-lineup .schakelbalk, body.print-lineup .site-header, body.print-lineup .site-footer, body.print-lineup .gal-groot,
+  body.print-lineup main > *:not(.alleen-festival):not(.lu-sectie), body.print-lineup .alleen-festival > *:not(.lu-sectie),
+  body.print-lineup .lu-sectie .sectie-titel, body.print-lineup .lu-sectie .knoppen, body.print-lineup .tt-keuze, body.print-lineup .tt-legende { display: none !important; }
+  body.print-lineup .lu-sectie { page: lineup; display: block !important; padding: 0 !important; background: #fff !important; }
+  body.print-lineup .lu-sectie .wrap { max-width: none; padding: 0; }
+  body.print-lineup .print-kop { display: flex; align-items: center; gap: 18px; margin: 0 0 8px; }
+  body.print-lineup .print-kop img { width: 190px; }
+  body.print-lineup .print-kop strong { display: block; font-family: "Jost", sans-serif; font-size: 22pt; text-transform: uppercase; line-height: 1; }
+  body.print-lineup .print-kop span { font-size: 10pt; }
+  body.print-lineup .tt { --uur: 40px; --kop: 34px; }
+  body.print-lineup .tt-in { grid-template-columns: 34px repeat(3, 1fr) !important; gap: 0 10px; }
+  body.print-lineup .tt-dag { display: block !important; break-inside: avoid; }
+  body.print-lineup .tt-schaal { margin-top: calc(var(--kop) + 24px); }
+  body.print-lineup .tt-banen { height: 24px; }
+  body.print-lineup .tt-blok { box-shadow: none; padding: 4px 7px; }
+  body.print-lineup .tt-blok:hover { transform: none; }
+  body.print-lineup .tt-naam { font-size: 8.5pt; }
+  body.print-lineup .tt-tijd { font-size: 7.5pt; }
+}
