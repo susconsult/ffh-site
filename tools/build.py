@@ -148,7 +148,6 @@ def footer():
   </section>
   <div class="footer-in">
     <img class="logo" src="/assets/img/logo.webp" width="800" height="211" alt="Folkfestival Ham" loading="lazy">
-    <p class="footer-slogan">Tot in Genebos!</p>
     {SOCIALS}
     <ul class="contact">
       <li>{ICON['huis']}<a href="https://www.celticartgallery.be">The Celtic Art Gallery vzw</a></li>
@@ -381,23 +380,54 @@ def dagpagina(dag):
     return meta, body
 
 
+def _minuten(tijd):
+    u, m = (tijd or "0u00").lower().replace(":", "u").split("u")
+    return int(u) * 60 + int(m or 0)
+
+
 def lineup_html():
-    """Line-up en blokkenschema in één: per dag een kolom, artiesten in volgorde van optreden."""
+    """Line-up als timetable (zoals een agenda): per dag een kolom met twee banen (Grote tent, Bal tent),
+    blokken op hun uur. Duur = tot het volgende optreden die dag (max 1u45), laatste optreden 1u30.
+    Een vaste eindtijd kan per artiest met het veld "eind" (bv. "21u00") in data/programma.json."""
+    alle = [_minuten(a["tijd"]) for d in DAGEN for a in PROGRAMMA["artiesten"].get(d, []) if a.get("tijd")]
+    if not alle:
+        return ""
+    start = (min(alle) // 60) * 60
+    eind = -(-(max(alle) + 90) // 60) * 60
+    uren = list(range(start, eind + 1, 60))
+    schaal = "".join(f'<span style="--t:{(u - start) / 60}">{u // 60:02d}u</span>' for u in uren)
+    lijnen = "".join(f'<i style="--t:{(u - start) / 60}"></i>' for u in uren)
     kolommen = []
     for d in DAGEN:
         info = PROGRAMMA["dagen"][d]
-        kaarten = []
-        for a in PROGRAMMA["artiesten"].get(d, []):
-            img = f'<img src="{e(a["foto"])}" alt="" loading="lazy" width="720" height="720">' if a.get("foto") else '<span class="lu-leeg"></span>'
-            tent = '<span class="tent tent-bal">Bal tent</span>' if a.get("bal") else '<span class="tent">Grote tent</span>'
-            kaarten.append(
-                f'<li><a class="lu-kaart" href="/{d}/#{artiest_id(a)}">{img}'
-                f'<span class="lu-tekst"><span class="lu-meta"><span class="tijd">{e(a.get("tijd",""))}</span>{tent}</span>'
-                f'<span class="lu-naam">{e(a["naam"])} <span class="vlag">{a.get("vlag","")}</span></span></span></a></li>')
+        acts = sorted(PROGRAMMA["artiesten"].get(d, []), key=lambda a: _minuten(a.get("tijd")))
+        blokken = []
+        for i, a in enumerate(acts):
+            t0 = _minuten(a["tijd"])
+            if a.get("eind"):
+                t1 = _minuten(a["eind"])
+            elif i + 1 < len(acts):
+                t1 = min(_minuten(acts[i + 1]["tijd"]), t0 + 105)
+            else:
+                t1 = t0 + 90
+            baan = "bal" if a.get("bal") else "groot"
+            img = f'<img src="{e(a["foto"])}" alt="" loading="lazy" width="720" height="720">' if a.get("foto") else ""
+            blokken.append(
+                f'<a class="tt-blok tt-{baan}" href="/{d}/#{artiest_id(a)}" style="--van:{(t0 - start) / 60};--duur:{(t1 - t0) / 60}">'
+                f'{img}<span class="tt-tijd">{e(a["tijd"])}</span>'
+                f'<span class="tt-naam">{e(a["naam"])} <span class="vlag">{a.get("vlag","")}</span></span></a>')
         kolommen.append(
-            f'<div class="lu-dag"><h3><a href="/{d}/">{e(info["titel"])} <span>{e(info.get("datum",""))}</span></a></h3>'
-            f'<ul>{"".join(kaarten)}</ul><a class="lu-alles" href="/{d}/">Alles over {e(info["titel"].lower())} →</a></div>')
-    return '<div class="lu">' + "".join(kolommen) + "</div>"
+            f'<div class="tt-dag" data-dag="{d}"><h3><a href="/{d}/">{e(info["titel"])} <span>{e(info.get("datum",""))}</span></a></h3>'
+            f'<div class="tt-banen"><span class="tt-baankop">Grote tent</span><span class="tt-baankop tt-baankop-bal">Bal tent</span></div>'
+            f'<div class="tt-raster">{lijnen}{"".join(blokken)}</div></div>')
+    knoppen = "".join(f'<button type="button" data-dag="{d}"{" aria-pressed=\"true\"" if i == 0 else ""}>{e(PROGRAMMA["dagen"][d]["titel"])}</button>' for i, d in enumerate(DAGEN))
+    return (f'<div class="tt" style="--uren:{(eind - start) / 60}">'
+            f'<div class="tt-keuze" role="group" aria-label="Kies een dag">{knoppen}</div>'
+            f'<div class="tt-in"><div class="tt-schaal" aria-hidden="true">{schaal}</div>{"".join(kolommen)}</div>'
+            f'<p class="tt-legende"><span class="tent">Grote tent</span> <span class="tent tent-bal">Bal tent</span> Klik op een optreden voor meer info.</p></div>'
+            """<script>(function(){var t=document.querySelector('.tt');if(!t)return;var k=t.querySelectorAll('.tt-keuze button');
+function z(d){t.dataset.toon=d;k.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.dag===d?'true':'false');});}
+k.forEach(function(b){b.addEventListener('click',function(){z(b.dataset.dag);});});z(k[0].dataset.dag);})();</script>""")
 
 
 def programma_html():
