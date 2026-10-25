@@ -9,19 +9,22 @@
 @font-face { font-family: "Roboto"; src: url("/assets/fonts/roboto-700.woff2") format("woff2"); font-weight: 700; font-display: swap; }
 
 :root {
-  /* Kleurenschema "Folk" — gebruik enkel deze kleuren */
-  --groen: #80C04E;          /* hoofdkleur: textuur, Tickets (witte tekst) */
-  --groen-donker: #3E7A24;   /* kopjes, onderbalk, hover */
-  --blauw: #2B4C7E;          /* accent 1: Grote tent, links */
-  --oranje: #CA5430;         /* accent 2: Bal tent, uren */
-  --zwart: #1A1A1A;          /* tekst, gewone knoppen */
+  /* Kleurenschema "Mannetje" — afgeleid van het logo-mannetje en de groene achtergrond */
+  --groen: #A2CD4F;          /* achtergrond van de affiche: textuur, lichte accenten */
+  --groen-donker: #4A7A1F;   /* donkerder groen: knoppen, menu, balken (witte tekst) */
+  --rood: #D43237;           /* gestreepte trui: Bal tent, uren */
+  --blauw: #1A67A9;          /* broek: Grote tent, links */
+  --bruin: #AB6848;          /* haar: kleine kopjes */
+  --creme: #FAF1E7;          /* huid, heel licht: lichte secties */
+  --zwart: #1A1A1A;          /* tekst */
   --wit: #FFFFFF;
-  --grijs: #6B6B6B;          /* bijtekst */
-  --lijn: #E7EAE3;           /* randjes */
-  --licht: #F4F6F1;          /* lichte sectie */
+  --grijs: #6B6B6B;
+  --lijn: #EBE1D3;
+  --licht: var(--creme);
+  --oranje: var(--rood);     /* oude naam, verwijst nu naar rood */
   --tekst: var(--zwart);
   --tent-groot: var(--blauw);
-  --tent-bal: var(--oranje);
+  --tent-bal: var(--rood);
 
   /* Letterschaal: 7 maten */
   --fs-hero: clamp(2.8rem, 9vw, 6.2rem);
@@ -63,8 +66,8 @@ p { margin: 0 0 1em; }
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 46px; padding: 0 24px; font-family: "Jost", sans-serif; font-weight: 600; font-size: var(--fs-klein); text-transform: uppercase; letter-spacing: .1em; text-decoration: none; border-radius: 999px; border: 2px solid transparent; cursor: pointer; white-space: nowrap; transition: background .15s, color .15s, border-color .15s, transform .15s; }
 .btn:hover { transform: translateY(-1px); }
 .btn svg { width: 16px; height: 16px; fill: currentColor; }
-.btn-groen, .btn-tickets { background: var(--groen); color: var(--wit); }
-.btn-groen:hover, .btn-tickets:hover { background: var(--groen-donker); }
+.btn-groen, .btn-tickets { background: var(--groen-donker); color: var(--wit); }
+.btn-groen:hover, .btn-tickets:hover { background: var(--zwart); }
 .btn-zwart { background: var(--zwart); color: var(--wit); }
 .btn-zwart:hover { background: var(--groen-donker); }
 .btn-licht { background: transparent; color: var(--wit); border-color: var(--wit); }
@@ -118,7 +121,7 @@ p { margin: 0 0 1em; }
 .intro p:last-child { margin-bottom: 0; }
 .intro-tussen { margin: 56px auto 24px; }
 .intro-tussen h3 { margin: 0; }
-.kicker { display: inline-block; font-family: "Jost", sans-serif; font-weight: 600; font-size: var(--fs-mini); text-transform: uppercase; letter-spacing: .18em; color: var(--groen-donker); margin-bottom: 10px; }
+.kicker { display: inline-block; font-family: "Jost", sans-serif; font-weight: 600; font-size: var(--fs-mini); text-transform: uppercase; letter-spacing: .18em; color: var(--bruin); margin-bottom: 10px; }
 .midden { text-align: center; }
 
 /* Twee kolommen: tekst + foto */
@@ -157,19 +160,19 @@ p { margin: 0 0 1em; }
 .icoon-kaart { padding: 28px 22px; text-align: center; }
 .icoon-kaart h3 { font-size: var(--fs-groot); margin-bottom: .35em; }
 .icoon-kaart p { margin: 0; font-size: var(--fs-klein); color: var(--grijs); }
-.icoon { display: grid; place-items: center; width: 56px; height: 56px; margin: 0 auto 14px; border-radius: 50%; background: var(--groen) var(--textuur); background-size: 200px auto; color: var(--wit); flex: none; }
+.icoon { display: grid; place-items: center; width: 56px; height: 56px; margin: 0 auto 14px; border-radius: 50%; background: var(--groen-donker); color: var(--wit); flex: none; }
 .icoon svg { width: 26px; height: 26px; fill: currentColor; }
 
 /* Pillen */
 .pillen-titel { font-family: "Jost", sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: .12em; font-size: var(--fs-mini); color: var(--grijs); margin: 20px 0 8px; }
 .pillen { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 0; }
 .pillen li { background: var(--licht); color: var(--zwart); border-radius: 999px; padding: 6px 16px; font-family: "Jost", sans-serif; font-weight: 600; font-size: var(--fs-klein); }
-.pillen.vol li { background: var(--groen); color: var(--wit); }
+.pillen.vol li { background: var(--groen-donker); color: var(--wit); }
 
 /* ---------- Praktisch ---------- */
 .snelnav { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 26px 20px 0; margin-bottom: calc(var(--ruimte) * -0.5); }
 .snelnav a { display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 18px 0 6px; border-radius: 999px; background: var(--licht); color: var(--zwart); font-family: "Jost", sans-serif; font-weight: 600; font-size: var(--fs-klein); text-transform: uppercase; letter-spacing: .1em; text-decoration: none; transition: background .15s, color .15s; }
-.snelnav a:hover { background: var(--groen); color: var(--wit); }
+.snelnav a:hover { background: var(--groen-donker); color: var(--wit); }
 .snelnav .icoon { width: 32px; height: 32px; margin: 0; }
 .snelnav .icoon svg { width: 16px; height: 16px; }
 
@@ -184,7 +187,7 @@ p { margin: 0 0 1em; }
 
 .feiten { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
 .feit { padding: 14px 16px; }
-.feit strong { display: block; font-family: "Jost", sans-serif; text-transform: uppercase; font-size: var(--fs-mini); letter-spacing: .12em; color: var(--groen-donker); }
+.feit strong { display: block; font-family: "Jost", sans-serif; text-transform: uppercase; font-size: var(--fs-mini); letter-spacing: .12em; color: var(--bruin); }
 
 .logies { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; margin-top: 40px; }
 .logies a { display: flex; align-items: center; justify-content: center; height: 80px; padding: 12px; background: var(--wit); border: 1px solid var(--lijn); border-radius: var(--r); transition: transform .2s, box-shadow .2s; }
@@ -246,7 +249,7 @@ p { margin: 0 0 1em; }
 .dagtabs { display: flex; justify-content: center; gap: 6px; margin: 0 auto 48px; padding: 6px; width: fit-content; max-width: 100%; background: var(--licht); border-radius: 999px; }
 .dagtabs a { padding: 10px 24px; border-radius: 999px; font-family: "Jost", sans-serif; font-weight: 600; font-size: var(--fs-klein); text-transform: uppercase; letter-spacing: .12em; text-decoration: none; color: var(--zwart); }
 .dagtabs a:hover { background: var(--wit); }
-.dagtabs a[aria-current="page"] { background: var(--groen); color: var(--wit); }
+.dagtabs a[aria-current="page"] { background: var(--groen-donker); color: var(--wit); }
 .artiest { display: grid; grid-template-columns: 300px 1fr; gap: 36px; align-items: start; padding: 0 0 48px; margin-bottom: 48px; border-bottom: 1px solid var(--lijn); }
 .artiest:last-child { border-bottom: 0; margin-bottom: 0; }
 .artiest h2 { margin-bottom: .45em; }
@@ -262,14 +265,14 @@ p { margin: 0 0 1em; }
 .pil span { overflow: hidden; text-overflow: ellipsis; }
 .pil-social { background: var(--licht); color: var(--zwart); }
 .pil-social:hover { background: var(--zwart); color: var(--wit); }
-.pil-tickets { background: var(--groen); color: var(--wit); }
-.pil-tickets:hover { background: var(--groen-donker); }
+.pil-tickets { background: var(--groen-donker); color: var(--wit); }
+.pil-tickets:hover { background: var(--zwart); }
 
 /* Video: thumbnail tot je klikt */
 .video { position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; padding: 0; border: 0; overflow: hidden; background: var(--zwart); cursor: pointer; }
 .video img { width: 100%; height: 100%; object-fit: cover; opacity: .92; transition: opacity .2s, transform .4s; }
 .video:hover img { opacity: 1; transform: scale(1.03); }
-.video .play { position: absolute; left: 50%; top: 50%; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; background: var(--groen); box-shadow: 0 6px 20px rgba(0, 0, 0, .3); transition: transform .2s; }
+.video .play { position: absolute; left: 50%; top: 50%; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; background: var(--rood); box-shadow: 0 6px 20px rgba(0, 0, 0, .3); transition: transform .2s; }
 .video .play::after { content: ""; position: absolute; left: 26px; top: 21px; border-style: solid; border-width: 11px 0 11px 17px; border-color: transparent transparent transparent var(--wit); }
 .video:hover .play { transform: scale(1.08); }
 .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
@@ -308,7 +311,7 @@ p { margin: 0 0 1em; }
 .site-footer .socials { justify-content: center; margin-bottom: 28px; }
 .contact { list-style: none; padding: 0; margin: 0 auto; max-width: var(--max); display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; font-size: var(--fs-klein); }
 .contact li { display: flex; align-items: center; gap: 10px; background: var(--wit); padding: 8px 16px 8px 8px; border-radius: 999px; }
-.contact svg { width: 26px; height: 26px; padding: 5px; border-radius: 50%; background: var(--groen); fill: var(--wit); flex: none; }
+.contact svg { width: 26px; height: 26px; padding: 5px; border-radius: 50%; background: var(--groen-donker); fill: var(--wit); flex: none; }
 .contact a { color: var(--zwart); text-decoration: none; font-weight: 700; }
 .contact a:hover { text-decoration: underline; }
 .footer-onder { position: relative; background: var(--groen-donker); color: var(--wit); padding: 16px 70px; }

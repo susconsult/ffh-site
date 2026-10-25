@@ -25,7 +25,7 @@ Vervangt de oude WordPress/Elementor-site. Gewone statische HTML, geen framework
 - **Eén kaartstijl:** wit, afgerond (14px), zachte schaduw; op witte secties een dun randje i.p.v. schaduw.
 - **Foto's:** afgerond met een groen textuurvlak erachter (`polaroid`).
 - **Knoppen:** pilvorm. `btn-groen` = tickets/hoofdactie (witte tekst), `btn-zwart` = gewone actie, `btn-licht` = op foto.
-- **Kleurenschema "Folk"** (variabelen bovenaan `style.css`, geen losse kleuren): groen `#80C04E` · donkergroen `#3E7A24` · blauw `#2B4C7E` (Grote tent, links) · rood-oranje `#CA5430` (Bal tent, uren) · zwart `#1A1A1A` · wit.
+- **Kleurenschema "Mannetje"** (afgeleid van het logo-mannetje en de groene achtergrond; variabelen bovenaan `style.css`): groen `#A2CD4F` (textuur) · donkergroen `#4A7A1F` (knoppen, menu, witte tekst) · rood `#D43237` (trui: Bal tent, uren) · blauw `#1A67A9` (broek: Grote tent, links) · bruin `#AB6848` (haar: kleine kopjes) · crème `#FAF1E7` (lichte secties) · zwart · wit.
 - **Letterschaal:** 7 maten (`--fs-hero` … `--fs-mini`). Altijd een van die maten gebruiken.
 
 ## Festivalmodus (de schakelaar)

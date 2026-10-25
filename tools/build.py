@@ -107,7 +107,7 @@ def header(nav, dag=""):
 
 # Vlaggetjeslijn bovenaan de footer. De lijn hangt door in bogen van 6 vlaggetjes (240px);
 # elk vlaggetje krijgt de hoogte van de lijn op zijn plek en wiegt zachtjes.
-VLAG_KLEUREN = ["var(--groen-donker)", "var(--blauw)", "var(--oranje)", "var(--wit)"]  # kleurenschema Folk (donkergroen: zichtbaar op de groene textuur)
+VLAG_KLEUREN = ["var(--rood)", "var(--wit)", "var(--blauw)", "var(--groen-donker)", "var(--bruin)"]  # kleuren van het mannetje
 
 
 def vlaggetjes(aantal=66):
@@ -116,7 +116,7 @@ def vlaggetjes(aantal=66):
     for i in range(aantal):
         k = i % 6
         y = round(14 * math.sin(math.pi * (k * 40 + 18) / 240), 1)
-        kleur = VLAG_KLEUREN[(i * 5) % len(VLAG_KLEUREN)]
+        kleur = VLAG_KLEUREN[(i * 3) % len(VLAG_KLEUREN)]
         vlaggen.append(f'<i style="--y:{y}px;--k:{kleur};--d:{(i % 7) * -0.37:.2f}s"></i>')
     return '<div class="vlaggetjes" aria-hidden="true">' + "".join(vlaggen) + "</div>"
 
