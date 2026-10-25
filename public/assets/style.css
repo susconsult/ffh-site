@@ -875,3 +875,34 @@ html[data-modus="festival"] .nav li.alleen-normaal, html[data-modus="normaal"] .
 .mail-oproep .btn { margin-top: 10px; }
 .mail-oproep .klein-mail { opacity: 1; margin-top: 16px; }
 .mail-oproep .klein-mail a { color: var(--zwart); font-weight: 700; }
+
+/* Menu terug bovenaan in de kopbalk (computer); op gsm blijft het schuifmenu */
+@media (min-width: 861px) {
+  .menu-knop { display: none !important; }
+  .menu-scherm { display: none !important; }
+  .nav, .site-header .nav, .site-header.open .nav {
+    position: static; display: block !important; transform: none; visibility: visible; transition: none;
+    width: auto; padding: 0; overflow: visible; background: none; box-shadow: none; flex: 1; }
+  .nav ul { flex-direction: row; justify-content: center; gap: 6px; }
+  .nav a, .nav a[aria-current="page"], .nav a:hover { padding: 10px 12px 10px 18px; font-size: var(--fs-klein); letter-spacing: .12em; font-weight: 700; }
+  .nav a:hover { background: rgba(26, 26, 26, .08) !important; border-radius: 999px; }
+  .nav a::before { left: 2px; width: 12px; height: 24px; margin-top: -12px; }
+  .nav-extra { display: none; }
+  .heeft-sub > a::after { display: inline-block; }
+  .nav .sub, .heeft-sub:hover .sub, .heeft-sub:focus-within .sub { position: absolute; padding: 8px; margin: 6px 0 0; background: var(--wit) !important; border-radius: var(--r); box-shadow: var(--schaduw-hoog); min-width: 180px; }
+  .nav .sub { display: none !important; }
+  .heeft-sub:hover .sub, .heeft-sub:focus-within .sub { display: flex !important; }
+  .nav .sub::before { display: block; }
+  .nav .sub a, .nav .sub a:hover, .nav .sub a[aria-current="page"] { font-size: var(--fs-klein); padding: 9px 14px 9px 24px; opacity: 1; }
+  .nav .sub a:hover { background: var(--licht) !important; }
+  .nav .sub a::before { left: 8px; width: 10px; height: 20px; margin-top: -10px; }
+  body.menu-open { overflow: auto; }
+}
+@media (min-width: 861px) { .nav a { white-space: nowrap; } }
+@media (min-width: 861px) and (max-width: 1100px) {
+  .kop { gap: 12px; }
+  .brand img { width: 160px; }
+  .nav ul { gap: 0; }
+  .nav a, .nav a[aria-current="page"], .nav a:hover { padding: 10px 8px 10px 15px; letter-spacing: .06em; }
+  .kop .btn-tickets { padding: 0 16px; }
+}
