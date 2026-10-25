@@ -757,3 +757,22 @@ main .vlak-groen .pillen li:not(.vol li) { background: var(--doorschijnend); }
 .hero-festival .hero-mozaiek { z-index: -2; }
 .hero-festival::before { z-index: -1; }
 .lint-1 .lint-item img { display: block; }
+
+/* Geen groen op zwart meer ("Matrix"): overal zwart op groen */
+.icoon { background: var(--groen) var(--textuur); background-size: 200px auto; color: var(--zwart); }
+.snelnav .icoon, .route-kaart h3 .icoon { background: var(--groen) var(--textuur); background-size: 200px auto; color: var(--zwart); }
+.socials a, .nav .nav-extra .socials a, .nav .nav-extra .socials a:hover { background: var(--groen) var(--textuur) !important; background-size: 200px auto !important; color: var(--zwart); box-shadow: inset 0 0 0 2px var(--zwart); }
+.socials a:hover { background: var(--zwart) !important; color: var(--wit); }
+.contact svg { background: var(--groen) var(--textuur); background-size: 200px auto; fill: var(--zwart); }
+.btn-zwart { background: var(--groen) var(--textuur); background-size: 300px auto; color: var(--zwart); box-shadow: inset 0 0 0 2px var(--zwart); }
+.btn-zwart:hover { background: var(--zwart); color: var(--wit); }
+.menu-knop { background: var(--groen) var(--textuur); background-size: 200px auto; box-shadow: inset 0 0 0 2px var(--zwart); }
+.hamburger, .hamburger::before, .hamburger::after { background: var(--zwart); }
+.site-header.open .hamburger { background: transparent; }
+.dagtabs a[aria-current="page"], .tt-keuze button[aria-pressed="true"] { background: var(--groen) var(--textuur); background-size: 300px auto; color: var(--zwart); box-shadow: inset 0 0 0 2px var(--zwart); }
+.pillen.vol li { background: var(--groen) var(--textuur); background-size: 300px auto; color: var(--zwart); }
+.faq summary::after { background: var(--groen) var(--textuur); background-size: 200px auto; color: var(--zwart); }
+.snelnav a:hover { background: var(--groen) var(--textuur); background-size: 300px auto; color: var(--zwart); }
+.nav a[aria-current="page"] { color: var(--zwart); }
+.klein, .klein a { color: var(--wit); }
+.lu-kaart img { border-color: var(--groen-donker); }
