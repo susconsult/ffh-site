@@ -7,21 +7,20 @@ Vervangt de oude WordPress/Elementor-site. Gewone statische HTML, geen framework
 
 | Adres | Inhoud |
 |---|---|
-| `/` | Home: "Bedankt! Tot volgend jaar", volgende evenementen, drie blokken, fotogalerij (+ link naar alle foto's op Facebook) |
+| `/` | Home: "Bedankt! Tot volgend jaar", drie blokken, fotogalerij (+ link naar alle foto's op Facebook) |
 | `/over-ons/` | Duurzaamheid, meewerken |
 | `/praktisch/` | Route, camping, overnachten (logies-logo's), FAQ (`/praktisch/#faq`) |
 | `/vrijwilligers/` | Oproep vrijwilligers, mail naar medewerkers@folkfestivalham.be (oud adres /medewerkers/ stuurt door) |
 | `/tickets/` | Ecwid-winkel (tickets) |
 | `/vrijdag/`, `/zaterdag/`, `/zondag/` | Dagprogramma — alleen in festivalmodus |
 | `/voorwaarden/`, `/privacy/` | Overgenomen van de oude site (nodig voor de ticketverkoop) |
-| `/whiskytasting` | Korte link naar de verborgen Whiskytasting in de winkel |
 | `/404.html` | Eigen foutpagina |
 
 ## Opbouw en stijl (redesign, tak `redesign`)
 
 - **Affiche-stijl** (laatste blok in `style.css`): de site volgt de festivalaffiche. Overal de groene textuur, **zwarte vette letters op groen**, weinig wit. Kaarten zijn licht doorschijnend wit. Rood (pilletje van de affiche) = Tickets en accenten, zwart = gewone knoppen. Secties wisselen af: wit, groen, wit, groen (eerste sectie na titel of foto is wit). Partners in een witte strook boven de footer.
 
-- **Kop:** één balk op de groene textuur die blijft plakken (witte menutekst, actieve pagina donkergroen): logo links, menu (Home · Festival · Evenementen · Over ons · Praktisch · Vrijwilligers; Festival enkel in festivalmodus, Evenementen enkel daarbuiten), groene **Tickets**-knop rechts. Op gsm een menuknop.
+- **Kop:** één balk op de groene textuur die blijft plakken (witte menutekst, actieve pagina donkergroen): logo links, menu (Home · Festival · Over ons · Praktisch · Vrijwilligers; Festival enkel in festivalmodus). Geen evenementen meer buiten het festival; de Whiskytasting wordt enkel via de Ecwid-link verkocht, groene **Tickets**-knop rechts. Op gsm een menuknop.
 - **Elke pagina:** titel op een foto met donkere filter (per pagina een eigen foto, `TITELFOTO` in `tools/build.py`, of `titelfoto: naam` bovenaan een pagina) → inhoud → zonnebloem-band met oproep → footer.
 - **Footer:** vlaggetjes (enkel hier), partners in een witte kaart, logo, "Tot in Genebos!", socials, contact, donkergroene onderbalk.
 - **Eén kaartstijl:** wit, afgerond (14px), zachte schaduw; op witte secties een dun randje i.p.v. schaduw.
@@ -43,7 +42,7 @@ In `data/instellingen.json`:
 ```
 
 - **Aan** (`true`): hero met een mozaïek van alle artiestfoto's als achtergrond en één traag lint met namen en ronde foto's onderaan (pauzeert bij hover), homepage met de line-up per dag — line-up en blokkenschema in één (`pages/home-festival.html`), menu-item "Festival", en de dagpagina's `/vrijdag/`, `/zaterdag/`, `/zondag/`.
-- **Uit** (`false`): homepage "Bedankt! Tot volgend jaar" met de focus op **Volgende evenementen**: live uit de Ecwid-categorie Concerten (126605256) — nieuwe evenementen verschijnen vanzelf als ze daar in de winkel staan (`pages/home.html`). Dagpagina's bestaan dan niet: `/vrijdag/` enz. sturen naar de homepage, staan niet in de sitemap, er linkt niets naartoe en `robots.txt` verbiedt ze voor zoekmachines.
+- **Uit** (`false`): homepage "Bedankt! Tot volgend jaar" met de drie blokken en de fotogalerij (`pages/home.html`). Dagpagina's bestaan dan niet: `/vrijdag/` enz. sturen naar de homepage, staan niet in de sitemap, er linkt niets naartoe en `robots.txt` verbiedt ze voor zoekmachines.
 - Daarna `python3 tools/build.py`, committen en pushen. Of vraag Claude: "zet festivalmodus aan/uit".
 
 **Programma** staat in `data/programma.json`: per dag de artiesten met naam, vlag, tijd, `bal` (true = label "Bal tent", false = "Grote tent"), website, YouTube-code, foto en tekst. Foto's in `public/assets/img/artiesten/` (16:9). Video's laden pas na een klik (youtube-nocookie), dus geen cookiebanner nodig.
@@ -64,8 +63,8 @@ In `data/instellingen.json`:
 ## Onderdelen
 
 - **Tickets: Ecwid** (winkel-ID `68281592`). Producten, prijzen en bestellingen beheer je in het Ecwid-dashboard, niet hier. Ecwid toont zelf een cookiemelding.
-- **Whiskytasting staat niet in het categorie-overzicht** (CSS-regel in `style.css`, categorie 142997555), maar is wel bereikbaar via de directe link `folkfestivalham.be/whiskytasting` (doorverwijzing in `_redirects`). Weer tonen in het overzicht: de CSS-regel weghalen.
-- **Doorverwijzingen** (oude winkel-adressen, `/whiskytasting`, dagpagina's buiten festivalmodus) worden door `tools/build.py` in `public/_redirects` geschreven — niet met de hand aanpassen.
+- **Whiskytasting staat niet in het categorie-overzicht** (CSS-regel in `style.css`, categorie 142997555). Verkoop gebeurt via de directe link uit Ecwid zelf. Weer tonen in het overzicht: de CSS-regel weghalen.
+- **Doorverwijzingen** (oude winkel-adressen, dagpagina's buiten festivalmodus) worden door `tools/build.py` in `public/_redirects` geschreven — niet met de hand aanpassen.
 - **Lettertypes** (Jost, Roboto) staan lokaal in `public/assets/fonts/` — geen Google Fonts.
 - **Google Maps** is ingesloten op `/praktisch/` (gewone embed, geen API-sleutel nodig).
 - **Geen** meetcodes, Google Tag Manager of Facebook-pixel.

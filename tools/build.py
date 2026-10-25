@@ -61,7 +61,6 @@ SOCIALS = f"""<div class="socials">
 # Menu zoals op de oude site (Home staat apart in header()). Tickets is een aparte knop rechts.
 MENU = [
     ("programma", "Festival", f"/{DAGEN[0]}/"),   # alleen in festivalmodus, met de dagen als submenu
-    ("concerten", "Evenementen", "/tickets/#!/Concerten/c/126605256"),
     ("over-ons", "Over ons", "/over-ons/"),
     ("praktisch", "Praktisch", "/praktisch/"),
     ("vrijwilligers", "Vrijwilligers", "/vrijwilligers/"),
@@ -592,9 +591,7 @@ def redirects():
         "# Medewerkers heet nu Vrijwilligers",
         "/medewerkers /vrijwilligers/ 301",
         "/medewerkers/ /vrijwilligers/ 301",
-        "",
-        "# Korte directe link naar de (verborgen) Whiskytasting",
-        "/whiskytasting /tickets/#!/Whiskytasting/c/142997555 302",
+
     ]
     if not FESTIVAL:
         regels += ["", "# Festivalmodus uit: dagpagina's sturen naar de homepage"]
