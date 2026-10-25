@@ -19,7 +19,7 @@ Vervangt de oude WordPress/Elementor-site. Gewone statische HTML, geen framework
 
 ## Opbouw en stijl (redesign, tak `redesign`)
 
-- **Affiche-stijl** (laatste blok in `style.css`): de site volgt de festivalaffiche. Overal de groene textuur, **zwarte vette letters op groen**, weinig wit. Kaarten zijn licht doorschijnend wit. Rood (pilletje van de affiche) = Tickets en accenten, zwart = gewone knoppen. Witte strook enkel voor de partners onderaan, zoals op de affiche.
+- **Affiche-stijl** (laatste blok in `style.css`): de site volgt de festivalaffiche. Overal de groene textuur, **zwarte vette letters op groen**, weinig wit. Kaarten zijn licht doorschijnend wit. Rood (pilletje van de affiche) = Tickets en accenten, zwart = gewone knoppen. Secties wisselen af: wit, groen, wit, groen (eerste sectie na titel of foto is wit). Partners in een witte strook boven de footer.
 
 - **Kop:** één balk op de groene textuur die blijft plakken (witte menutekst, actieve pagina donkergroen): logo links, menu (Home · Festival · Concerten · Over ons · Praktisch · Medewerkers), groene **Tickets**-knop rechts. Op gsm een menuknop.
 - **Elke pagina:** groene titelband (witte titel) → inhoud → zonnebloem-band met oproep → footer.

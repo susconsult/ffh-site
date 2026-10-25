@@ -471,3 +471,18 @@ h2 { font-weight: 800; letter-spacing: .02em; }
   .nav .sub a:hover { background: rgba(26, 26, 26, .1); }
   .nav a[aria-current="page"] { background: var(--zwart); color: var(--groen); }
 }
+
+/* Afwisselend wit en groen: na de titel/foto bovenaan komt een witte sectie, dan groen, dan wit, ... */
+main > section:nth-of-type(even):not(.oproep):not(.hero) { background: var(--wit); }
+main > section:nth-of-type(odd):not(.oproep):not(.hero):not(.paginatitel) { background: var(--groen) var(--textuur) repeat; background-size: 400px auto; }
+.zonder-top { padding-top: var(--ruimte); }
+.snelnav { margin-bottom: 0; padding-bottom: 6px; background: var(--wit); }
+.snelnav + .sectie { padding-top: 40px; }
+/* Op wit: kaarten in een zacht groen i.p.v. doorschijnend wit */
+main > section:nth-of-type(even) :is(.kaart, .info-kaart, .icoon-kaart, .route-kaart, .faq-kaart, .feit, .pillen li:not(.vol li), .dagtabs, .pil-social) { background: rgba(162, 205, 79, .2); }
+main > section:nth-of-type(even) .info-kaart:hover, main > section:nth-of-type(even) .lu-kaart:hover { background: rgba(162, 205, 79, .35); }
+main > section:nth-of-type(even) .logies a { background: var(--wit); box-shadow: 0 0 0 1px var(--lijn); }
+.snelnav a { background: rgba(162, 205, 79, .2); }
+
+/* Partners boven de footer */
+.sponsors { order: -1; }
