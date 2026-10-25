@@ -5,7 +5,8 @@ nav: home
 modus: festival
 ---
 <section class="hero hero-festival">
-  <div>
+  {{HERO_ARTIESTEN}}
+  <div class="hero-inhoud">
     <h1>Folkfestival Ham</h1>
     <p>{{DATUM}}</p>
     <div class="hero-knoppen">
@@ -18,8 +19,10 @@ modus: festival
 <section class="sectie lu-sectie" id="line-up">
   <div class="wrap">
     <h2 class="sectie-titel">Line-up</h2>
+    <div class="print-kop"><img src="/assets/img/logo.png" alt="Folkfestival Ham"><div><strong>Line-up</strong><span>{{DATUM}} · Genebosstraat 4, Ham · folkfestivalham.be</span></div></div>
     {{LINEUP}}
-    <p class="knoppen midden"><a class="btn btn-groen" href="/tickets/">Tickets</a> <a class="btn btn-zwart" href="/praktisch/">Praktische info</a></p>
+    <p class="knoppen midden"><a class="btn btn-groen" href="/tickets/">Tickets</a> <a class="btn btn-zwart" href="/praktisch/">Praktische info</a> <button class="btn btn-zwart lineup-print" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 8H5a3 3 0 0 0-3 3v6h4v4h12v-4h4v-6a3 3 0 0 0-3-3zm-3 11H8v-5h8zm3-7a1 1 0 1 1 0-2 1 1 0 0 1 0 2zM18 3H6v4h12z"/></svg>Druk de line-up af</button></p>
+    <script>document.querySelectorAll('.lineup-print').forEach(function(b){b.addEventListener('click',function(){document.body.classList.add('print-lineup');window.print();});});window.addEventListener('afterprint',function(){document.body.classList.remove('print-lineup');});</script>
   </div>
 </section>
 
@@ -28,17 +31,17 @@ modus: festival
     <h2 class="sectie-titel">Een samenkomst van cultuur, muziek en verbinding</h2>
     <div class="grid-3">
       <article class="kaart">
-        <img src="/assets/img/kracht-van-folk.webp" width="700" height="1050" alt="Muzikant met gitaar op het podium van Folkfestival Ham" loading="lazy">
+        <img src="/assets/img/2026/draailier-accordeon.webp" width="1400" height="934" alt="Muzikanten met draailier en accordeon op het podium" loading="lazy">
         <h3>De kracht van folk</h3>
         <p>Bij Folkfestival Ham geloven we in de kracht van muziek om mensen samen te brengen. Ons festival is meer dan een podium voor folkmuziek; het is een plek waar traditie en vernieuwing elkaar ontmoeten, en waar liefhebbers van over de hele wereld genieten van de authentieke klanken van een divers muzikaal aanbod.</p>
       </article>
       <article class="kaart">
-        <img src="/assets/img/duurzaam.webp" width="700" height="1050" alt="Gitaar, bekers en een setlist op een tafel op het festival" loading="lazy">
+        <img src="/assets/img/2026/pint-celtic.webp" width="1400" height="934" alt="Herbruikbare festivalpint van The Celtic Art Gallery" loading="lazy">
         <h3>Duurzaam en inclusief</h3>
         <p>We streven ernaar een duurzame en inclusieve ervaring te bieden, met respect voor de natuur, onze lokale gemeenschap, en de rijke culturele geschiedenis van folk. Door samenwerking met lokale partners en artiesten creëren we een festival waar iedereen zich welkom voelt, van jong tot oud, van dansers tot luisteraars.</p>
       </article>
       <article class="kaart">
-        <img src="/assets/img/traditie.webp" width="700" height="1050" alt="Houten wegwijzers op het festivalterrein in Genebos" loading="lazy">
+        <img src="/assets/img/2026/kringdans.webp" width="1600" height="1067" alt="Kringdans in de tent" loading="lazy">
         <h3>Traditie met toekomst</h3>
         <p>Met aandacht voor kwaliteit, creativiteit en verbinding blijven we bouwen aan een traditie die de ziel raakt en de wereld inspireert. Samen vieren we de magie van muziek en creëren we herinneringen die een leven lang meegaan. Welkom bij Folkfestival Ham, waar klanken verbinden!</p>
       </article>
@@ -46,3 +49,15 @@ modus: festival
   </div>
 </section>
 
+{{GALERIJ}}
+
+<section class="sectie zonder-top">
+  <div class="wrap faq-kort">
+    <h2 class="sectie-titel">Goed om te weten</h2>
+    <div class="grid-3">
+      <a class="info-kaart" href="/praktisch/#camping"><h3>Gratis camping</h3><p>Tenten, mobilhomes en caravans: van vrijdag 12u tot maandag 12u.</p><span>Meer info →</span></a>
+      <a class="info-kaart" href="/praktisch/#locatie"><h3>Hoe geraak ik er?</h3><p>Genebosstraat 4, Ham. Met de auto via de E313, met de bus via lijn 15.</p><span>Route →</span></a>
+      <a class="info-kaart" href="/praktisch/#faq"><h3>Veelgestelde vragen</h3><p>Wat breng je mee, hoe betaal je, is er kinderopvang?</p><span>Alle vragen →</span></a>
+    </div>
+  </div>
+</section>

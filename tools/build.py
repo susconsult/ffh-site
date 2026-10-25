@@ -15,6 +15,7 @@ from pathlib import Path
 import datetime
 import html
 import json
+import re
 
 ROOT = Path(__file__).resolve().parent.parent
 PAGES = ROOT / "pages"
@@ -25,6 +26,18 @@ SITE = "https://folkfestivalham.be"
 # Instellingen: festivalmodus aan/uit en de datum in de header (data/instellingen.json)
 INST = json.loads((DATA / "instellingen.json").read_text(encoding="utf-8"))
 FESTIVAL = bool(INST.get("festivalmodus"))
+# Alleen voor de preview: een schakelbalk bovenaan om festivalmodus aan/uit te bekijken.
+# Bouwt beide versies; de bezoeker kiest met de schakelaar. NOOIT aanzetten op de live site (main).
+PREVIEW = bool(INST.get("preview_schakelaar"))
+# Veiligheid: op de live-tak (main) nooit de preview-schakelaar
+try:
+    import subprocess as _sp
+    if _sp.run(["git", "-C", str(ROOT), "branch", "--show-current"], capture_output=True, text=True).stdout.strip() == "main":
+        PREVIEW = False
+except Exception:
+    pass
+if PREVIEW:
+    FESTIVAL = True
 DATUM_FESTIVAL = INST.get("datum_festival", "")
 PROGRAMMA = json.loads((DATA / "programma.json").read_text(encoding="utf-8"))
 DAGEN = list(PROGRAMMA["dagen"].keys())  # vrijdag, zaterdag, zondag
@@ -48,10 +61,9 @@ SOCIALS = f"""<div class="socials">
 # Menu zoals op de oude site (Home staat apart in header()). Tickets is een aparte knop rechts.
 MENU = [
     ("programma", "Festival", f"/{DAGEN[0]}/"),   # alleen in festivalmodus, met de dagen als submenu
-    ("concerten", "Concerten", "/tickets/#!/Concerten/c/126605256"),
     ("over-ons", "Over ons", "/over-ons/"),
     ("praktisch", "Praktisch", "/praktisch/"),
-    ("medewerkers", "Medewerkers", "/medewerkers/"),
+    ("vrijwilligers", "Vrijwilligers", "/vrijwilligers/"),
 ]
 if not FESTIVAL:
     MENU = [m for m in MENU if m[0] != "programma"]
@@ -79,43 +91,46 @@ def header(nav, dag=""):
                 f'<li><a href="/{d}/"{actief if d == dag else ""}>{PROGRAMMA["dagen"][d]["titel"]}</a></li>'
                 for d in DAGEN)
             regels.append(
-                f'        <li class="heeft-sub"><a href="{href}"{actief if key == nav else ""}>{label}</a>'
+                f'        <li class="heeft-sub alleen-festival"><a href="{href}"{actief if key == nav else ""}>{label}</a>'
                 f'<ul class="sub">{sub}</ul></li>')
+        elif key == "concerten":
+            # Evenementen enkel buiten festivalmodus
+            if PREVIEW:
+                regels.append(f'        <li class="alleen-normaal"><a href="{href}"{actief if key == nav else ""}>{label}</a></li>')
+            elif not FESTIVAL:
+                regels.append(f'        <li><a href="{href}"{actief if key == nav else ""}>{label}</a></li>')
         else:
             regels.append(f'        <li><a href="{href}"{actief if key == nav else ""}>{label}</a></li>')
     items = "\n".join(regels)
     tickets_actief = actief if nav == "tickets" else ""
     return f"""<a class="skip" href="#inhoud">Ga naar de inhoud</a>
 <header class="site-header">
-  <div class="topbalk">
-    <div class="wrap topbalk-in">
-      <span class="topbalk-info"><strong>{DATUM_FESTIVAL}</strong> · {PLAATS}</span>
-      {SOCIALS}
-    </div>
-  </div>
-  <div class="textuur">
-    <div class="wrap top">
-      <a class="brand" href="/" aria-label="Folkfestival Ham — naar de homepagina">
-        <img src="/assets/img/logo.webp" width="800" height="211" alt="Folkfestival Ham">
-      </a>
-    </div>
-  </div>
-  <nav class="nav" aria-label="Hoofdmenu">
-    <div class="wrap nav-in">
-      <button class="menu-knop" type="button" aria-expanded="false" aria-controls="hoofdmenu"><span class="hamburger" aria-hidden="true"></span>Menu</button>
-      <ul id="hoofdmenu">
+  <div class="wrap kop">
+    <a class="brand" href="/" aria-label="Folkfestival Ham — naar de homepagina">
+      <img src="/assets/img/logo.webp" width="800" height="211" alt="Folkfestival Ham">
+    </a>
+    <nav class="nav" id="hoofdmenu" aria-label="Hoofdmenu">
+      <ul>
         <li><a href="/"{actief if nav == "home" else ""}>Home</a></li>
 {items}
       </ul>
+      <div class="nav-extra">
+        <a class="btn btn-groen" href="/tickets/">Tickets</a>
+        {SOCIALS}
+      </div>
+    </nav>
+    <div class="menu-scherm" aria-hidden="true"></div>
+    <div class="kop-rechts">
       <a class="btn btn-tickets" href="/tickets/"{tickets_actief}>Tickets</a>
+      <button class="menu-knop" type="button" aria-expanded="false" aria-controls="hoofdmenu" aria-label="Menu"><span class="hamburger" aria-hidden="true"></span></button>
     </div>
-  </nav>
+  </div>
 </header>"""
 
 
 # Vlaggetjeslijn bovenaan de footer. De lijn hangt door in bogen van 6 vlaggetjes (240px);
 # elk vlaggetje krijgt de hoogte van de lijn op zijn plek en wiegt zachtjes.
-VLAG_KLEUREN = ["var(--groen-donker)", "var(--blauw)", "var(--oranje)", "var(--wit)"]  # kleurenschema Folk (donkergroen: zichtbaar op de groene textuur)
+VLAG_KLEUREN = ["var(--rood)", "var(--wit)", "var(--blauw)", "var(--groen-donker)", "var(--bruin)"]  # kleuren van het mannetje
 
 
 def vlaggetjes(aantal=66):
@@ -124,7 +139,7 @@ def vlaggetjes(aantal=66):
     for i in range(aantal):
         k = i % 6
         y = round(14 * math.sin(math.pi * (k * 40 + 18) / 240), 1)
-        kleur = VLAG_KLEUREN[(i * 5) % len(VLAG_KLEUREN)]
+        kleur = VLAG_KLEUREN[(i * 3) % len(VLAG_KLEUREN)]
         vlaggen.append(f'<i style="--y:{y}px;--k:{kleur};--d:{(i % 7) * -0.37:.2f}s"></i>')
     return '<div class="vlaggetjes" aria-hidden="true">' + "".join(vlaggen) + "</div>"
 
@@ -139,23 +154,23 @@ def footer():
     # Carousel: de logo's staan twee keer na elkaar zodat de band naadloos doorloopt.
     # De tweede reeks is verborgen voor schermlezers en niet aanklikbaar met tab.
     kopie = logos.replace('<a href=', '<a tabindex="-1" href=')
-    return f"""<section class="sponsors" aria-label="Partners en sponsors">
-  <div class="carousel">
-    <div class="carousel-band">
-      <div class="carousel-reeks">
+    return f"""<footer class="site-footer textuur">
+  {vlaggetjes()}
+  <section class="sponsors" aria-label="Partners en sponsors">
+    <p class="sponsors-titel">Met dank aan onze partners</p>
+    <div class="carousel">
+      <div class="carousel-band">
+        <div class="carousel-reeks">
 {logos}
-      </div>
-      <div class="carousel-reeks" aria-hidden="true">
+        </div>
+        <div class="carousel-reeks" aria-hidden="true">
 {kopie}
+        </div>
       </div>
     </div>
-  </div>
-</section>
-<footer class="site-footer textuur">
-  {vlaggetjes()}
+  </section>
   <div class="footer-in">
     <img class="logo" src="/assets/img/logo.webp" width="800" height="211" alt="Folkfestival Ham" loading="lazy">
-    <p class="footer-slogan">Tot in Genebos!</p>
     {SOCIALS}
     <ul class="contact">
       <li>{ICON['huis']}<a href="https://www.celticartgallery.be">The Celtic Art Gallery vzw</a></li>
@@ -165,17 +180,35 @@ def footer():
     </ul>
   </div>
   <div class="footer-onder">
-    <p class="klein">© {jaar} The Celtic Art Gallery vzw · BE 0458.144.856 · <a href="/voorwaarden/">Voorwaarden</a> · <a href="/privacy/">Privacy</a></p>
+    <p class="klein">© {jaar} The Celtic Art Gallery vzw · BE 0458.144.856 · Foto's: Jeroen De Bie · <a href="/voorwaarden/">Voorwaarden</a> · <a href="/privacy/">Privacy</a></p>
     <a class="naar-boven" href="#" aria-label="Terug naar boven"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5 4 13l1.4 1.4L11 8.8V20h2V8.8l5.6 5.6L20 13z"/></svg></a>
   </div>
 </footer>
 <script>
   (function () {{
-    var nav = document.querySelector('.nav'), knop = nav && nav.querySelector('.menu-knop');
-    if (knop) knop.addEventListener('click', function () {{
-      var open = nav.classList.toggle('open');
+    var kop = document.querySelector('.site-header'), knop = document.querySelector('.menu-knop');
+    var zetMenu = function (open) {{
+      kop.classList.toggle('open', open);
+      document.body.classList.toggle('menu-open', open);
       knop.setAttribute('aria-expanded', open ? 'true' : 'false');
+      knop.setAttribute('aria-label', open ? 'Menu sluiten' : 'Menu');
+    }};
+    if (knop) {{
+      knop.addEventListener('click', function () {{ zetMenu(!kop.classList.contains('open')); }});
+      var scherm = document.querySelector('.menu-scherm');
+      if (scherm) scherm.addEventListener('click', function () {{ zetMenu(false); }});
+      document.addEventListener('keydown', function (ev) {{ if (ev.key === 'Escape') zetMenu(false); }});
+    }}
+    // Ankerlinks (#fotos, #line-up ...): spring naar het zichtbare exemplaar (in de preview staan beide versies op de pagina)
+    document.addEventListener('click', function (ev) {{
+      var a = ev.target.closest && ev.target.closest('a[href^="#"]');
+      if (!a || a.getAttribute('href').length < 2) return;
+      var doel = [].slice.call(document.querySelectorAll('[id="' + a.getAttribute('href').slice(1) + '"]')).filter(function (el) {{ return el.offsetParent; }})[0];
+      if (doel) {{ ev.preventDefault(); doel.scrollIntoView({{ behavior: 'smooth' }}); history.replaceState(null, '', a.getAttribute('href')); }}
     }});
+    // Schaduw onder de kop zodra je scrolt
+    var zet = function () {{ kop.classList.toggle('gescrold', window.scrollY > 8); }};
+    window.addEventListener('scroll', zet, {{ passive: true }}); zet();
     // Video's laden pas na een klik (youtube-nocookie), zodat er niets van YouTube laadt zonder actie
     document.querySelectorAll('.video[data-yt]').forEach(function (v) {{
       v.addEventListener('click', function () {{
@@ -191,9 +224,12 @@ def footer():
 </script>"""
 
 
-def oproep():
+def oproep(modus=None):
     """Vaste band onderaan elke pagina (boven de sponsors)."""
-    if FESTIVAL:
+    if PREVIEW and modus is None:
+        return (f'<div class="alleen-festival">{oproep("festival")}</div>'
+                f'<div class="alleen-normaal">{oproep("normaal")}</div>')
+    if (modus or ("festival" if FESTIVAL else "normaal")) == "festival":
         return f"""<section class="oproep" aria-label="Tickets">
   <div class="wrap oproep-in">
     <div><strong>Folkfestival Ham</strong><span>{e(DATUM_FESTIVAL)} · {PLAATS}</span></div>
@@ -206,6 +242,45 @@ def oproep():
     <div class="knoppen"><a class="btn btn-licht" href="https://www.facebook.com/FolkfestivalHam/">{ICON["facebook"]}Facebook</a><a class="btn btn-licht" href="https://www.instagram.com/FolkfestivalHam/">{ICON["instagram"]}Instagram</a></div>
   </div>
 </section>"""
+
+
+def schakelbalk():
+    if not PREVIEW:
+        return ""
+    return """<div class="schakelbalk" role="region" aria-label="Preview-instelling">
+  <span class="schakelbalk-label">Preview</span>
+  <span class="schakelbalk-tekst">Festival mode</span>
+  <button class="schakelaar" type="button" role="switch" aria-checked="true"><span class="schakelaar-knop"></span><span class="schakelaar-aan">ON</span><span class="schakelaar-uit">OFF</span></button>
+  <span class="schakelbalk-uitleg">Enkel zichtbaar op de preview</span>
+</div>
+<script>
+(function () {
+  var r = document.documentElement, k = 'ffh-preview-modus', m = 'festival';
+  try { m = localStorage.getItem(k) || 'festival'; } catch (e) {}
+  r.dataset.modus = m;
+  var b = document.querySelector('.schakelaar');
+  var zet = function (x) { r.dataset.modus = x; b.setAttribute('aria-checked', x === 'festival' ? 'true' : 'false'); try { localStorage.setItem(k, x); } catch (e) {} };
+  zet(m);
+  b.addEventListener('click', function () { zet(r.dataset.modus === 'festival' ? 'normaal' : 'festival'); });
+})();
+</script>"""
+
+
+def kleur_secties(body):
+    """Zet afwisselend wit/groen op de secties (na hero of titel eerst wit). Per variant apart geteld."""
+    def per_stuk(stuk):
+        n = [0]
+        def zet(m):
+            tag = m.group(0)
+            if re.search(r'class="[^"]*(hero|paginatitel|oproep)', tag):
+                n[0] = 0
+                return tag
+            n[0] += 1
+            kl = "vlak-wit" if n[0] % 2 else "vlak-groen"
+            return re.sub(r'class="', f'class="{kl} ', tag, count=1) if 'class="' in tag else tag.replace("<section", f'<section class="{kl}"', 1)
+        return re.sub(r"<section\b[^>]*>", zet, stuk)
+    delen = re.split(r'(<div class="alleen-(?:festival|normaal)">)', body)
+    return "".join(d if d.startswith('<div class="alleen-') else per_stuk(d) for d in delen)
 
 
 def page(meta, body):
@@ -233,9 +308,10 @@ def page(meta, body):
   <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
+{schakelbalk()}
 {header(meta.get('nav', ''), meta.get('dag', ''))}
 <main id="inhoud">
-{body.strip()}
+{kleur_secties(body.strip())}
 {"" if meta.get("cta") == "geen" else oproep()}
 </main>
 {footer()}
@@ -368,15 +444,16 @@ def dagpagina(dag):
     {tekst}
     <div class="artiest-voet">
       <ul class="artiest-info">{info_regels}</ul>
-      <div class="artiest-acties">{social}<a class="pil pil-tickets" href="{TICKETS_FESTIVAL}">{ICON["ticket"]}<span>Tickets</span></a></div>
+      <div class="artiest-acties">{social}</div>
     </div>
   </div>
 </article>""")
-    body = f"""<section class="paginatitel textuur"><h1>Festival programma</h1></section>
+    body = f"""<section class="paginatitel textuur" style="--titelfoto:url(/assets/img/2026/draailier-accordeon.webp)"><h1>Festival programma</h1></section>
 <section class="sectie">
   <div class="wrap">
     {dag_tabs(dag)}
     {"".join(blokken)}
+    <p class="dag-tickets"><a class="btn btn-groen btn-groot" href="{TICKETS_FESTIVAL}">{ICON["ticket"]}Tickets voor {e(info["titel"].lower())}</a></p>
   </div>
 </section>"""
     meta = {"title": f'Programma {info["titel"].lower()}',
@@ -385,23 +462,114 @@ def dagpagina(dag):
     return meta, body
 
 
+def _minuten(tijd):
+    u, m = (tijd or "0u00").lower().replace(":", "u").split("u")
+    return int(u) * 60 + int(m or 0)
+
+
+def hero_artiesten():
+    """Festival-hero: mozaïek van alle artiestfoto's als achtergrond + één traag lint met namen en ronde foto's."""
+    acts = [(d, a) for d in DAGEN for a in PROGRAMMA["artiesten"].get(d, [])]
+    if not acts:
+        return ""
+    tegels = "".join(f'<span style="background-image:url({e(a["foto"])})"></span>' for d, a in acts if a.get("foto"))
+    mozaiek = f'<div class="hero-mozaiek" aria-hidden="true">{tegels}{tegels}</div>'
+    def stuk(d, a):
+        img = f'<img src="{e(a["foto"])}" alt="" width="720" height="720">' if a.get("foto") else ""
+        return (f'<a class="lint-item" href="/{d}/#{artiest_id(a)}" tabindex="-1">{img}'
+                f'<span>{e(a["naam"])}</span><i class="vlag">{a.get("vlag","")}</i></a><b class="lint-ster" aria-hidden="true">✦</b>')
+    inhoud = "".join(stuk(d, a) for d, a in acts)
+    lint = (f'<div class="linten" aria-hidden="true"><div class="lint lint-1"><div class="lint-band">'
+            f'<div class="lint-reeks">{inhoud}</div><div class="lint-reeks" aria-hidden="true">{inhoud}</div></div></div></div>')
+    return mozaiek + lint
+
+
+GALERIJ = [
+    ("dansen-in-de-tent", "Dansen in de tent", "breed"), ("drummer", "Drummer op het podium", "hoog"),
+    ("zandbak", "Kinderen spelen in de zandbak", ""), ("knutselen", "Knutselen in de kinderzone", ""),
+    ("duim-omhoog", "Duim omhoog in de tent", ""), ("accordeonist", "Accordeonist op het podium", "hoog"),
+    ("plezier", "Plezier tussen vrijwilligers", ""), ("kader-1", "Vrijwilliger met een gouden kader", ""),
+]
+
+
+def galerij_html():
+    """Kleine fotogalerij op de homepage, met link naar alle foto's op Facebook. Klik = groter bekijken."""
+    tegels = "".join(
+        f'<a class="gal-foto {vorm}" href="/assets/img/2026/{f}.webp" data-alt="{e(alt)}"><img src="/assets/img/2026/{f}.webp" alt="{e(alt)}" loading="lazy"></a>'
+        for f, alt, vorm in GALERIJ)
+    return f"""<section class="sectie galerij" id="fotos">
+  <div class="wrap">
+    <div class="intro">
+      <span class="kicker">Sfeerbeelden</span>
+      <h2>Zo voelt Folkfestival Ham</h2>
+    </div>
+    <div class="gal">{tegels}</div>
+    <p class="knoppen midden"><a class="btn btn-zwart" href="https://www.facebook.com/FolkfestivalHam/photos" target="_blank" rel="noopener">{ICON["facebook"]}Bekijk alle foto's op Facebook</a></p>
+    <p class="gal-credit">Foto's: Jeroen De Bie</p>
+  </div>
+</section>
+<script>
+(function () {{
+  // Eén gedeeld fotovenster voor de hele pagina (de galerij kan meerdere keren op de pagina staan)
+  if (window.ffhGalerij) return; window.ffhGalerij = true;
+  var d = document.createElement('dialog'); d.className = 'gal-groot'; d.setAttribute('aria-label', 'Foto');
+  d.innerHTML = '<button type="button" class="gal-sluit" aria-label="Sluiten">×</button><img alt="">';
+  document.body.appendChild(d);
+  var im = d.querySelector('img');
+  document.addEventListener('click', function (ev) {{
+    var a = ev.target.closest && ev.target.closest('.gal-foto');
+    if (!a) return;
+    ev.preventDefault(); im.src = a.href; im.alt = a.dataset.alt || '';
+    if (d.showModal) d.showModal(); else window.open(a.href, '_blank');
+  }});
+  d.addEventListener('click', function (ev) {{ if (ev.target === d || ev.target.classList.contains('gal-sluit')) d.close(); }});
+}})();
+</script>"""
+
+
 def lineup_html():
-    """Line-up en blokkenschema in één: per dag een kolom, artiesten in volgorde van optreden."""
+    """Line-up als timetable (zoals een agenda): per dag een kolom met twee banen (Grote tent, Bal tent),
+    blokken op hun uur. Duur = tot het volgende optreden die dag (max 1u45), laatste optreden 1u30.
+    Een vaste eindtijd kan per artiest met het veld "eind" (bv. "21u00") in data/programma.json."""
+    alle = [_minuten(a["tijd"]) for d in DAGEN for a in PROGRAMMA["artiesten"].get(d, []) if a.get("tijd")]
+    if not alle:
+        return ""
+    start = (min(alle) // 60) * 60
+    eind = -(-(max(alle) + 90) // 60) * 60
+    uren = list(range(start, eind + 1, 60))
+    schaal = "".join(f'<span style="--t:{(u - start) / 60}">{u // 60:02d}u</span>' for u in uren)
+    lijnen = "".join(f'<i style="--t:{(u - start) / 60}"></i>' for u in uren)
     kolommen = []
     for d in DAGEN:
         info = PROGRAMMA["dagen"][d]
-        kaarten = []
-        for a in PROGRAMMA["artiesten"].get(d, []):
-            img = f'<img src="{e(a["foto"])}" alt="" loading="lazy" width="720" height="720">' if a.get("foto") else '<span class="lu-leeg"></span>'
-            tent = '<span class="tent tent-bal">Bal tent</span>' if a.get("bal") else '<span class="tent">Grote tent</span>'
-            kaarten.append(
-                f'<li><a class="lu-kaart" href="/{d}/#{artiest_id(a)}">{img}'
-                f'<span class="lu-tekst"><span class="lu-meta"><span class="tijd">{e(a.get("tijd",""))}</span>{tent}</span>'
-                f'<span class="lu-naam">{e(a["naam"])} <span class="vlag">{a.get("vlag","")}</span></span></span></a></li>')
+        acts = sorted(PROGRAMMA["artiesten"].get(d, []), key=lambda a: _minuten(a.get("tijd")))
+        blokken = []
+        for i, a in enumerate(acts):
+            t0 = _minuten(a["tijd"])
+            if a.get("eind"):
+                t1 = _minuten(a["eind"])
+            elif i + 1 < len(acts):
+                t1 = min(_minuten(acts[i + 1]["tijd"]), t0 + 105)
+            else:
+                t1 = t0 + 90
+            baan = "bal" if a.get("bal") else "groot"
+            img = f'<img src="{e(a["foto"])}" alt="" loading="lazy" width="720" height="720">' if a.get("foto") else ""
+            blokken.append(
+                f'<a class="tt-blok tt-{baan}" href="/{d}/#{artiest_id(a)}" style="--van:{(t0 - start) / 60};--duur:{(t1 - t0) / 60}">'
+                f'{img}<span class="tt-tijd">{e(a["tijd"])}</span>'
+                f'<span class="tt-naam">{e(a["naam"])} <span class="vlag">{a.get("vlag","")}</span></span></a>')
         kolommen.append(
-            f'<div class="lu-dag"><h3><a href="/{d}/">{e(info["titel"])} <span>{e(info.get("datum",""))}</span></a></h3>'
-            f'<ul>{"".join(kaarten)}</ul><a class="lu-alles" href="/{d}/">Alles over {e(info["titel"].lower())} →</a></div>')
-    return '<div class="lu">' + "".join(kolommen) + "</div>"
+            f'<div class="tt-dag" data-dag="{d}"><h3><a href="/{d}/">{e(info["titel"])} <span>{e(info.get("datum",""))}</span></a></h3>'
+            f'<div class="tt-banen"><span class="tt-baankop">Grote tent</span><span class="tt-baankop tt-baankop-bal">Bal tent</span></div>'
+            f'<div class="tt-raster">{lijnen}{"".join(blokken)}</div></div>')
+    knoppen = "".join(f'<button type="button" data-dag="{d}"{" aria-pressed=\"true\"" if i == 0 else ""}>{e(PROGRAMMA["dagen"][d]["titel"])}</button>' for i, d in enumerate(DAGEN))
+    return (f'<div class="tt" style="--uren:{(eind - start) / 60}">'
+            f'<div class="tt-keuze" role="group" aria-label="Kies een dag">{knoppen}</div>'
+            f'<div class="tt-in"><div class="tt-schaal" aria-hidden="true">{schaal}</div>{"".join(kolommen)}</div>'
+            f'<p class="tt-legende"><span class="tent">Grote tent</span> <span class="tent tent-bal">Bal tent</span> Klik op een optreden voor meer info.</p></div>'
+            """<script>(function(){var t=document.querySelector('.tt');if(!t)return;var k=t.querySelectorAll('.tt-keuze button');
+function z(d){t.dataset.toon=d;k.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.dag===d?'true':'false');});}
+k.forEach(function(b){b.addEventListener('click',function(){z(b.dataset.dag);});});z(k[0].dataset.dag);})();</script>""")
 
 
 def programma_html():
@@ -427,8 +595,10 @@ def redirects():
         "/tickets/account/favorites /tickets/#!/~/favorites 301",
         "/tickets/Whiskytasting-27-november-2026-p873206867 /tickets/#!/Whiskytasting-27-november-2026/p/873206867 301",
         "",
-        "# Korte directe link naar de (verborgen) Whiskytasting",
-        "/whiskytasting /tickets/#!/Whiskytasting/c/142997555 302",
+        "# Medewerkers heet nu Vrijwilligers",
+        "/medewerkers /vrijwilligers/ 301",
+        "/medewerkers/ /vrijwilligers/ 301",
+
     ]
     if not FESTIVAL:
         regels += ["", "# Festivalmodus uit: dagpagina's sturen naar de homepage"]
@@ -447,17 +617,31 @@ def main():
             f.unlink()
             f.parent.rmdir()
     pages = []
+    varianten = {}
     for src in sorted(PAGES.glob("*.html")):
         meta, body = read(src)
+        if PREVIEW and meta.get("modus"):
+            varianten[meta["modus"]] = (meta, body)
+            continue
         if meta.get("modus") and meta["modus"] != modus:
             continue
+        pages.append((meta, body))
+    if PREVIEW and varianten:
+        meta = dict(varianten.get("festival", next(iter(varianten.values())))[0])
+        body = "".join(f'<div class="alleen-{m}">{b}</div>' for m, (_, b) in varianten.items())
         pages.append((meta, body))
     if FESTIVAL:
         pages += [dagpagina(d) for d in DAGEN]
     for meta, body in pages:
         import re as _re
         body = _re.sub(r"\{\{ICOON:(\w+)\}\}", lambda m: icoon(m.group(1)), body)
-        body = body.replace("{{LINEUP}}", lineup_html()).replace("{{PROGRAMMA}}", programma_html()).replace("{{DATUM}}", e(DATUM_FESTIVAL))
+        # Paginatitel: foto met filter erachter i.p.v. de groene band
+        TITELFOTO = {"/over-ons/": "2026/dansende-armen", "/praktisch/": "camping", "/vrijwilligers/": "2026/kader-2",
+                     "/tickets/": "2026/dansen-in-de-tent", "/voorwaarden/": "zonnebloem", "/privacy/": "zonnebloem"}
+        foto = meta.get("titelfoto") or TITELFOTO.get(meta["path"], "2026/dansen-in-de-tent")
+        body = body.replace('<section class="paginatitel textuur">',
+                            f'<section class="paginatitel textuur" style="--titelfoto:url(/assets/img/{foto}.webp)">', 1)
+        body = body.replace("{{GALERIJ}}", galerij_html()).replace("{{HERO_ARTIESTEN}}", hero_artiesten()).replace("{{LINEUP}}", lineup_html()).replace("{{PROGRAMMA}}", programma_html()).replace("{{DATUM}}", e(DATUM_FESTIVAL))
         p = meta["path"]
         out = PUBLIC / "404.html" if p == "/404" else PUBLIC / p.strip("/") / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)
