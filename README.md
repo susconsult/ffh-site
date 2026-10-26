@@ -64,6 +64,8 @@ In `data/instellingen.json`:
 
 - **Tickets: Ecwid** (winkel-ID `68281592`). Producten, prijzen en bestellingen beheer je in het Ecwid-dashboard, niet hier. Ecwid toont zelf een cookiemelding.
 - **Whiskytasting staat niet in het categorie-overzicht** (CSS-regel in `style.css`, categorie 142997555). Verkoop gebeurt via de directe link uit Ecwid zelf. Weer tonen in het overzicht: de CSS-regel weghalen.
+- **Nette winkeladressen:** Ecwid gebruikt adressen als `/tickets/Festival-c126605753` en `/tickets/...-p873204132` (ook de terugkeer na betaling). `_redirects` toont voor alles onder `/tickets/` de winkelpagina; Ecwid leest zelf het adres.
+- **Sitemap met winkelpagina's:** `node tools/ecwid-paginas.js` leest alle categorieën en producten van de live winkel naar `data/ecwid-paginas.json`; `build.py` zet ze in de sitemap. Opnieuw draaien na nieuwe producten in Ecwid (of vraag Claude: "werk de sitemap bij").
 - **Doorverwijzingen** (oude winkel-adressen, dagpagina's buiten festivalmodus) worden door `tools/build.py` in `public/_redirects` geschreven — niet met de hand aanpassen.
 - **Lettertypes** (Jost, Roboto) staan lokaal in `public/assets/fonts/` — geen Google Fonts.
 - **Google Maps** is ingesloten op `/praktisch/` (gewone embed, geen API-sleutel nodig).

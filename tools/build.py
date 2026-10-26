@@ -287,7 +287,8 @@ def page(meta, body):
     title = meta["title"]
     full_title = "Folkfestival Ham" if title == "Folkfestival Ham" else f"{title} – Folkfestival Ham"
     robots = '\n  <meta name="robots" content="noindex">' if meta.get("noindex") else ""
-    canonical = "" if meta.get("noindex") else f'\n  <link rel="canonical" href="{SITE}{meta["path"]}">'
+    # Ticketpagina: geen vaste canonical, want elk product/categorie (/tickets/...-p123) is een eigen pagina; Ecwid zet zelf titel en canonical
+    canonical = "" if meta.get("noindex") or meta.get("canonical") == "geen" else f'\n  <link rel="canonical" href="{SITE}{meta["path"]}">'
     return f"""<!doctype html>
 <html lang="nl">
 <head>
@@ -646,6 +647,10 @@ def main():
         print("gebouwd:", out.relative_to(ROOT))
     (PUBLIC / "_redirects").write_text(redirects(), encoding="utf-8")
     today = datetime.date.today().isoformat()
+    # Ecwid-pagina's (producten en categorieën), bijgehouden met: node tools/ecwid-paginas.js
+    ecwid = ROOT / "data" / "ecwid-paginas.json"
+    if ecwid.exists():
+        urls += json.loads(ecwid.read_text(encoding="utf-8"))
     sm = "\n".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{today}</lastmod></url>" for u in sorted(urls))
     (PUBLIC / "sitemap.xml").write_text(
         f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{sm}\n</urlset>\n',
