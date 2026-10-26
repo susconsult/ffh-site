@@ -908,10 +908,11 @@ html[data-modus="festival"] .nav li.alleen-normaal, html[data-modus="normaal"] .
 }
 
 /* Cursor: het mannetje uit het logo (enkel met muis; op touch geen cursor).
-   Niet in de ticketwinkel en niet op formuliervelden/vinkjes: daar de gewone cursor, zodat je goed kan mikken. */
+   Niet in de ticketwinkel en niet op formuliervelden/vinkjes: daar de gewone cursor, zodat je goed kan mikken.
+   Op de ticketpagina (html:has(.winkel)) nergens: Ecwid zet de kassa soms buiten .winkel. */
 @media (hover: hover) and (pointer: fine) {
-  html, body { cursor: url("/assets/img/cursor.png") 12 2, auto; }
-  :is(a, button, summary, [role="button"], [role="switch"], .btn, .pil, .menu-knop, .gal-foto, .gal-sluit, .tt-blok, .lu-kaart, .lint-item,
+  html:not(:has(.winkel)), html:not(:has(.winkel)) body { cursor: url("/assets/img/cursor.png") 12 2, auto; }
+  html:not(:has(.winkel)) :is(a, button, summary, [role="button"], [role="switch"], .btn, .pil, .menu-knop, .gal-foto, .gal-sluit, .tt-blok, .lu-kaart, .lint-item,
   .schakelaar, .dagtabs a, .tt-keuze button, .faq summary, .snelnav a, .info-kaart, .naar-boven):not(.winkel *) {
     cursor: url("/assets/img/cursor-klik.png") 10 2, pointer !important;
   }
