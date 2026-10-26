@@ -19,7 +19,23 @@
   <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
-
+<div class="schakelbalk" role="region" aria-label="Preview-instelling">
+  <span class="schakelbalk-label">Preview</span>
+  <span class="schakelbalk-tekst">Festival mode</span>
+  <button class="schakelaar" type="button" role="switch" aria-checked="true"><span class="schakelaar-knop"></span><span class="schakelaar-aan">ON</span><span class="schakelaar-uit">OFF</span></button>
+  <span class="schakelbalk-uitleg">Enkel zichtbaar op de preview</span>
+</div>
+<script>
+(function () {
+  var r = document.documentElement, k = 'ffh-preview-modus', m = 'festival';
+  try { m = localStorage.getItem(k) || 'festival'; } catch (e) {}
+  r.dataset.modus = m;
+  var b = document.querySelector('.schakelaar');
+  var zet = function (x) { r.dataset.modus = x; b.setAttribute('aria-checked', x === 'festival' ? 'true' : 'false'); try { localStorage.setItem(k, x); } catch (e) {} };
+  zet(m);
+  b.addEventListener('click', function () { zet(r.dataset.modus === 'festival' ? 'normaal' : 'festival'); });
+})();
+</script>
 <a class="skip" href="#inhoud">Ga naar de inhoud</a>
 <header class="site-header">
   <div class="wrap kop">
@@ -29,6 +45,7 @@
     <nav class="nav" id="hoofdmenu" aria-label="Hoofdmenu">
       <ul>
         <li><a href="/">Home</a></li>
+        <li class="heeft-sub alleen-festival"><a href="/vrijdag/">Festival</a><ul class="sub"><li><a href="/vrijdag/">Vrijdag</a></li><li><a href="/zaterdag/">Zaterdag</a></li><li><a href="/zondag/">Zondag</a></li></ul></li>
         <li><a href="/over-ons/">Over ons</a></li>
         <li><a href="/praktisch/">Praktisch</a></li>
         <li><a href="/vrijwilligers/">Vrijwilligers</a></li>
