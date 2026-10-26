@@ -907,21 +907,15 @@ html[data-modus="festival"] .nav li.alleen-normaal, html[data-modus="normaal"] .
   .kop .btn-tickets { padding: 0 16px; }
 }
 
-/* Cursor: het mannetje uit het logo (enkel met muis; op touch geen cursor) */
+/* Cursor: het mannetje uit het logo (enkel met muis; op touch geen cursor).
+   Niet in de ticketwinkel en niet op formuliervelden/vinkjes: daar de gewone cursor, zodat je goed kan mikken. */
 @media (hover: hover) and (pointer: fine) {
   html, body { cursor: url("/assets/img/cursor.png") 12 2, auto; }
-  a, button, summary, label, [role="switch"], .gal-foto, .tt-blok, .lu-kaart, .lint-item { cursor: url("/assets/img/cursor-klik.png") 10 2, pointer; }
-  input, textarea, select { cursor: auto; }
-}
-/* Cursor overal afdwingen (ook waar andere regels "pointer" zetten, ook in de Ecwid-winkel) */
-@media (hover: hover) and (pointer: fine) {
-  a, button, summary, label, select, [role="button"], [role="switch"], [onclick], .btn, .pil, .menu-knop, .gal-foto, .gal-sluit, .tt-blok, .lu-kaart, .lint-item,
-  .schakelaar, .dagtabs a, .tt-keuze button, .faq summary, .snelnav a, .info-kaart, .naar-boven,
-  .winkel a, .winkel button, .winkel [class*="button"], .winkel [class*="link"], .winkel [class*="grid-product"], .winkel [class*="grid-category"], .winkel [class*="clickable"] {
+  :is(a, button, summary, [role="button"], [role="switch"], .btn, .pil, .menu-knop, .gal-foto, .gal-sluit, .tt-blok, .lu-kaart, .lint-item,
+  .schakelaar, .dagtabs a, .tt-keuze button, .faq summary, .snelnav a, .info-kaart, .naar-boven):not(.winkel *) {
     cursor: url("/assets/img/cursor-klik.png") 10 2, pointer !important;
   }
-}
-@media (hover: hover) and (pointer: fine) {
-  .winkel [class*="form-control"], .winkel [class*="form-control"] *, .winkel [class*="ec-filter"], .winkel [class*="ec-filter"] *,
-  .winkel a *, .winkel button *, .winkel [class*="grid-product"] *, .winkel [class*="grid-category"] * { cursor: url("/assets/img/cursor-klik.png") 10 2, pointer !important; }
+  input, textarea, select { cursor: auto; }
+  input[type="checkbox"], input[type="radio"], label, select { cursor: pointer; }
+  .winkel { cursor: auto; }
 }

@@ -586,15 +586,6 @@ def programma_html():
 def redirects():
     regels = [
         "# Gegenereerd door tools/build.py — niet met de hand aanpassen",
-        "# Oude winkel-adressen van de WordPress-site -> nieuwe tickets-pagina",
-        "/tickets/Concerten-c126605256 /tickets/#!/Concerten/c/126605256 301",
-        "/tickets/Festival-c126605753 /tickets/#!/Festival/c/126605753 301",
-        "/tickets/Whiskytasting-c142997555 /tickets/#!/Whiskytasting/c/142997555 301",
-        "/tickets/cart /tickets/#!/~/cart 301",
-        "/tickets/account /tickets/#!/~/account 301",
-        "/tickets/account/favorites /tickets/#!/~/favorites 301",
-        "/tickets/Whiskytasting-27-november-2026-p873206867 /tickets/#!/Whiskytasting-27-november-2026/p/873206867 301",
-        "",
         "# Medewerkers heet nu Vrijwilligers",
         "/medewerkers /vrijwilligers/ 301",
         "/medewerkers/ /vrijwilligers/ 301",
@@ -604,6 +595,10 @@ def redirects():
         regels += ["", "# Festivalmodus uit: dagpagina's sturen naar de homepage"]
         for d in DAGEN:
             regels += [f"/{d} / 302", f"/{d}/ / 302"]
+    # Ecwid gebruikt nette adressen (/tickets/Festival-c126605753, /tickets/checkout/...,
+    # ook de terugkeer na betaling). Alles onder /tickets/ toont dus de winkelpagina.
+    regels += ["", "# Ticketwinkel: elk adres onder /tickets/ toont de winkel (Ecwid leest zelf het adres)",
+               "/tickets/* /tickets/ 200"]
     return "\n".join(regels) + "\n"
 
 
