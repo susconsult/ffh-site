@@ -3,13 +3,5 @@
 /medewerkers /vrijwilligers/ 301
 /medewerkers/ /vrijwilligers/ 301
 
-# Festivalmodus uit: dagpagina's sturen naar de homepage
-/vrijdag / 302
-/vrijdag/ / 302
-/zaterdag / 302
-/zaterdag/ / 302
-/zondag / 302
-/zondag/ / 302
-
 # Ticketwinkel: elk adres onder /tickets/ toont de winkel (Ecwid leest zelf het adres)
 /tickets/* /tickets/ 200
