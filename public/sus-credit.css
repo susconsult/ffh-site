@@ -1,10 +1,12 @@
-/* "Made with ♥ by SUS Consult" in de voettekst. Zelfde bestand op alle sites van SUS Consult. */
-.sus-credit{display:inline-flex;align-items:center;gap:.4em;color:inherit;text-decoration:none;white-space:nowrap;opacity:.8;transition:opacity .2s}
+/* "Made with ♥ by SUS Consult" in de voettekst, met het logo zoals in de mailhandtekening:
+   het teken tekent zichzelf, vult zich en daarna verschijnt "SUS CONSULT". Zelfde bestand op alle sites van SUS Consult. */
+.sus-credit{display:inline-flex;align-items:center;gap:.4em;color:inherit;text-decoration:none;white-space:nowrap;opacity:.85;transition:opacity .2s}
 .sus-credit:hover{opacity:1}
-.sus-credit b{font-weight:600}
 .sus-credit .sus-credit-h{color:#e5484d;display:inline-block;animation:sus-beat 1.6s ease-in-out infinite}
-.sus-credit svg{width:1.15em;height:1.15em;overflow:visible;flex:none}
-.sus-credit path{fill:transparent;stroke:currentColor;stroke-width:1.2;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;animation:sus-draw 4s cubic-bezier(.6,0,.2,1) infinite}
-@keyframes sus-draw{0%{stroke-dashoffset:1;fill:transparent;opacity:1}45%{stroke-dashoffset:0;fill:transparent}60%,88%{stroke-dashoffset:0;fill:currentColor;opacity:1}100%{stroke-dashoffset:0;fill:currentColor;opacity:0}}
+.sus-credit svg{height:2em;width:auto;aspect-ratio:1695/343;overflow:visible;flex:none;margin-left:.15em}
+.sus-credit .sus-credit-m{fill:transparent;stroke:currentColor;stroke-width:1.2;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;animation:sus-draw 4.5s cubic-bezier(.6,0,.2,1) infinite}
+.sus-credit .sus-credit-w{fill:currentColor;opacity:0;animation:sus-word 4.5s ease infinite}
+@keyframes sus-draw{0%{stroke-dashoffset:1;fill:transparent;opacity:1}35%{stroke-dashoffset:0;fill:transparent}50%,88%{stroke-dashoffset:0;fill:currentColor;opacity:1}100%{stroke-dashoffset:0;fill:currentColor;opacity:0}}
+@keyframes sus-word{0%,40%{opacity:0}58%,88%{opacity:1}100%{opacity:0}}
 @keyframes sus-beat{0%,100%{transform:scale(1)}15%{transform:scale(1.25)}30%{transform:scale(1)}}
-@media (prefers-reduced-motion:reduce){.sus-credit path,.sus-credit .sus-credit-h{animation:none;stroke-dashoffset:0;fill:currentColor}}
+@media (prefers-reduced-motion:reduce){.sus-credit .sus-credit-m,.sus-credit .sus-credit-w,.sus-credit .sus-credit-h{animation:none;stroke-dashoffset:0;fill:currentColor;opacity:1}}
