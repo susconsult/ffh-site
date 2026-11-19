@@ -180,7 +180,7 @@ def footer():
     </ul>
   </div>
   <div class="footer-onder">
-    <p class="klein">© {jaar} The Celtic Art Gallery vzw · BE 0458.144.856 · Foto's: Jeroen De Bie · <a href="/voorwaarden/">Voorwaarden</a> · <a href="/privacy/">Privacy</a> · <a class="sus-credit" href="https://susconsult.be/" target="_blank" rel="noopener"><span>Made with</span><span class="sus-credit-h" aria-hidden="true">♥</span><span>by</span><img src="/sus-credit-wit.webp?v=2" alt="SUS Consult" width="160" height="32"></a></p>
+    <p class="klein">© {jaar} The Celtic Art Gallery vzw · BE 0458.144.856 · Foto's: Jeroen De Bie · <a href="/voorwaarden/">Voorwaarden</a> · <a href="/privacy/">Privacy</a> · <a class="sus-credit" href="https://susconsult.be/" target="_blank" rel="noopener"><span>Made with</span><span class="sus-credit-h" aria-hidden="true">♥</span><span>by</span><img src="/sus-credit-wit.webp?v=3" alt="SUS Consult" width="160" height="32"></a></p>
     <a class="naar-boven" href="#" aria-label="Terug naar boven"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5 4 13l1.4 1.4L11 8.8V20h2V8.8l5.6 5.6L20 13z"/></svg></a>
   </div>
 </footer>
