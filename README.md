@@ -93,3 +93,7 @@ In `data/instellingen.json`:
 - [ ] Nieuwsbrief: het oude formulier bewaarde inschrijvingen in WordPress. Beslissen: weg laten, of opnieuw (bv. naar een Google Sheet). Nu staat er een "volg ons"-band.
 - [ ] Oude nieuwsbrief-inschrijvingen uit WordPress exporteren vóór WordPress weggaat.
 - [ ] Line-up en datum 2027 zodra gekend.
+
+## Credit SUS Consult (19/11/2026)
+
+In de voettekst staat "Made with ♥ by SUS Consult" met het SUS-teken dat zichzelf tekent (in een lus; staat stil bij "beweging beperken"). Stijl in `public/sus-credit.css` (zelfde bestand op alle sites van SUS Consult), link naar https://susconsult.be/.
