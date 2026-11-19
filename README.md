@@ -96,4 +96,4 @@ In `data/instellingen.json`:
 
 ## Credit SUS Consult (19/11/2026)
 
-In de voettekst staat "Made with ♥ by SUS Consult" met het SUS-teken dat zichzelf tekent (in een lus; staat stil bij "beweging beperken"). Stijl in `public/sus-credit.css` (zelfde bestand op alle sites van SUS Consult), link naar https://susconsult.be/.
+In de voettekst staat "Made with ♥ by SUS Consult" met het SUS-logo zoals in de mailhandtekening (teken tekent zichzelf, dan verschijnt "SUS CONSULT") (in een lus; staat stil bij "beweging beperken"). Stijl in `public/sus-credit.css` (zelfde bestand op alle sites van SUS Consult), link naar https://susconsult.be/.
